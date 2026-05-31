@@ -37,11 +37,11 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`relative ${sizeClass}`}>
-        <Image 
+        <Image
         src={logoSrc}
-        alt={`${activeRole} logo`} 
-        className={imgClass} 
-        width={size === 'sm' ? 80 : 112} 
+        alt={`${activeRole} logo`}
+        className={imgClass}
+        width={size === 'sm' ? 80 : 112}
         height={size === 'sm' ? 48 : 64} />
       </div>
 

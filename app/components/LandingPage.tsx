@@ -15,6 +15,7 @@ import {
     Moon,
     Sun,
     Target,
+    X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import type { MotionValue } from 'motion/react';
@@ -126,21 +127,21 @@ const FEATURE_CARDS = [
 const FOUNDING_STATS = [
     { value: '1', label: 'Unified Mission', description: 'Bridge the gap between talent and opportunity — everything we build serves this.' },
     { value: '2026', label: 'Year Founded', description: 'A fresh start with a bold, placement-first vision built for today\'s hiring landscape.' },
-    { value: '100%', label: 'Committed', description: 'Every mentor, session, and feature exists solely to get you placed.' },
+    { value: '100%', label: 'Committed', description: 'Every session, and feature exists solely to get you placed.' },
 ];
 
 const WHY_US_POINTS = [
     {
-        title: 'Industry-Connected Mentors',
-        description: 'Learn from professionals actively working at top companies — real hiring insight drawn from current interviews, not outdated theory.',
+        title: 'Verified Student Profiles',
+        description: 'Showcase skills, achievements, projects, certifications, and experiences in a structured profile trusted by recruiters.',
     },
     {
-        title: 'Outcome-Driven Curriculum',
-        description: 'Every module is reverse-engineered from actual job descriptions so you learn precisely what hiring managers look for.',
+        title: 'Direct Recruiter Access',
+        description: 'Connect students with recruiters and opportunities through a unified platform designed to improve visibility and hiring efficiency.',
     },
     {
-        title: '1-on-1 Personalized Roadmap',
-        description: 'Your path is built around your background, goals, and target companies — not a generic plan applied to everyone.',
+        title: 'Alumni & Professional Networks',
+        description: 'Build meaningful connections with alumni and industry professionals who can open doors to opportunities and career growth.',
     },
 ];
 
@@ -418,7 +419,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     </h1>
 
                     <p className={`mt-7 max-w-xl border-l-4 border-(--landing-accent) pl-5 text-base leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                        Mentor-led preparation, mock drives, and recruiter matching designed to turn ambitious students into confident hires.
+                        Bringing together talent, opportunities, and industry connections in one platform.
                     </p>
 
                    
@@ -1129,24 +1130,20 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const [submitting, setSubmitting] = useState(false);
     const [sent, setSent] = useState(false);
 
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
     const railScale = useTransform(smoothProgress, [0.05, 0.85], [0, 1]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitting(true);
-        try {
-            await new Promise((r) => setTimeout(r, 700));
-            setName(''); setEmail(''); setMessage('');
-            setSent(true);
-            setTimeout(() => setSent(false), 4000);
-        } finally {
-            setSubmitting(false);
-        }
+        const subject = encodeURIComponent(`Message from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        window.location.href = `mailto:ascendiollp@gmail.com?subject=${subject}&body=${body}`;
+        setName(''); setEmail(''); setMessage('');
+        setSent(true);
+        setTimeout(() => setSent(false), 4000);
     };
 
     return (
@@ -1184,10 +1181,10 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 <Link href="tel:+918281891391" className="block hover:text-(--landing-accent)">+91 82818 91391</Link>
                                 <Link href="tel:+918921519949" className="mt-1 block hover:text-(--landing-accent)">+91 89215 19949</Link>
                             </div>
-                            <div>
+                            {/* <div>
                                 <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Response Time</p>
                                 <p>Within 24 hours on business days</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -1231,11 +1228,10 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 />
                                 <button
                                     type="submit"
-                                    disabled={submitting}
-                                    className="group inline-flex h-11 items-center gap-2 bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95 disabled:opacity-60"
+                                    className="group inline-flex h-11 items-center gap-2 bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95"
                                 >
-                                    {submitting ? 'Sending...' : 'Send Message'}
-                                    {!submitting && <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />}
+                                    Send Message
+                                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                                 </button>
                             </form>
                         )}
@@ -1267,8 +1263,33 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         <div>Email: <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link></div>
                     </div>
                 </div>
+                
+                <div className="flex flex-col items-start gap-3 md:items-center">
+                                        <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
 
-                <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
+                    <div className="flex gap-2">
+                        <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </Link>
+                        <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X"
+                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                            <X className="h-4 w-4" />
+                        </Link>
+                        <Link href="https://instagram.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
 
                 <div className="flex gap-6 text-sm font-semibold text-slate-700">
                     <button onClick={(e) => { e.preventDefault(); onOpenPrivacy && onOpenPrivacy(); }} className="transition hover:text-(--landing-accent)">Privacy</button>
