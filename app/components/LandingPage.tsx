@@ -1155,15 +1155,15 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
                     </div>
                     <div className="ml-2 text-sm text-slate-600">
-                        <div className="font-semibold text-slate-800">Aarambh Platform</div>
-                        <div className="mt-1">123 Innovation Drive</div>
-                        <div>Cityname, State 560001</div>
-                        <div className="mt-1">Phone: +91 98765 43210</div>
-                        <div>Email: contact@aarambh.example</div>
+                        {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
+                        {/* <div className="mt-1">123 Innovation Drive</div> */}
+                        <div>Trivandrum, Kerala</div>
+                        <div className="mt-1">Phone: <Link href="tel:+918281891391">+91 82818 91391</Link></div>
+                        <div>Email: <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link></div>
                     </div>
                 </div>
 
-                <p className="text-sm text-slate-500">© 2026 Aarambh Platform. All rights reserved.</p>
+                <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
 
                 <div className="flex gap-6 text-sm font-semibold text-slate-700">
                     <button onClick={(e) => { e.preventDefault(); onOpenPrivacy && onOpenPrivacy(); }} className="transition hover:text-(--landing-accent)">Privacy</button>
@@ -1252,7 +1252,7 @@ function PrivacyModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                     <p className="mt-2">Use of the platform is subject to the following terms: you agree to provide accurate information, respect other users, and follow all applicable laws. Aarambh is not responsible for placement guarantees.</p>
 
                     <h4 className="mt-4 font-semibold">Contact</h4>
-                    <p className="mt-2">If you have questions, please contact us at contact@aarambh.example.</p>
+                    <p className="mt-2">If you have questions, please contact us at <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link>.</p>
                 </div>
             </div>
         </div>
