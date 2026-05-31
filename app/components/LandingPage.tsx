@@ -334,7 +334,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                     <LogIn className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </button> */}
                 <Link
-                    href="mailto:ascendiollp@gmail.com"
+                    href="#footer"
                     className={`group hidden h-11 items-center gap-2 rounded-lg px-4 text-m font-bold transition active:scale-95 md:inline-flex ${isDarkMode ? '  hover:text-white ring-1 ring-white/10 ' : ' text-black ring-1 ring-black/10 '}`}
                 >
                     Contact Us
@@ -1145,7 +1145,8 @@ function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: {
 
 function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: boolean; onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
     return (
-        <footer className={`border-t px-4 py-8 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b] text-white' : 'border-black/10 bg-white text-slate-900'}`}>
+        <section id="footer">
+        <footer  className={`border-t px-4 py-8 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b] text-white' : 'border-black/10 bg-white text-slate-900'}`}>
             <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
                 <div className="flex items-start gap-4">
                     <div className="flex items-center gap-3">
@@ -1159,6 +1160,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         {/* <div className="mt-1">123 Innovation Drive</div> */}
                         <div>Trivandrum, Kerala</div>
                         <div className="mt-1">Phone: <Link href="tel:+918281891391">+91 82818 91391</Link></div>
+                        <div className="mt-1">Phone: <Link href="tel:+918921519949">+91 89215 19949</Link></div>
                         <div>Email: <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link></div>
                     </div>
                 </div>
@@ -1180,6 +1182,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                 </div>
             </div>
         </footer>
+        </section>
     );
 }
 
