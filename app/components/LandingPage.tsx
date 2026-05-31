@@ -1152,7 +1152,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         <div className="bg-white/0 rounded-lg p-1 shadow-sm">
                             <AnimatedLogoMark size="sm" role="landing" />
                         </div>
-                        <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                        <span className="hidden sm:block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
                     </div>
                     <div className="ml-2 text-sm text-slate-600">
                         {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
