@@ -33,7 +33,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     const headingY = useTransform(smoothProgress, [0, 0.6], [64, 0]);
 
     const cards = [
-        { title: 'Mock Drives', body: 'Realistic practice drives to prepare students for on-campus recruitment.' },
+        { title: 'Preparation', body: 'Realistic practices to prepare students for on-campus recruitment.' },
         { title: 'Profile Reviews', body: 'Expert feedback on resumes and interview readiness.' },
         { title: 'Analytics', body: 'Placement analytics to measure outcomes and improve strategies.' },
     ];
@@ -45,7 +45,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <SectionHeader
                         eyebrow="What We Offer"
                         title="Services"
-                        copy="End-to-end placement services including mock drives, recruiter outreach, profile reviews, and analytics to track progress."
+                        copy="End-to-end placement services including preparation, recruiter outreach, profile reviews, and analytics to track progress."
                         isDarkMode={isDarkMode}
                     />
                 </motion.div>
@@ -83,7 +83,7 @@ function AboutSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <SectionHeader
                         eyebrow="About Us"
                         title="About Aarambh"
-                        copy="Aarambh is a career launchpad dedicated to helping students convert potential into placement outcomes through mentoring, tools, and recruiter partnerships."
+                        copy="Aarambh is a career launchpad dedicated to helping students convert potential into placement outcomes."
                         isDarkMode={isDarkMode}
                     />
                 </motion.div>
@@ -93,12 +93,12 @@ function AboutSection({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 const HERO_CLIENTS = [
-    { name: 'Mock Interviews', icon: Target },
+    { name: 'Learning', icon: Target },
     { name: 'Resume Review', icon: CheckCircle2 },
-    { name: 'Campus Drives', icon: GraduationCap },
+    { name: 'Placements', icon: GraduationCap },
     { name: 'Recruiter Connect', icon: Building2 },
     { name: 'Progress Tracking', icon: LayoutDashboard },
-    { name: 'Career Mentorship', icon: Crown },
+    { name: 'Career Pathways', icon: Crown },
 ];
 
 
@@ -498,7 +498,7 @@ function HeroMotionBoard({ isDarkMode }: { isDarkMode: boolean }) {
                             animate={{ opacity: [0.55, 1, 0.55], x: [0, 8, 0] }}
                             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            Mentor-led preparation
+                            Preparation
                         </motion.div>
                         <motion.div
                             className="absolute right-4 top-24 max-w-24 text-[10px] font-bold uppercase leading-4 tracking-[0.16em] text-zinc-500"
@@ -542,7 +542,7 @@ function HeroMotionBoard({ isDarkMode }: { isDarkMode: boolean }) {
 
                         <div className="mt-5 grid grid-cols-3 border-t border-current/10 pt-4 text-center">
                             <HeroStatItem value="2026" label="Founded" isDarkMode={isDarkMode} />
-                            <HeroStatItem value="1:1" label="Mentorship" isDarkMode={isDarkMode} />
+                            <HeroStatItem value="1:1" label="Assistance" isDarkMode={isDarkMode} />
                             <HeroStatItem value="24/7" label="Support" isDarkMode={isDarkMode} />
                         </div>
                     </div>
@@ -1280,7 +1280,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                             className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
                             <X className="h-4 w-4" />
                         </Link>
-                        <Link href="https://instagram.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                        <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
                             className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
                             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
