@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "bun run build",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.14",
