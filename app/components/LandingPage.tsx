@@ -361,17 +361,13 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                     {item}
                                 </a>
                             ))}
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    closeMobileMenu();
-                                    onLoginClick();
-                                }}
+                <Link
+                    href="mailto:ascendiollp@gmail.com"
                                 className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-cyan-400/15 text-cyan-200 hover:bg-cyan-400/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
                             >
-                                Log In
-                                <LogIn className="h-4 w-4" />
-                            </button>
+                                Contact Us
+                                {/* <LogIn className="h-4 w-4" /> */}
+                            </Link>
                         </div>
                     </motion.div>
                 ) : null}
