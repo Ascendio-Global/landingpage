@@ -7,20 +7,14 @@ import {
     Building2,
     CheckCircle2,
     ChevronDown,
-    Command,
-    Cpu,
     Crown,
-    Gem,
-    Ghost,
     GraduationCap,
-    Hexagon,
     LayoutDashboard,
     LogIn,
     Menu,
     Moon,
     Sun,
     Target,
-    Triangle,
 } from 'lucide-react';
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import type { MotionValue } from 'motion/react';
@@ -98,19 +92,15 @@ function AboutSection({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 const HERO_CLIENTS = [
-    { name: 'Acme Corp', icon: Hexagon },
-    { name: 'Quantum', icon: Triangle },
-    { name: 'Command+Z', icon: Command },
-    { name: 'Phantom', icon: Ghost },
-    { name: 'Ruby', icon: Gem },
-    { name: 'Chipset', icon: Cpu },
+    { name: 'Mock Interviews', icon: Target },
+    { name: 'Resume Review', icon: CheckCircle2 },
+    { name: 'Campus Drives', icon: GraduationCap },
+    { name: 'Recruiter Connect', icon: Building2 },
+    { name: 'Progress Tracking', icon: LayoutDashboard },
+    { name: 'Career Mentorship', icon: Crown },
 ];
 
-const HERO_OUTCOMES = [
-    { label: 'Offers This Year', value: '2,800+' },
-    { label: 'Hiring Partners', value: '500+' },
-    { label: 'Student Success Rate', value: '94%' },
-];
+
 
 const FEATURE_CARDS = [
     {
@@ -133,54 +123,58 @@ const FEATURE_CARDS = [
     },
 ];
 
-const STATS = [
-    { value: 10000, suffix: '+', label: 'Students Placed' },
-    { value: 500, suffix: '+', label: 'Partner Companies' },
-    { value: 95, suffix: '%', label: 'Success Rate' },
-    { value: 50, suffix: 'L', label: 'Avg. Package' },
+const FOUNDING_STATS = [
+    { value: '1', label: 'Unified Mission', description: 'Bridge the gap between talent and opportunity — everything we build serves this.' },
+    { value: '2026', label: 'Year Founded', description: 'A fresh start with a bold, placement-first vision built for today\'s hiring landscape.' },
+    { value: '100%', label: 'Committed', description: 'Every mentor, session, and feature exists solely to get you placed.' },
 ];
 
-const TESTIMONIALS = [
+const WHY_US_POINTS = [
     {
-        name: 'Priya Sharma',
-        role: 'Software Engineer at Google',
-        image: '👩‍💻',
-        quote: 'Aarambh transformed my job search. The AI-powered matching connected me with opportunities I never knew existed. Within 2 weeks, I had 5 interviews scheduled!',
-        company: 'Google',
+        title: 'Industry-Connected Mentors',
+        description: 'Learn from professionals actively working at top companies — real hiring insight drawn from current interviews, not outdated theory.',
     },
     {
-        name: 'Rahul Verma',
-        role: 'Product Manager at Microsoft',
-        image: '👨‍💼',
-        quote: 'The platform\'s analytics dashboard gave me insights into what companies were looking for. I tailored my profile accordingly and landed my dream job!',
-        company: 'Microsoft',
+        title: 'Outcome-Driven Curriculum',
+        description: 'Every module is reverse-engineered from actual job descriptions so you learn precisely what hiring managers look for.',
     },
     {
-        name: 'Neha Gupta',
-        role: 'Data Scientist at Amazon',
-        image: '👩‍🔬',
-        quote: 'As a fresher, I was overwhelmed. Aarambh\'s PrepOS feature helped me prepare systematically. The mock interviews were game-changers.',
-        company: 'Amazon',
+        title: '1-on-1 Personalized Roadmap',
+        description: 'Your path is built around your background, goals, and target companies — not a generic plan applied to everyone.',
+    },
+];
+
+const COMMITMENTS = [
+    {
+        name: 'Our Placement Promise',
+        role: 'The standard we hold ourselves to — from day one',
+        quote: 'We don\'t just prepare you and wish you luck. We stay engaged until you have an offer in hand — because your placement is our only measure of success.',
+    },
+    {
+        name: 'Our Curriculum Principle',
+        role: 'How every session and module is built',
+        quote: 'No generic theory. Every topic we teach is reverse-engineered from real job descriptions — so you learn exactly what hiring managers are looking for right now.',
+    },
+    {
+        name: 'Our Honesty Pledge',
+        role: 'What you can always expect from us',
+        quote: 'We will tell you the truth about where you stand, what needs work, and what opportunities look like for your profile. No false promises — just a clear, honest roadmap.',
     },
 ];
 
 const PARTNERS = [
-    'Google',
-    'Microsoft',
-    'Amazon',
-    'Apple',
-    'Meta',
-    'Netflix',
-    'Tesla',
-    'Adobe',
-    'Salesforce',
-    'Oracle',
-    'IBM',
-    'Intel',
-    'NVIDIA',
-    'Cisco',
-    'SAP',
-    'Accenture',
+    'Software Engineering',
+    'Data Science',
+    'Product Management',
+    'UI/UX Design',
+    'DevOps',
+    'Cloud Computing',
+    'Full Stack Dev',
+    'Machine Learning',
+    'Business Analysis',
+    'QA Engineering',
+    'Cybersecurity',
+    'FinTech',
 ];
 
 const TERMS = [
@@ -259,6 +253,7 @@ export function LandingPage() {
             <TestimonialsSection isDarkMode={isDarkMode} />
             <PartnersSection isDarkMode={isDarkMode} />
             <TermsSection isDarkMode={isDarkMode} />
+            <ContactSection isDarkMode={isDarkMode} />
             <Footer isDarkMode={isDarkMode} onOpenSupport={() => setIsContactOpen(true)} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
 
             <button
@@ -303,7 +298,10 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
             <div className="mx-auto flex max-w-7xl items-center justify-between">
                 <a href="#" className="flex items-center gap-3" aria-label="Aarambh home">
                     <AnimatedLogoMark size="sm" role="landing" />
-                    <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                    <div className="flex flex-col leading-none">
+                        <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                        <span className="mt-0.5 font-Cinzel	 text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
+                    </div>
                 </a>
 
                 <div className={`hidden items-center gap-7 text-sm font-semibold md:flex ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
@@ -334,11 +332,10 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                     <LogIn className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </button> */}
                 <Link
-                    href="#footer"
+                    href="#contact"
                     className={`group hidden h-11 items-center gap-2 rounded-lg px-4 text-m font-bold transition active:scale-95 md:inline-flex ${isDarkMode ? '  hover:text-white ring-1 ring-white/10 ' : ' text-black ring-1 ring-black/10 '}`}
                 >
                     Contact Us
-                    {/* <LogIn className="h-4 w-4 transition group-hover:translate-x-0.5" /> */}
                 </Link>
             </div>
 
@@ -362,11 +359,11 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                 </a>
                             ))}
                 <Link
-                    href="mailto:ascendiollp@gmail.com"
+                    href="#contact"
+                    onClick={closeMobileMenu}
                                 className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-cyan-400/15 text-cyan-200 hover:bg-cyan-400/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
                             >
                                 Contact Us
-                                {/* <LogIn className="h-4 w-4" /> */}
                             </Link>
                         </div>
                     </motion.div>
@@ -424,23 +421,13 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                         Mentor-led preparation, mock drives, and recruiter matching designed to turn ambitious students into confident hires.
                     </p>
 
-                    <div className="mt-9 grid max-w-2xl grid-cols-1 border-y border-current/15 sm:grid-cols-3">
-                        {HERO_OUTCOMES.map((outcome) => (
-                            <div key={outcome.label} className="border-current/15 py-4 sm:border-r sm:px-5 last:sm:border-r-0">
-                                <div className="text-2xl font-black sm:text-3xl">{outcome.value}</div>
-                                <div className={`mt-1 text-xs font-bold uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                    {outcome.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-8">
+                   
+                    {/* <div className="mt-8">
                         <button onClick={() => { onExploreClick && onExploreClick(); }} className="group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_40px_rgba(8,145,178,0.25)] transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95">
                             Explore Opportunities
                             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                         </button>
-                    </div>
+                    </div> */}
                 </motion.div>
 
                 <motion.div
@@ -525,37 +512,37 @@ function HeroMotionBoard({ isDarkMode }: { isDarkMode: boolean }) {
                 <div className={`grid gap-3 ${isDarkMode ? 'text-white' : 'text-[#111111]'}`}>
                     <div className={`border p-5 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-[#fafafa]'}`}>
                         <div className="mb-4 flex items-center justify-between">
-                            <span className="text-xs font-black uppercase tracking-[0.22em]">Projects Delivered</span>
+                            <span className="text-xs font-black uppercase tracking-[0.22em]">Placement Focus</span>
                             <Target className="h-5 w-5 text-(--landing-accent)" />
                         </div>
 
                         <div className="mb-4 flex items-end justify-between">
                             <div>
-                                <div className="text-4xl font-black lg:text-[3.4rem]">150+</div>
-                                <div className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Projects</div>
+                                <div className="text-4xl font-black lg:text-[3.4rem]">100%</div>
+                                <div className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Dedicated</div>
                             </div>
-                            <div className="rounded-lg bg-(--landing-accent) px-3 py-1 text-xs font-black text-white">PREMIUM</div>
+                            <div className="rounded-lg bg-(--landing-accent) px-3 py-1 text-xs font-black text-white">LIVE</div>
                         </div>
 
                         <div className="space-y-2.5">
                             <div className="flex justify-between text-sm">
-                                <span className={isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}>Client Satisfaction</span>
-                                <span className="font-bold">98%</span>
+                                <span className={isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}>Platform Readiness</span>
+                                <span className="font-bold">100%</span>
                             </div>
                             <div className={`h-2 overflow-hidden rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-zinc-200'}`}>
                                 <motion.div
                                     className="h-full rounded-full bg-(--landing-accent)"
                                     initial={{ width: '0%' }}
-                                    animate={{ width: '98%' }}
+                                    animate={{ width: '100%' }}
                                     transition={{ duration: 1.4, delay: 0.35, ease: 'easeOut' }}
                                 />
                             </div>
                         </div>
 
                         <div className="mt-5 grid grid-cols-3 border-t border-current/10 pt-4 text-center">
-                            <HeroStatItem value="5+" label="Years" isDarkMode={isDarkMode} />
+                            <HeroStatItem value="2026" label="Founded" isDarkMode={isDarkMode} />
+                            <HeroStatItem value="1:1" label="Mentorship" isDarkMode={isDarkMode} />
                             <HeroStatItem value="24/7" label="Support" isDarkMode={isDarkMode} />
-                            <HeroStatItem value="100%" label="Quality" isDarkMode={isDarkMode} />
                         </div>
                     </div>
 
@@ -598,17 +585,11 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true);
-                }
+                if (entry.isIntersecting) setIsInView(true);
             },
-            { threshold: 0.3 }
+            { threshold: 0.2 }
         );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
+        if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
     }, []);
 
@@ -624,66 +605,66 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
             />
             <div className="relative mx-auto max-w-7xl">
                 <SectionHeader
-                    eyebrow="Our Impact in Numbers"
-                    title="Our Impact in Numbers"
-                    copy="Join thousands of successful students and top companies who trust our platform"
+                    eyebrow="Who We Are"
+                    title="Built Different. Built for You."
+                    copy="We started in 2026 with a single objective — get every student placed and trained successfully."
                     isDarkMode={isDarkMode}
                 />
 
+                {/* Founding story stats */}
                 <motion.div
-                    className="mt-12 grid grid-cols-1 border border-current/10 sm:grid-cols-2 lg:grid-cols-4"
+                    className="mt-12 grid grid-cols-1 border border-current/10 sm:grid-cols-3"
                     style={{ y: panelY }}
                 >
-                    {STATS.map((stat, index) => (
+                    {FOUNDING_STATS.map((stat, index) => (
                         <motion.div
                             key={stat.label}
                             initial={{ opacity: 0, y: 28 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.55, delay: index * 0.08 }}
-                            className="border-b border-r border-current/10 p-6 last:border-r-0 sm:min-h-44 lg:border-b-0"
+                            className="border-b border-r border-current/10 p-6 last:border-r-0 sm:min-h-52 lg:border-b-0"
                         >
-                            <div className="mb-8 h-2 w-12 bg-(--landing-accent)" />
+                            <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
                             <div className="text-5xl font-black text-(--landing-accent) md:text-6xl">
-                                {isInView && <AnimatedCounter target={stat.value} suffix={stat.suffix} />}
+                                {stat.value}
                             </div>
-                            <p className={`mt-3 text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                            <p className={`mt-2 text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
                                 {stat.label}
+                            </p>
+                            <p className={`mt-3 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                {stat.description}
                             </p>
                         </motion.div>
                     ))}
                 </motion.div>
+
+                {/* Why Us differentiators */}
+                <div className="mt-16">
+                    <p className={`mb-8 text-center text-xs font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
+                        Why Choose Us
+                    </p>
+                    <div className="grid grid-cols-1 gap-px border border-current/10 md:grid-cols-3">
+                        {WHY_US_POINTS.map((point, index) => (
+                            <motion.div
+                                key={point.title}
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.5, delay: 0.35 + index * 0.1 }}
+                                className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}
+                            >
+                                <div className="mb-4 h-2 w-8 bg-(--landing-accent)" />
+                                <h3 className={`mb-3 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                    {point.title}
+                                </h3>
+                                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    {point.description}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
-    );
-}
-
-function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        const duration = 2000;
-        const steps = 60;
-        const increment = target / steps;
-        let current = 0;
-
-        const timer = window.setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                setCount(target);
-                window.clearInterval(timer);
-            } else {
-                setCount(Math.floor(current));
-            }
-        }, duration / steps);
-
-        return () => window.clearInterval(timer);
-    }, [target]);
-
-    return (
-        <>
-            {count.toLocaleString()}
-            {suffix}
-        </>
     );
 }
 
@@ -787,7 +768,7 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
     useEffect(() => {
         const interval = window.setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+            setActiveIndex((prev) => (prev + 1) % COMMITMENTS.length);
         }, 5000);
         return () => window.clearInterval(interval);
     }, []);
@@ -800,9 +781,9 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
             />
             <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.75fr_1.25fr]">
                 <SectionHeader
-                    eyebrow="Success Stories"
-                    title="Success Stories"
-                    copy="What our alumni have to say"
+                    eyebrow="Our Commitments"
+                    title="What We Stand For"
+                    copy="Not testimonials — promises. This is how we operate, from day one."
                     isDarkMode={isDarkMode}
                     align="left"
                 />
@@ -825,17 +806,17 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             className="absolute inset-0 flex flex-col justify-between p-8 md:p-10 overflow-hidden"
                         >
                             <p className="relative z-10 max-w-3xl text-2xl font-black leading-snug md:text-4xl wrap-break-word">
-                                "{TESTIMONIALS[activeIndex].quote}"
+                                "{COMMITMENTS[activeIndex].quote}"
                             </p>
                             <div className="relative z-10">
-                                <p className="text-lg font-black">{TESTIMONIALS[activeIndex].name}</p>
-                                <p className={`text-sm font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-black'}`}>{TESTIMONIALS[activeIndex].role}</p>
+                                <p className="text-lg font-black">{COMMITMENTS[activeIndex].name}</p>
+                                <p className={`text-sm font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-black'}`}>{COMMITMENTS[activeIndex].role}</p>
                             </div>
                         </motion.div>
                     </AnimatePresence>
 
                     <div className="absolute bottom-8 right-8 z-20 flex gap-2">
-                        {TESTIMONIALS.map((testimonial, index) => (
+                        {COMMITMENTS.map((testimonial, index) => (
                             <button
                                 key={testimonial.name}
                                 onClick={() => setActiveIndex(index)}
@@ -864,9 +845,9 @@ function PartnersSection({ isDarkMode }: { isDarkMode: boolean }) {
         <section ref={sectionRef} className={`relative overflow-hidden border-b px-4 py-20 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/10 bg-[#f7f7f4]'}`}>
             <div className="mx-auto max-w-7xl">
                 <motion.div className="mb-8" style={{ x: titleX }}>
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">Trusted by Leading Companies</p>
-                    <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">Trusted by Leading Companies</h2>
-                    <p className={`mt-4 text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>Top organizations recruit talent through our platform</p>
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">Domains We Cover</p>
+                    <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">We Place You Across Industries</h2>
+                    <p className={`mt-4 text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>From core tech to emerging fields — we prepare and place you where you belong</p>
                 </motion.div>
 
                 <motion.div style={{ y: stripY }} className={`border py-5 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-white'}`}>
@@ -1140,6 +1121,128 @@ function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: {
             <h2 className="mt-4 text-4xl font-black uppercase leading-[0.95] md:text-6xl">{title}</h2>
             <p className={`mt-5 text-base leading-7 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{copy}</p>
         </div>
+    );
+}
+
+function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
+    const sectionRef = useRef<HTMLElement>(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+    const [sent, setSent] = useState(false);
+
+    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
+    const railScale = useTransform(smoothProgress, [0.05, 0.85], [0, 1]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            await new Promise((r) => setTimeout(r, 700));
+            setName(''); setEmail(''); setMessage('');
+            setSent(true);
+            setTimeout(() => setSent(false), 4000);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <section ref={sectionRef} id="contact" className={`relative overflow-hidden border-b px-4 py-24 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/10 bg-white'}`}>
+            <motion.div
+                className="absolute left-0 top-0 h-full w-2 origin-top bg-(--landing-accent)"
+                style={{ scaleY: railScale }}
+            />
+            <div className="relative mx-auto max-w-7xl">
+                <SectionHeader
+                    eyebrow="Get in Touch"
+                    title="Contact Us"
+                    copy="Have a question or want to get started? Reach out — we respond within 24 hours."
+                    isDarkMode={isDarkMode}
+                />
+
+                <div className="mt-12 grid gap-px border border-current/10 md:grid-cols-2">
+                    {/* Contact info */}
+                    <div className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}>
+                        <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
+                        <h3 className={`mb-6 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                            Reach Us Directly
+                        </h3>
+                        <div className={`space-y-5 text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                            <div>
+                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Location</p>
+                                <p>Trivandrum, Kerala</p>
+                            </div>
+                            <div>
+                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Email</p>
+                                <Link href="mailto:ascendiollp@gmail.com" className="text-(--landing-accent) hover:underline">ascendiollp@gmail.com</Link>
+                            </div>
+                            <div>
+                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Phone</p>
+                                <Link href="tel:+918281891391" className="block hover:text-(--landing-accent)">+91 82818 91391</Link>
+                                <Link href="tel:+918921519949" className="mt-1 block hover:text-(--landing-accent)">+91 89215 19949</Link>
+                            </div>
+                            <div>
+                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Response Time</p>
+                                <p>Within 24 hours on business days</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Contact form */}
+                    <div className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}>
+                        <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
+                        <h3 className={`mb-6 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                            Send a Message
+                        </h3>
+                        {sent ? (
+                            <div className={`flex h-48 items-center justify-center text-center ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                                <div>
+                                    <div className="mb-2 text-2xl font-black text-(--landing-accent)">Sent!</div>
+                                    <p className="text-sm">We'll get back to you soon.</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <input
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Your name"
+                                    required
+                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
+                                />
+                                <input
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Your email"
+                                    type="email"
+                                    required
+                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
+                                />
+                                <textarea
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Your message"
+                                    required
+                                    rows={5}
+                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    className="group inline-flex h-11 items-center gap-2 bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95 disabled:opacity-60"
+                                >
+                                    {submitting ? 'Sending...' : 'Send Message'}
+                                    {!submitting && <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />}
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
