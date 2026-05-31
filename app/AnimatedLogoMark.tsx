@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 type Props = {
   size?: 'sm' | 'md';
   showText?: boolean; // whether to render "Aarambh" text to the right
@@ -43,11 +44,12 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`relative ${sizeClass}`}>
-        <img
-          src={logoSrc}
-          alt={`${activeRole} logo`}
-          className={imgClass}
-        />
+        <Image 
+        src={logoSrc} 
+        alt={`${activeRole} logo`} 
+        className={imgClass} 
+        width={size === 'sm' ? 80 : 112} 
+        height={size === 'sm' ? 48 : 64} />
       </div>
 
       {showText ? (
