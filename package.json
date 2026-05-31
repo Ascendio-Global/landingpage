@@ -1,7 +1,6 @@
 {
   "name": "landingpage",
   "version": "0.1.0",
-  "homepage": "https://ascendio.in",
   "private": true,
   "scripts": {
     "dev": "next dev",
