@@ -33,7 +33,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     const headingY = useTransform(smoothProgress, [0, 0.6], [64, 0]);
 
     const cards = [
-        { title: 'Preparation', body: 'Realistic practices to prepare students for on-campus recruitment.' },
+        { title: 'Opportunities', body: 'Explore placements, internships, and industry openings.' },
         { title: 'Profile Reviews', body: 'Expert feedback on resumes and interview readiness.' },
         { title: 'Analytics', body: 'Placement analytics to measure outcomes and improve strategies.' },
     ];
@@ -45,7 +45,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <SectionHeader
                         eyebrow="What We Offer"
                         title="Services"
-                        copy="End-to-end placement services including preparation, recruiter outreach, profile reviews, and analytics to track progress."
+                        copy="End-to-end placement services including placement support, recruiter outreach, profile reviews, and analytics to track progress."
                         isDarkMode={isDarkMode}
                     />
                 </motion.div>
@@ -149,18 +149,24 @@ const COMMITMENTS = [
     {
         name: 'Our Placement Promise',
         role: 'The standard we hold ourselves to — from day one',
-        quote: 'We don\'t just prepare you and wish you luck. We stay engaged until you have an offer in hand — because your placement is our only measure of success.',
+        quote: 'We don\'t just prepare you and wish you luck. We stay engaged until you have an offer in hand.',
     },
     {
-        name: 'Our Curriculum Principle',
-        role: 'How every session and module is built',
-        quote: 'No generic theory. Every topic we teach is reverse-engineered from real job descriptions — so you learn exactly what hiring managers are looking for right now.',
+        name: 'Our Responsibility',
+        role: 'What you must expect from us',
+        quote: 'We prioritize user privacy, communicate clearly, and design experiences centered on people.',
+    },
+    {
+        name: 'Our Principle',
+        role: 'How everything is built',
+        quote: 'We pursue practical innovation that improves people\'s lives and delivers measurable impact.',
     },
     {
         name: 'Our Honesty Pledge',
         role: 'What you can always expect from us',
-        quote: 'We will tell you the truth about where you stand, what needs work, and what opportunities look like for your profile. No false promises — just a clear, honest roadmap.',
+        quote: 'We will tell you the truth about where you stand, what needs work, and what opportunities look like for your profile.',
     },
+    
 ];
 
 const PARTNERS = [
@@ -498,7 +504,7 @@ function HeroMotionBoard({ isDarkMode }: { isDarkMode: boolean }) {
                             animate={{ opacity: [0.55, 1, 0.55], x: [0, 8, 0] }}
                             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            Preparation
+                            Opportunities
                         </motion.div>
                         <motion.div
                             className="absolute right-4 top-24 max-w-24 text-[10px] font-bold uppercase leading-4 tracking-[0.16em] text-zinc-500"
