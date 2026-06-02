@@ -20,8 +20,48 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Aarambh",
-  description: "Student Placement Platform",
+  title: {
+    default: "Aarambh | Premier Student Placement Platform",
+    template: "%s | Aarambh",
+  },
+  description: "Aarambh by Ascendio Global is an end-to-end student placement platform connecting talent with top industry recruiters. Accelerate your career with profile reviews, job opportunities, and placement analytics.",
+  keywords: [
+    "student placement",
+    "career platform",
+    "recruiter outreach",
+    "profile reviews",
+    "placement analytics",
+    "Aarambh",
+    "Ascendio Global",
+    "jobs",
+    "internships",
+    "career launchpad",
+  ],
+  authors: [{ name: "Ascendio Global" }],
+  creator: "Ascendio Global",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Aarambh",
+    title: "Aarambh | Premier Student Placement Platform",
+    description: "Accelerate your career with Aarambh. Get placement support, connect with recruiters, and track your progress all in one platform.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aarambh | Premier Student Placement Platform",
+    description: "Accelerate your career with Aarambh. Get placement support, connect with recruiters, and track your progress.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
