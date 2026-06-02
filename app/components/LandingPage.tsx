@@ -6,11 +6,9 @@ import {
     ArrowRight,
     Building2,
     CheckCircle2,
-    ChevronDown,
     Crown,
     GraduationCap,
     LayoutDashboard,
-    LogIn,
     Menu,
     Moon,
     Sun,
@@ -166,7 +164,7 @@ const COMMITMENTS = [
         role: 'What you can always expect from us',
         quote: 'We will tell you the truth about where you stand, what needs work, and what opportunities look like for your profile.',
     },
-    
+
 ];
 
 const PARTNERS = [
@@ -212,8 +210,6 @@ const TERMS = [
 ];
 
 export function LandingPage() {
-    const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const [loginInitialType, setLoginInitialType] = useState<'student' | 'alumni' | 'rep' | 'admin' | undefined>(undefined);
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
     const { resolvedTheme, setTheme } = useTheme();
@@ -245,14 +241,11 @@ export function LandingPage() {
             className={`relative min-h-screen font-sans transition-colors duration-500 ${isDarkMode ? 'bg-[#06080f] text-white selection:bg-cyan-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
         >
             <Navbar
-                onLoginClick={() => {
-                    setLoginInitialType(undefined);
-                    setIsLoginOpen(true);
-                }}
+                onLoginClick={() => {}}
                 isDarkMode={isDarkMode}
             />
 
-            <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
+            <Hero isDarkMode={isDarkMode} onExploreClick={() => {}} />
             <StatsSection isDarkMode={isDarkMode} />
             <FeaturesSection isDarkMode={isDarkMode} />
             <ServicesSection isDarkMode={isDarkMode} />
@@ -365,9 +358,9 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                     {item}
                                 </a>
                             ))}
-                <Link
-                    href="#contact"
-                    onClick={closeMobileMenu}
+                            <Link
+                                href="#contact"
+                                onClick={closeMobileMenu}
                                 className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-cyan-400/15 text-cyan-200 hover:bg-cyan-400/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
                             >
                                 Contact Us
@@ -428,7 +421,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                         Bringing together talent, opportunities, and industry connections in one platform.
                     </p>
 
-                   
+
                     {/* <div className="mt-8">
                         <button onClick={() => { onExploreClick && onExploreClick(); }} className="group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_40px_rgba(8,145,178,0.25)] transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95">
                             Explore Opportunities
@@ -998,19 +991,19 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                         key={card.title}
                                         onClick={() => scrollToCard(index)}
                                         className={`flex items-center gap-4 shrink-0 rounded-xl p-3 text-sm font-bold text-left transition-all duration-300 ${isActive
-                                                ? isDarkMode
-                                                    ? 'bg-cyan-500/15 border-l-4 border-cyan-400 text-white pl-4'
-                                                    : 'bg-blue-50 border-l-4 border-blue-600 text-blue-700 pl-4'
-                                                : isDarkMode
-                                                    ? 'hover:bg-white/5 border-l-4 border-transparent text-zinc-400 hover:text-zinc-200 pl-2'
-                                                    : 'hover:bg-slate-50 border-l-4 border-transparent text-slate-600 hover:text-slate-900 pl-2'
+                                            ? isDarkMode
+                                                ? 'bg-cyan-500/15 border-l-4 border-cyan-400 text-white pl-4'
+                                                : 'bg-blue-50 border-l-4 border-blue-600 text-blue-700 pl-4'
+                                            : isDarkMode
+                                                ? 'hover:bg-white/5 border-l-4 border-transparent text-zinc-400 hover:text-zinc-200 pl-2'
+                                                : 'hover:bg-slate-50 border-l-4 border-transparent text-slate-600 hover:text-slate-900 pl-2'
                                             }`}
                                     >
                                         <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11px] font-black transition-colors duration-300 ${isActive
-                                                ? 'bg-(--landing-accent) text-white'
-                                                : isDarkMode
-                                                    ? 'bg-zinc-800 text-zinc-400'
-                                                    : 'bg-slate-200 text-slate-600'
+                                            ? 'bg-(--landing-accent) text-white'
+                                            : isDarkMode
+                                                ? 'bg-zinc-800 text-zinc-400'
+                                                : 'bg-slate-200 text-slate-600'
                                             }`}>
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
@@ -1091,10 +1084,10 @@ function PolicyStackCard({
                 rotate: rotate,
             }}
             className={`w-full min-h-88 overflow-hidden rounded-2xl border p-7 shadow-2xl transition-all duration-300 ease-out origin-center md:p-9 ${index === 0
-                    ? 'bg-(--landing-accent) text-white'
-                    : isDarkMode
-                        ? 'border-white/10 bg-[#101624]/95 text-white backdrop-blur-xl'
-                        : 'border-blue-100 bg-white text-slate-950'
+                ? 'bg-(--landing-accent) text-white'
+                : isDarkMode
+                    ? 'border-white/10 bg-[#101624]/95 text-white backdrop-blur-xl'
+                    : 'border-blue-100 bg-white text-slate-950'
                 }`}
         >
             {index !== 0 && (
@@ -1251,67 +1244,70 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
 function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: boolean; onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
     return (
         <section id="footer">
-        <footer  className={`border-t px-4 py-8 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b] text-white' : 'border-black/10 bg-white text-slate-900'}`}>
-            <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
-                <div className="flex items-start gap-4">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-white/0 rounded-lg p-1 shadow-sm">
-                            <AnimatedLogoMark size="sm" role="landing" />
+            <footer className={`border-t px-4 py-8 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b] text-white' : 'border-black/10 bg-white text-slate-900'}`}>
+                <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                    <div className="flex items-start gap-4">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-white/0 rounded-lg p-1 shadow-sm">
+                                <AnimatedLogoMark size="sm" role="landing" />
+                            </div>
+                            <div className="hidden sm:flex flex-col leading-none">
+                                <span className="block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                                <span className="mt-0.5 font-Cinzel	 text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
+                            </div>
                         </div>
-                        <span className="hidden sm:block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                        <div className="ml-2 text-sm text-slate-600">
+                            {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
+                            {/* <div className="mt-1">123 Innovation Drive</div> */}
+                            <div>Trivandrum, Kerala</div>
+                            <div className="mt-1">Phone: <Link href="tel:+918281891391">+91 82818 91391</Link></div>
+                            <div className="mt-1">Phone: <Link href="tel:+918921519949">+91 89215 19949</Link></div>
+                            <div>Email: <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link></div>
+                        </div>
                     </div>
-                    <div className="ml-2 text-sm text-slate-600">
-                        {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
-                        {/* <div className="mt-1">123 Innovation Drive</div> */}
-                        <div>Trivandrum, Kerala</div>
-                        <div className="mt-1">Phone: <Link href="tel:+918281891391">+91 82818 91391</Link></div>
-                        <div className="mt-1">Phone: <Link href="tel:+918921519949">+91 89215 19949</Link></div>
-                        <div>Email: <Link href="mailto:ascendiollp@gmail.com">ascendiollp@gmail.com</Link></div>
-                    </div>
-                </div>
-                
-                <div className="flex flex-col items-start gap-3 md:items-center">
-                                        <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
 
-                    <div className="flex gap-2">
-                        <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                                <rect x="2" y="9" width="4" height="12"/>
-                                <circle cx="4" cy="4" r="2"/>
-                            </svg>
-                        </Link>
-                        <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X"
-                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                            <X className="h-4 w-4" />
-                        </Link>
-                        <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                            </svg>
-                        </Link>
+                    <div className="flex flex-col items-start gap-3 md:items-center">
+                        <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
+
+                        <div className="flex gap-2">
+                            <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                                className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                    <rect x="2" y="9" width="4" height="12" />
+                                    <circle cx="4" cy="4" r="2" />
+                                </svg>
+                            </Link>
+                            <Link href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"
+                                className={` hidden grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <X className="h-4 w-4" />
+                            </Link>
+                            <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                                className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6 text-sm font-semibold text-slate-700">
+                        <button onClick={(e) => { e.preventDefault(); onOpenPrivacy && onOpenPrivacy(); }} className="transition hover:text-(--landing-accent)">Privacy</button>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById('terms')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }}
+                            className="transition hover:text-(--landing-accent)"
+                        >
+                            Terms
+                        </button>
+                        <button onClick={(e) => { e.preventDefault(); onOpenSupport && onOpenSupport(); }} className="transition hover:text-(--landing-accent)">Support</button>
                     </div>
                 </div>
-
-                <div className="flex gap-6 text-sm font-semibold text-slate-700">
-                    <button onClick={(e) => { e.preventDefault(); onOpenPrivacy && onOpenPrivacy(); }} className="transition hover:text-(--landing-accent)">Privacy</button>
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById('terms')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
-                        className="transition hover:text-(--landing-accent)"
-                    >
-                        Terms
-                    </button>
-                    <button onClick={(e) => { e.preventDefault(); onOpenSupport && onOpenSupport(); }} className="transition hover:text-(--landing-accent)">Support</button>
-                </div>
-            </div>
-        </footer>
+            </footer>
         </section>
     );
 }
