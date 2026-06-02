@@ -1258,7 +1258,10 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         <div className="bg-white/0 rounded-lg p-1 shadow-sm">
                             <AnimatedLogoMark size="sm" role="landing" />
                         </div>
-                        <span className="hidden sm:block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                         <div className="hidden sm:flex flex-col leading-none">
+                        <span className="block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                                                <span className="mt-0.5 font-Cinzel	 text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
+</div>
                     </div>
                     <div className="ml-2 text-sm text-slate-600">
                         {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
@@ -1282,8 +1285,8 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                                 <circle cx="4" cy="4" r="2"/>
                             </svg>
                         </Link>
-                        <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X"
-                            className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                        <Link href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"
+                            className={` hidden grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
                             <X className="h-4 w-4" />
                         </Link>
                         <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
