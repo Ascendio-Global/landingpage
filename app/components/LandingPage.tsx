@@ -210,8 +210,6 @@ const TERMS = [
 ];
 
 export function LandingPage() {
-    const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const [loginInitialType, setLoginInitialType] = useState<'student' | 'alumni' | 'rep' | 'admin' | undefined>(undefined);
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
     const { resolvedTheme, setTheme } = useTheme();
@@ -243,14 +241,11 @@ export function LandingPage() {
             className={`relative min-h-screen font-sans transition-colors duration-500 ${isDarkMode ? 'bg-[#06080f] text-white selection:bg-cyan-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
         >
             <Navbar
-                onLoginClick={() => {
-                    setLoginInitialType(undefined);
-                    setIsLoginOpen(true);
-                }}
+                onLoginClick={() => {}}
                 isDarkMode={isDarkMode}
             />
 
-            <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
+            <Hero isDarkMode={isDarkMode} onExploreClick={() => {}} />
             <StatsSection isDarkMode={isDarkMode} />
             <FeaturesSection isDarkMode={isDarkMode} />
             <ServicesSection isDarkMode={isDarkMode} />
