@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import { Toaster } from "@/app/components/sonner";
+import { SmoothScrollProvider } from "@/app/components/motion/SmoothScrollProvider";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -32,7 +33,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         enableColorScheme
         storageKey="placement-theme"
       >
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <Toaster />
       </ThemeProvider>
     </QueryClientProvider>

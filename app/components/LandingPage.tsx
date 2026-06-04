@@ -1,40 +1,51 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties, ElementType, FormEvent, MouseEvent } from 'react';
+import type { CSSProperties, ElementType, FormEvent } from 'react';
 import {
     ArrowRight,
+    ArrowUpRight,
+    BadgeCheck,
     Briefcase,
     Building2,
+    Check,
     ChevronDown,
+    ChevronLeft,
+    ChevronRight,
+    Clock,
     Compass,
+    Copy,
     Eye,
     GraduationCap,
     LayoutDashboard,
+    Lock,
     LogIn,
+    Mail,
+    MapPin,
     Menu,
     Moon,
+    Network,
+    Pencil,
+    Phone,
+    PieChart,
+    Send,
+    ShieldCheck,
+    Sparkles,
+    Star,
     Sun,
+    Tag,
     Target,
     TrendingUp,
-    X,
-    MapPin,
-    Mail,
-    Phone,
-    Clock,
-    Copy,
-    Check,
     User,
-    Tag,
-    Pencil,
-    Send,
-    ChevronLeft,
-    ChevronRight
+    Users,
+    X,
+    Zap,
 } from 'lucide-react';
-import { AnimatePresence, motion, useScroll, useSpring, useTransform, useMotionValueEvent, useMotionValue } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import { useTheme } from 'next-themes';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
 import { InfiniteSlider } from '@/app/components/infinite-slider'
+import { AnimatedCard, AnimatedHeading, ParallaxSection, RevealOnScroll, StaggerContainer } from '@/app/components/motion/ScrollMotion';
 import Link from 'next/link';
 
 
@@ -151,7 +162,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     ];
 
     return (
-        <section ref={sectionRef} id="services" className={`relative overflow-hidden border-b px-4 py-16 md:py-24 px-4 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="services" className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
             <div className="mx-auto max-w-7xl">
                 <motion.div style={{ y: headingY }}>
                     <SectionHeader
@@ -164,11 +175,11 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
 
                 {/* Infinite Carousel Wrapper */}
                 <div
-                    className="mt-14 relative w-full overflow-hidden"
-                    style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+                    className="mt-8 md:mt-14 relative w-full overflow-hidden"
+                    style={{ maskImage: 'linear-gradient(to right, transparent, black 4%, black 96%, transparent)' }}
                 >
                     <motion.div
-                        className="flex gap-6 w-max"
+                        className="flex gap-4 md:gap-6 w-max"
                         animate={{ x: ["0%", "-50%"] }}
                         transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
                     >
@@ -176,25 +187,25 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                             return (
                                 <div
                                     key={`${c.title}-${i}`}
-                                    className="w-[320px] md:w-[380px] shrink-0"
+                                    className="w-[min(82vw,300px)] md:w-[380px] shrink-0"
                                 >
                                     <div
-                                        className={`h-auto min-h-[380px] md:h-[480px] group relative overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl ${isDarkMode
+                                        className={`min-h-[390px] md:h-[480px] group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl ${isDarkMode
                                             ? 'bg-white/[0.04] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
                                             : 'bg-white/60 border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
                                             }`}
                                     >
                                         {/* Image taking top portion */}
-                                        <div className="absolute inset-0 w-full h-[65%] overflow-hidden">
+                                        <div className="relative h-44 w-full overflow-hidden md:absolute md:inset-0 md:h-[65%]">
                                             <img src={c.image} alt={c.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                                         </div>
 
                                         {/* Content block overlapping image */}
-                                        <div className={`absolute bottom-0 w-full rounded-t-3xl p-6 h-[250px] flex flex-col justify-between gap-6 border-t backdrop-blur-xl ${isDarkMode ? 'bg-black/70 border-white/5' : 'bg-white/80 border-white/60'
+                                        <div className={`relative z-10 mt-auto w-full rounded-t-3xl p-4 md:p-6 md:absolute md:bottom-0 md:h-[250px] flex flex-col justify-between gap-4 md:gap-6 border-t backdrop-blur-xl ${isDarkMode ? 'bg-black/78 border-white/5' : 'bg-white/88 border-white/60'
                                             }`}>
                                             <div>
                                                 <div className="flex items-center gap-3 mb-1">
-                                                    <h3 className={`text-2xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>{c.title}</h3>
+                                                    <h3 className={`text-xl md:text-2xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>{c.title}</h3>
                                                 </div>
                                                 <p className={`text-sm font-medium mb-3 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{c.subtitle}</p>
 
@@ -222,8 +233,6 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-import { Star, BadgeCheck } from 'lucide-react';
-
 const FEATURE_CARDS = [
     {
         number: '01',
@@ -250,8 +259,6 @@ const FOUNDING_STATS = [
     { value: '2026', label: 'Year Founded', description: 'A fresh start with a bold, placement-first vision built for today\'s hiring landscape.' },
     { value: '100%', label: 'Committed', description: 'Every session, and feature exists solely to get you placed.' },
 ];
-
-import { ShieldCheck, Users, Network, ArrowUpRight, Zap, PieChart, Lock, Sparkles } from 'lucide-react';
 
 const WHY_US_POINTS = [
     {
@@ -410,22 +417,15 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     const [loginInitialType, setLoginInitialType] = useState<'student' | 'alumni' | 'rep' | 'admin' | undefined>(undefined);
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => { setMounted(true); }, []);
     const { resolvedTheme, setTheme } = useTheme();
-    const isDarkMode = resolvedTheme === 'dark';
+    const isDarkMode = mounted && resolvedTheme === 'dark';
 
     const toggleTheme = () => {
         setTheme(isDarkMode ? 'light' : 'dark')
         console.log('Toggled theme to', isDarkMode ? 'light' : 'dark');
     };
-
-    useEffect(() => {
-        const previousBehavior = document.documentElement.style.scrollBehavior;
-        document.documentElement.style.scrollBehavior = 'smooth';
-
-        return () => {
-            document.documentElement.style.scrollBehavior = previousBehavior;
-        };
-    }, []);
 
     const handleAuthSuccess = (role: 'student' | 'alumni' | 'admin' | 'rep', name: string, uid: string) => {
         if (onLogin) {
@@ -487,148 +487,240 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     );
 }
 
+const NAV_LINKS = [
+    { label: 'About', href: '#about' },
+    { label: 'Features', href: '#why-choose-us' },
+    { label: 'Services', href: '#services' },
+    { label: 'Contact', href: '#contact' },
+];
+
 function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDarkMode: boolean }) {
-    const [scrolled, setScrolled] = useState(false);
+    const [isCompact, setIsCompact] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 40);
+        const handleScroll = () => setIsCompact(window.scrollY > 80);
         handleScroll();
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const closeMobileMenu = () => setMobileMenuOpen(false);
 
+    const glassStyle = {
+        backdropFilter: 'blur(28px) saturate(1.9)',
+        WebkitBackdropFilter: 'blur(28px) saturate(1.9)',
+    };
+
+    const pillClass = (compact: boolean) =>
+        isDarkMode
+            ? compact
+                ? 'bg-white/[0.07] border-white/[0.13] shadow-[0_6px_28px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.09)]'
+                : 'bg-white/[0.05] border-white/[0.10] shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]'
+            : compact
+                ? 'bg-white/[0.72] border-white/[0.75] shadow-[0_6px_28px_rgba(0,0,0,0.09),inset_0_1px_0_rgba(255,255,255,1)]'
+                : 'bg-white/[0.60] border-white/[0.65] shadow-[0_4px_24px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)]';
+
+    const shimmer = (
+        <div className={`pointer-events-none absolute inset-x-0 top-0 h-px ${isDarkMode ? 'bg-gradient-to-r from-transparent via-white/[0.18] to-transparent' : 'bg-gradient-to-r from-transparent via-white to-transparent'}`} />
+    );
+
     return (
-        <nav className="fixed inset-x-0 top-0 z-50 flex justify-center px-2 py-2 md:px-6 md:py-4 transition-all duration-500 pointer-events-none">
-            <div className="relative w-[94%] md:w-full max-w-7xl flex justify-center">
-                <motion.div
-                    layout
-                    className={`pointer-events-auto flex w-full items-center justify-between rounded-[16px] md:rounded-[20px] border shadow-lg transition-colors duration-300 overflow-hidden ${isDarkMode ? 'border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl' : 'border-black/10 bg-white/90 backdrop-blur-xl'
-                        }`}
-                    style={{
-                        padding: scrolled ? '4px' : '6px'
-                    }}
+        <div className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center w-full px-4 pt-3 pointer-events-none">
+
+            {/* ════════════════════════════════
+                DESKTOP NAVBAR
+                ════════════════════════════════ */}
+            <motion.div
+                animate={{
+                    maxWidth: isCompact ? 580 : 1140,
+                    paddingTop: isCompact ? 7 : 10,
+                    paddingBottom: isCompact ? 7 : 10,
+                    paddingLeft: isCompact ? 14 : 18,
+                    paddingRight: isCompact ? 10 : 14,
+                    borderRadius: isCompact ? 50 : 20,
+                }}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                className={`hidden md:flex pointer-events-auto relative w-full items-center justify-between border overflow-hidden transition-[background,border-color,box-shadow] duration-300 ${pillClass(isCompact)}`}
+                style={glassStyle}
+            >
+                {shimmer}
+
+                {/* Logo */}
+                <motion.a
+                    href="#"
+                    animate={{ scale: isCompact ? 0.9 : 1 }}
+                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center shrink-0 origin-left"
+                    aria-label="Aarambh home"
                 >
-                    {/* Logo Area */}
-                    <div className="flex items-center pl-1 md:pl-2 pr-2 md:pr-4 scale-95 md:scale-100 origin-left">
-                        <a href="#" className="flex items-center" aria-label="Aarambh home">
-                            <AnimatedLogoMark size="sm" role="landing" />
-                            <AnimatePresence>
-                                {!scrolled && (
-                                    <motion.div
-                                        initial={{ opacity: 0, width: 0 }}
-                                        animate={{ opacity: 1, width: 'auto' }}
-                                        exit={{ opacity: 0, width: 0 }}
-                                        className="overflow-hidden whitespace-nowrap"
-                                    >
-                                        <div className="flex flex-col leading-none pl-3">
-                                            <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
-                                            <span className="mt-0.5 font-Cinzel text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </a>
-                    </div>
-
-                    {/* Nav Links */}
-                    <div className={`hidden items-center md:flex px-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                        {[
-                            { label: 'About', href: '#about' },
-                            { label: 'Features', href: '#why-choose-us' },
-                            { label: 'Services', href: '#services' },
-                            { label: 'Contact', href: '#contact' },
-                        ].map((item, idx) => (
-                            <a
-                                key={item.label}
-                                href={item.href}
-                                className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${isDarkMode
-                                    ? 'hover:bg-white/10 hover:text-white'
-                                    : 'hover:bg-black/5 hover:text-black'
-                                    }`}
+                    <AnimatedLogoMark size="sm" role="landing" />
+                    <AnimatePresence>
+                        {!isCompact && (
+                            <motion.div
+                                initial={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: 'auto' }}
+                                exit={{ opacity: 0, width: 0 }}
+                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                className="overflow-hidden whitespace-nowrap"
                             >
-                                {item.label}
-                            </a>
-                        ))}
-                    </div>
+                                <div className="flex flex-col leading-none pl-3">
+                                    <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                                    <span className="mt-0.5 text-[8px] font-normal tracking-[0.28em] opacity-50">By Ascendio Global</span>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.a>
 
-                    {/* Right Actions */}
-                    <div className="flex items-center gap-2 pr-1">
-                        <button
-                            onClick={onLoginClick}
-                            className={`group flex items-center justify-center rounded-[14px] text-sm font-medium transition-all h-[38px] md:h-[42px] ${isDarkMode
-                                ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]'
-                                : 'bg-blue-600 text-white hover:bg-blue-700'
-                                }`}
-                            style={{
-                                padding: scrolled ? '0 14px' : '0 20px',
-                            }}
+                {/* Nav links — always visible on desktop, auto-center */}
+                <div className={`flex items-center gap-0.5 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+                    {NAV_LINKS.map(item => (
+                        <a
+                            key={item.label}
+                            href={item.href}
+                            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+                                isDarkMode ? 'hover:bg-white/10 hover:text-white' : 'hover:bg-black/[0.06] hover:text-black'
+                            }`}
                         >
-                            <AnimatePresence>
-                                {!scrolled && (
-                                    <motion.span
-                                        initial={{ opacity: 0, width: 0 }}
-                                        animate={{ opacity: 1, width: 'auto' }}
-                                        exit={{ opacity: 0, width: 0 }}
-                                        className="overflow-hidden whitespace-nowrap"
-                                    >
-                                        <span className="pr-2">Log In</span>
-                                    </motion.span>
-                                )}
-                            </AnimatePresence>
-                            <LogIn className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        </button>
+                            {item.label}
+                        </a>
+                    ))}
+                </div>
 
-                        <button
-                            type="button"
-                            onClick={() => setMobileMenuOpen((open) => !open)}
-                            className={`inline-flex h-[38px] md:h-[42px] w-[38px] md:w-[42px] items-center justify-center rounded-[14px] transition md:hidden ${isDarkMode ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-black/5 text-black hover:bg-black/10'
-                                }`}
-                        >
-                            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                        </button>
-                    </div>
-                </motion.div>
-            </div>
+                {/* Contact button — text+icon expanded, icon-only compact */}
+                <motion.button
+                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    animate={{
+                        width: isCompact ? 38 : 'auto' as any,
+                        paddingLeft: isCompact ? 0 : 20,
+                        paddingRight: isCompact ? 0 : 20,
+                        height: isCompact ? 38 : 40,
+                    }}
+                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    className={`group shrink-0 flex items-center justify-center gap-2 rounded-full text-sm font-semibold overflow-hidden transition-colors ${
+                        isDarkMode ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]' : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                >
+                    <AnimatePresence>
+                        {!isCompact && (
+                            <motion.span
+                                initial={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: 'auto' }}
+                                exit={{ opacity: 0, width: 0 }}
+                                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                                className="overflow-hidden whitespace-nowrap"
+                            >
+                                Contact
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+                    <ArrowRight className="h-[15px] w-[15px] shrink-0 transition-transform group-hover:translate-x-0.5" />
+                </motion.button>
+            </motion.div>
 
-            <AnimatePresence>
-                {mobileMenuOpen ? (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={`absolute inset-x-4 top-20 mx-auto max-w-7xl overflow-hidden rounded-2xl border p-4 shadow-2xl md:hidden pointer-events-auto backdrop-blur-2xl ${isDarkMode ? 'border-white/10 bg-black/70 text-white' : 'border-blue-100/60 bg-white/80 text-slate-900'}`}
+            {/* ════════════════════════════════
+                MOBILE NAVBAR
+                ════════════════════════════════ */}
+            <motion.div
+                initial={{ maxWidth: 600, paddingTop: 10, paddingBottom: 10, paddingLeft: 16, paddingRight: 12, borderRadius: 18 }}
+                animate={{
+                    maxWidth: isCompact ? 192 : 600,
+                    paddingTop: isCompact ? 7 : 10,
+                    paddingBottom: isCompact ? 7 : 10,
+                    paddingLeft: isCompact ? 12 : 16,
+                    paddingRight: isCompact ? 8 : 12,
+                    borderRadius: isCompact ? 50 : 18,
+                }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className={`md:hidden pointer-events-auto relative w-full flex items-center justify-between border overflow-hidden ${pillClass(isCompact)}`}
+                style={glassStyle}
+            >
+                {shimmer}
+                {/* Logo */}
+                <a href="#" className="flex items-center shrink-0" aria-label="Aarambh home">
+                    <AnimatedLogoMark size="sm" role="landing" />
+                    <AnimatePresence>
+                        {!isCompact && (
+                            <motion.div
+                                initial={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: 'auto' }}
+                                exit={{ opacity: 0, width: 0 }}
+                                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                                className="overflow-hidden whitespace-nowrap"
+                            >
+                                <div className="flex flex-col leading-none pl-3">
+                                    <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                                    <span className="mt-0.5 text-[8px] font-normal tracking-[0.28em] opacity-50">By Ascendio Global</span>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </a>
+                {/* Mobile actions */}
+                <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                        className={`grid h-[34px] w-[34px] place-items-center rounded-full transition-colors ${
+                            isDarkMode ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]' : 'bg-blue-600 text-white hover:bg-blue-700'
+                        }`}
                     >
-                        <div className="grid gap-2">
-                            {[
-                                { label: 'About', href: '#about' },
-                                { label: 'Features', href: '#why-choose-us' },
-                                { label: 'Services', href: '#services' },
-                                { label: 'Contact', href: '#contact' },
-                            ].map((item) => (
+                        <ArrowRight className="h-[15px] w-[15px]" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setMobileMenuOpen(o => !o)}
+                        className={`grid h-[34px] w-[34px] place-items-center rounded-full border transition-colors ${
+                            isDarkMode ? 'border-white/[0.13] bg-white/[0.07] text-white hover:bg-white/[0.13]' : 'border-black/[0.1] bg-black/[0.04] text-slate-700 hover:bg-black/[0.08]'
+                        }`}
+                    >
+                        {mobileMenuOpen ? <X className="h-[15px] w-[15px]" /> : <Menu className="h-[15px] w-[15px]" />}
+                    </button>
+                </div>
+            </motion.div>
+
+            {/* ── Mobile dropdown ── */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        key="dropdown"
+                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                        className={`md:hidden pointer-events-auto mt-2 w-full overflow-hidden rounded-2xl border p-2 shadow-2xl ${
+                            isDarkMode ? 'border-white/10 bg-[#08080d]/92 text-white' : 'border-black/[0.08] bg-white/[0.95] text-slate-900'
+                        }`}
+                        style={glassStyle}
+                    >
+                        <div className="flex flex-col gap-0.5">
+                            {NAV_LINKS.map(item => (
                                 <a
                                     key={item.label}
                                     href={item.href}
                                     onClick={closeMobileMenu}
-                                    className={`rounded-xl px-3 py-3 text-sm font-semibold transition ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'}`}
+                                    className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
+                                        isDarkMode ? 'text-zinc-200 hover:bg-white/[0.07]' : 'text-slate-700 hover:bg-black/[0.05]'
+                                    }`}
                                 >
                                     {item.label}
                                 </a>
                             ))}
+                            <div className={`my-1 mx-1 h-px ${isDarkMode ? 'bg-white/[0.07]' : 'bg-black/[0.07]'}`} />
                             <button
-                                onClick={() => { closeMobileMenu(); onLoginClick(); }}
-                                className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-purple-500/15 text-purple-200 hover:bg-purple-500/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
+                                onClick={() => { closeMobileMenu(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors ${
+                                    isDarkMode ? 'bg-violet-500/[0.14] text-violet-200 hover:bg-violet-500/[0.22]' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'
+                                }`}
                             >
-                                Log In
-                                <LogIn className="h-4 w-4" />
+                                <ArrowRight className="h-4 w-4" />
+                                Contact
                             </button>
                         </div>
                     </motion.div>
-                ) : null}
+                )}
             </AnimatePresence>
-        </nav>
+        </div>
     );
 }
 
@@ -644,11 +736,11 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
     const boardY = useTransform(smoothProgress, [0, 1], [0, 60]);
 
     return (
-        <section ref={heroRef} className={`relative min-h-[88vh] md:min-h-screen overflow-hidden border-b pt-16 md:pt-24 ${isDarkMode ? 'border-white/10 bg-[#070509]' : 'border-slate-100 bg-slate-100'}`}>
+        <section ref={heroRef} className={`relative min-h-[82svh] md:min-h-screen overflow-hidden border-b pt-16 md:pt-24 ${isDarkMode ? 'border-white/10 bg-[#070509]' : 'border-slate-100 bg-slate-100'}`}>
 
             {/* ── Background illustration — absolutely positioned, behind all content ── */}
             <motion.div
-                className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[68%]"
+                className="pointer-events-none absolute inset-0 z-0 md:inset-y-0 md:left-auto md:w-[68%]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
@@ -660,7 +752,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     alt=""
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none"
                     style={{
                         opacity: isDarkMode ? 0 : 0.95,
                         mixBlendMode: 'multiply',
@@ -676,7 +768,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     alt=""
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none"
                     style={{
                         opacity: isDarkMode ? 0.72 : 0,
                         mixBlendMode: 'screen',
@@ -725,7 +817,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
             </motion.div>
 
             {/* Content — single column, z-10 over the background image */}
-            <div className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-96px)] max-w-7xl flex-col justify-center px-5 pb-8 pt-4 md:pt-8 sm:px-8">
+            <div className="relative z-10 mx-auto flex min-h-[calc(82svh-64px)] md:min-h-[calc(100vh-96px)] max-w-7xl flex-col justify-center px-5 pb-7 pt-4 md:pt-8 sm:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 28 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -734,28 +826,28 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     className="max-w-2xl"
                 >
 
-                    <h1 className="mt-2 md:mt-7 text-[clamp(2.2rem,8vw,5.6rem)] font-black leading-[1.05] md:leading-[0.96] tracking-tight">
+                    <h1 className="mt-2 md:mt-7 text-[clamp(2.05rem,10vw,3.8rem)] md:text-[clamp(3.5rem,8vw,5.6rem)] font-black leading-[1.05] md:leading-[0.96] tracking-tight">
                         Build Careers
                         <span className="block text-(--landing-accent)">With Legendary</span>
                         <span className="block">Placement Outcomes.</span>
                     </h1>
 
-                    <p className={`mt-4 md:mt-6 max-w-lg text-sm md:text-base leading-relaxed md:leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                    <p className={`mt-4 md:mt-6 max-w-lg text-sm md:text-base leading-relaxed md:leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>
                         We bring together talent, opportunities, and industry connections
                         in one intelligent platform built for placement success.
                     </p>
 
-                    <div className="mt-6 md:mt-9 flex flex-wrap items-center gap-3">
+                    <div className="mt-5 md:mt-9 flex flex-wrap items-center gap-2.5 md:gap-3">
                         <a
                             href="#contact"
-                            className={`group inline-flex h-12 items-center gap-2 rounded-xl px-6 text-sm font-bold shadow-lg transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-[#ffffff] text-[#0a0a0f] shadow-black/40 hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-blue-600/25 hover:bg-blue-700'}`}
+                            className={`group inline-flex h-11 md:h-12 items-center gap-2 rounded-xl px-4 md:px-6 text-sm font-bold shadow-lg transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-[#ffffff] text-[#0a0a0f] shadow-black/40 hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-blue-600/25 hover:bg-blue-700'}`}
                         >
                             Connect With Us
                             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                         </a>
                         <a
                             href="#why-choose-us"
-                            className={`inline-flex h-12 items-center gap-2 rounded-xl border px-6 text-sm font-bold transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]' : 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700'}`}
+                            className={`inline-flex h-11 md:h-12 items-center gap-2 rounded-xl border px-4 md:px-6 text-sm font-bold transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]' : 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700'}`}
                         >
                             Why Aarambh?
                         </a>
@@ -764,9 +856,13 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                 </motion.div>
 
                 {/* ── Pill strip at bottom ── */}
-                <div className="mt-8 md:mt-32 w-full">
-                    <HeroPillStrip isDarkMode={isDarkMode} />
-                </div>
+                <ParallaxSection speed={18} className="mt-7 md:mt-32 w-full">
+                    {(pillY) => (
+                        <motion.div style={{ y: pillY }}>
+                            <HeroPillStrip isDarkMode={isDarkMode} />
+                        </motion.div>
+                    )}
+                </ParallaxSection>
             </div>
         </section>
     );
@@ -887,11 +983,45 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
     }, []);
 
     return (
-        <section ref={sectionRef} id="stats" className={`relative overflow-hidden border-b px-4 py-10 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="stats" className={`relative -mt-20 overflow-hidden border-b px-4 pb-10 pt-28 md:mt-0 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
             <motion.div
                 className="absolute left-0 top-0 h-full w-2 origin-top bg-(--landing-accent)"
                 style={{ scaleY: railScale }}
             />
+            <div className="pointer-events-none absolute inset-x-0 -top-10 h-[520px] overflow-hidden lg:hidden">
+                <img
+                    src="/landing-dashboard-light.png"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{
+                        opacity: isDarkMode ? 0 : 0.58,
+                        transition: 'opacity 500ms ease',
+                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
+                        maskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
+                    }}
+                />
+                <img
+                    src="/landing-dashboard-dark.png"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{
+                        opacity: isDarkMode ? 0.42 : 0,
+                        transition: 'opacity 500ms ease',
+                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
+                        maskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
+                    }}
+                />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: isDarkMode
+                            ? 'linear-gradient(to bottom, rgba(13,14,17,0.15), rgba(13,14,17,0.82) 58%, #0d0e11 100%)'
+                            : 'linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0.62) 56%, rgba(255,255,255,0.94) 100%)',
+                    }}
+                />
+            </div>
             <motion.div
                 className={`absolute right-[6%] top-20 hidden h-36 w-36 lg:block ${isDarkMode ? 'bg-cyan-400/10' : 'bg-cyan-300/25'}`}
                 style={{ y: panelY, rotate: -8 }}
@@ -905,7 +1035,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.7, ease: 'easeOut' }}
-                        className="relative rounded-[2rem] border shadow-2xl overflow-hidden hidden md:block"
+                        className="relative hidden rounded-[1.5rem] border shadow-2xl overflow-hidden lg:block md:rounded-[2rem]"
                         style={{
                             borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
                         }}
@@ -916,24 +1046,24 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 background: isDarkMode ? '#6d28d9' : '#3b82f6',
                             }}
                         />
-                        <div className="relative aspect-[4/3] w-full bg-black/20">
+                        <div className="relative aspect-[16/10] md:aspect-[4/3] w-full bg-black/20">
                             <img
                                 src="/landing-dashboard-light.png"
                                 alt="Dashboard Light"
-                                className="absolute inset-0 h-full w-full object-cover"
+                                className="absolute inset-0 h-full w-full object-contain md:object-cover"
                                 style={{ opacity: isDarkMode ? 0 : 1, transition: 'opacity 500ms ease' }}
                             />
                             <img
                                 src="/landing-dashboard-dark.png"
                                 alt="Dashboard Dark"
-                                className="absolute inset-0 h-full w-full object-cover"
+                                className="absolute inset-0 h-full w-full object-contain md:object-cover"
                                 style={{ opacity: isDarkMode ? 1 : 0, transition: 'opacity 500ms ease' }}
                             />
                         </div>
                     </motion.div>
 
                     {/* Right: Content */}
-                    <div>
+                    <div className="relative z-10">
                         <SectionHeader
                             eyebrow="Who We Are"
                             title="Built Different. Built for You."
@@ -980,40 +1110,73 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
-    const [isInView, setIsInView] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) setIsInView(true);
-            },
-            { threshold: 0.2 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b px-4 py-12 md:py-28 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
             <div className="mx-auto max-w-7xl">
-                <p className={`mb-6 md:mb-12 text-xs md:text-sm font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
+                <RevealOnScroll variant="fadeDown" className={`mb-6 md:mb-12 text-xs md:text-sm font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
                     Why Choose Us
-                </p>
-                <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3">
+                </RevealOnScroll>
+                <InfiniteSlider className="md:hidden pb-5" gap={16} duration={85}>
                     {WHY_US_POINTS.map((point, index) => {
                         const Icon = point.icon;
                         return (
-                            <motion.div
+                            <RevealOnScroll
                                 key={point.title}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
+                                variant="scaleIn"
+                                delay={index * 0.04}
                                 style={{
                                     '--hover-border': point.color,
                                     '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
                                 } as React.CSSProperties}
-                                className={`group relative overflow-hidden rounded-[16px] md:rounded-[20px] p-5 md:p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
+                                className={`group relative min-h-[260px] w-[calc(100vw-2rem)] shrink-0 overflow-hidden rounded-[16px] p-5 border transition-all duration-300 backdrop-blur-2xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
+                                    ? 'bg-white/[0.055] border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_18px_48px_rgba(0,0,0,0.35)] hover:bg-white/[0.08]'
+                                    : 'bg-white/65 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_18px_42px_rgba(15,23,42,0.09)] hover:bg-white/85'
+                                    }`}
+                            >
+                                <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70" />
+                                <div
+                                    className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+                                    style={{ backgroundColor: point.color }}
+                                />
+
+                                <div className="flex justify-between items-start mb-4">
+                                    <div
+                                        className="grid h-10 w-10 place-items-center rounded-full"
+                                        style={{ backgroundColor: point.bg, color: point.color }}
+                                    >
+                                        <Icon className="h-5 w-5" />
+                                    </div>
+                                </div>
+
+                                <h3 className={`text-lg font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                    {point.title}
+                                </h3>
+                                <p className={`mt-1 text-xs font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    {point.subtitle}
+                                </p>
+
+                                <p className={`mt-2 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
+                                    {point.description}
+                                </p>
+                            </RevealOnScroll>
+                        );
+                    })}
+                </InfiniteSlider>
+
+                <StaggerContainer className="hidden md:grid md:grid-cols-3 md:gap-6" delayChildren={0.12} staggerChildren={0.08}>
+                    {WHY_US_POINTS.map((point, index) => {
+                        const Icon = point.icon;
+                        return (
+                            <AnimatedCard
+                                key={point.title}
+                                variant="scaleIn"
+                                style={{
+                                    '--hover-border': point.color,
+                                    '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                } as React.CSSProperties}
+                                className={`group relative overflow-hidden rounded-[20px] p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
                                     ? 'bg-white/[0.03] border-white/8 hover:bg-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
                                     : 'bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
                                     }`}
@@ -1045,10 +1208,10 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 <p className={`mt-2 md:mt-8 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
                                     {point.description}
                                 </p>
-                            </motion.div>
+                            </AnimatedCard>
                         );
                     })}
-                </div>
+                </StaggerContainer>
             </div>
         </section>
     );
@@ -1069,7 +1232,7 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
                     {/* LEFT: Sticky image that spans the full section */}
-                    <div className="hidden lg:block lg:sticky lg:top-24">
+                    <div className="block lg:sticky lg:top-24">
                         <div className="relative">
                             {/* glow */}
                             <div
@@ -1079,9 +1242,8 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                             <img
                                 src="/interview.png"
                                 alt="Interview process"
-                                className="relative z-10 w-full rounded-3xl shadow-2xl object-cover"
+                                className="relative z-10 aspect-[16/10] w-full rounded-2xl object-cover shadow-2xl md:rounded-3xl lg:aspect-[3/4]"
                                 style={{
-                                    aspectRatio: '3/4',
                                     border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
                                 }}
                             />
@@ -1102,7 +1264,7 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                             <div className="mt-6 md:mt-8 h-1 w-20 bg-(--landing-accent)" />
                         </motion.div>
 
-                        <div className="space-y-4 md:space-y-5">
+                        <StaggerContainer className="space-y-4 md:space-y-5" delayChildren={0.12} staggerChildren={0.1}>
                             {FEATURE_CARDS.map((feature, index) => (
                                 <FeatureCard
                                     key={feature.title}
@@ -1112,7 +1274,7 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     sectionProgress={smoothProgress}
                                 />
                             ))}
-                        </div>
+                        </StaggerContainer>
                     </div>
                 </div>
             </div>
@@ -1122,11 +1284,9 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
 
 function FeatureCard({ number, title, description, icon: Icon, index, isDarkMode }: { number: string; title: string; description: string; icon: ElementType; index: number; isDarkMode: boolean; sectionProgress: MotionValue<number> }) {
     return (
-        <motion.article
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+        <AnimatedCard
+            as="article"
+            variant="fadeUp"
             className={`group relative flex items-start gap-4 md:gap-8 rounded-2xl border p-5 md:p-10 transition hover:-translate-y-0.5 hover:shadow-lg backdrop-blur-xl ${isDarkMode
                 ? 'border-white/8 bg-white/[0.04] text-white hover:border-white/15 hover:bg-white/[0.07] shadow-[0_2px_20px_rgba(0,0,0,0.3)]'
                 : 'border-white/70 bg-white/60 text-slate-900 hover:border-white/90 hover:bg-white/80 hover:shadow-slate-200 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
@@ -1147,7 +1307,7 @@ function FeatureCard({ number, title, description, icon: Icon, index, isDarkMode
                 <p className={`text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
                     }`}>{description}</p>
             </div>
-        </motion.article>
+        </AnimatedCard>
     );
 }
 
@@ -1187,8 +1347,15 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
             <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] items-center">
                 
                 {/* ── Left Column — Carousel Card ── */}
-                <motion.div style={{ y: contentY }} className="order-2 lg:order-1">
-                    <div className={`group relative overflow-hidden rounded-[28px] border transition-all duration-500 min-h-[380px] md:min-h-[460px] flex flex-col justify-between hover:-translate-y-1.5 hover:scale-[1.02] ${
+                <motion.div
+                    initial={{ opacity: 0, x: -28 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.28 }}
+                    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ y: contentY }}
+                    className="order-2 lg:order-1"
+                >
+                    <div className={`group relative overflow-hidden rounded-[22px] md:rounded-[28px] border transition-all duration-500 min-h-[340px] md:min-h-[460px] flex flex-col justify-between hover:-translate-y-1.5 hover:scale-[1.02] ${
                         isDarkMode
                             ? 'border-[rgba(125,125,255,0.25)] hover:border-[rgba(125,125,255,0.5)] bg-[#0B0B14] shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]'
                             : 'border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)]'
@@ -1203,12 +1370,12 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.8, ease: "easeInOut" }}
-                                    className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-700 [mask-image:linear-gradient(to_bottom,transparent,black_100%)] sm:[mask-image:linear-gradient(to_right,transparent,black_40%)] ${
-                                        isDarkMode ? 'opacity-40 group-hover:opacity-100 mix-blend-screen' : 'opacity-20 group-hover:opacity-60 mix-blend-multiply'
+                                    className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-700 [mask-image:linear-gradient(to_bottom,black_0%,black_42%,transparent_100%)] sm:[mask-image:linear-gradient(to_right,transparent,black_40%)] ${
+                                        isDarkMode ? 'opacity-65 group-hover:opacity-100 mix-blend-screen' : 'opacity-45 group-hover:opacity-70 mix-blend-multiply'
                                     }`}
                                 >
                                     <div 
-                                        className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60"
+                                        className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-80 md:opacity-60"
                                         style={{ backgroundImage: `url(${isDarkMode ? ABOUT_SLIDES[activeIndex].image : ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')})` }}
                                     />
                                 </motion.div>
@@ -1338,6 +1505,10 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
                 {/* ── Right Column — Heading + Description + Bottom Callout ── */}
                 <motion.div
+                    initial={{ opacity: 0, x: 28 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.28 }}
+                    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                     style={{ y: contentY }}
                     className="flex flex-col order-1 lg:order-2"
                 >
@@ -1395,125 +1566,155 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
     const cardCount = policyCards.length;
     const sectionRef = useRef<HTMLElement>(null);
-    const cardsContainerRef = useRef<HTMLDivElement>(null);
-    const viewportRef = useRef<HTMLDivElement>(null);
-    const maxOffsetRef = useRef(0);
     const [activeCard, setActiveCard] = useState(0);
+    const currentCard = activeCard;
+    const activeCardRef = useRef(0);
+    const touchStartYRef = useRef<number | null>(null);
 
-    // Motion values for smooth card animation
-    const targetOffset = useMotionValue(0);
-    const smoothOffset = useSpring(targetOffset, { stiffness: 120, damping: 22 });
-    const cardY = useTransform(smoothOffset, (v: number) => -v);
-    const progressWidth = useTransform(smoothOffset, (v: number) => {
-        const max = maxOffsetRef.current;
-        return max > 0 ? `${Math.min(100, (v / max) * 100)}%` : '0%';
-    });
+    useEffect(() => { activeCardRef.current = activeCard; }, [activeCard]);
 
-    // Track active card
-    useMotionValueEvent(smoothOffset, 'change', (v: number) => {
-        const max = maxOffsetRef.current;
-        if (max > 0) {
-            setActiveCard(Math.min(cardCount - 1, Math.floor((v / max) * cardCount)));
-        }
-    });
-
-    // Measure card overflow
+    // Section-scoped wheel + touch — no window hijacking, no extra height
     useEffect(() => {
-        const measure = () => {
-            if (cardsContainerRef.current && viewportRef.current) {
-                const containerH = cardsContainerRef.current.scrollHeight;
-                const viewportH = viewportRef.current.clientHeight;
-                maxOffsetRef.current = Math.max(0, containerH - viewportH);
-            }
-        };
-        const timer = setTimeout(measure, 200);
-        const ro = new ResizeObserver(measure);
-        if (cardsContainerRef.current) ro.observe(cardsContainerRef.current);
-        if (viewportRef.current) ro.observe(viewportRef.current);
-        return () => { clearTimeout(timer); ro.disconnect(); };
-    }, []);
+        const section = sectionRef.current;
+        if (!section) return;
 
-    // TRUE SCROLL HIJACKING — intercept wheel, freeze page, drive cards
-    useEffect(() => {
-        if (typeof window === 'undefined') return;
         const handleWheel = (e: WheelEvent) => {
-            const section = sectionRef.current;
-            if (!section || window.innerWidth < 1024) return;
-            const max = maxOffsetRef.current;
-            if (max <= 0) return;
-            const rect = section.getBoundingClientRect();
-            const current = targetOffset.get();
-
-            // Activation zone: section top is within 100px of viewport top
-            // and section bottom is still visible on screen
-            const isNearTop = rect.top <= 100 && rect.top >= -100;
-            const isStillVisible = rect.bottom > window.innerHeight * 0.3;
-            if (!isNearTop || !isStillVisible) return;
-
-            if (e.deltaY > 0 && current < max) {
+            const cur = activeCardRef.current;
+            if (e.deltaY > 0 && cur < cardCount - 1) {
                 e.preventDefault();
-                // Snap the section to viewport top so it stays pinned
-                if (Math.abs(rect.top) > 2) {
-                    window.scrollTo({ top: window.scrollY + rect.top, behavior: 'instant' as ScrollBehavior });
-                }
-                targetOffset.set(Math.min(max, current + Math.abs(e.deltaY)));
-            } else if (e.deltaY < 0 && current > 0) {
+                e.stopPropagation();
+                activeCardRef.current = cur + 1;
+                setActiveCard(cur + 1);
+            } else if (e.deltaY < 0 && cur > 0) {
                 e.preventDefault();
-                if (Math.abs(rect.top) > 2) {
-                    window.scrollTo({ top: window.scrollY + rect.top, behavior: 'instant' as ScrollBehavior });
-                }
-                targetOffset.set(Math.max(0, current - Math.abs(e.deltaY)));
+                e.stopPropagation();
+                activeCardRef.current = cur - 1;
+                setActiveCard(cur - 1);
             }
-            // At boundaries (current >= max scrolling down, or current <= 0 scrolling up)
-            // → don't preventDefault → page scrolls naturally past the section
         };
-        window.addEventListener('wheel', handleWheel, { passive: false });
-        return () => window.removeEventListener('wheel', handleWheel);
-    }, [targetOffset]);
+
+        const handleTouchStart = (e: TouchEvent) => {
+            touchStartYRef.current = e.touches[0]?.clientY ?? null;
+        };
+
+        const handleTouchMove = (e: TouchEvent) => {
+            if (touchStartYRef.current === null) return;
+            const currentY = e.touches[0]?.clientY;
+            if (currentY === undefined) return;
+            const delta = touchStartYRef.current - currentY;
+            if (Math.abs(delta) < 36) return;
+            const cur = activeCardRef.current;
+            if (delta > 0 && cur < cardCount - 1) {
+                e.preventDefault();
+                activeCardRef.current = cur + 1;
+                setActiveCard(cur + 1);
+                touchStartYRef.current = currentY;
+            } else if (delta < 0 && cur > 0) {
+                e.preventDefault();
+                activeCardRef.current = cur - 1;
+                setActiveCard(cur - 1);
+                touchStartYRef.current = currentY;
+            }
+        };
+
+        section.addEventListener('wheel', handleWheel, { passive: false });
+        section.addEventListener('touchstart', handleTouchStart, { passive: true });
+        section.addEventListener('touchmove', handleTouchMove, { passive: false });
+        return () => {
+            section.removeEventListener('wheel', handleWheel);
+            section.removeEventListener('touchstart', handleTouchStart);
+            section.removeEventListener('touchmove', handleTouchMove);
+        };
+    }, [cardCount]);
 
     return (
-        <section id="terms" ref={sectionRef} className={`relative ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}>
-            {/* DESKTOP — 100vh pinned viewport, wheel-driven cards */}
-            <div className="hidden lg:flex h-screen w-full overflow-hidden">
+        <section
+            id="terms"
+            ref={sectionRef}
+            className={`relative h-screen overflow-hidden ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}
+        >
+            {/* DESKTOP */}
+            <div className="hidden lg:flex h-full w-full">
                 <div className="mx-auto w-full max-w-7xl px-8 h-full flex items-center">
-                    <div className="flex items-start gap-16 w-full h-[85vh]">
-                        {/* Left Column — Image */}
-                        <div className="w-[45%] h-full shrink-0 flex flex-col gap-4">
-                            <div className={`relative w-full flex-1 rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
+                    <div className="flex items-start gap-16 w-full h-[88vh]">
+                        {/* Left — Image */}
+                        <div className="w-[45%] h-full shrink-0">
+                            <div className={`relative w-full h-full rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
                                 {isDarkMode && (
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
                                 )}
                                 <img src="/terms&cond.png" alt="Legal & Compliance" className={`absolute inset-0 w-full h-full object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
                             </div>
-
                         </div>
-                        {/* Right Column — Heading + Cards */}
+                        {/* Right — Heading + Card stack + Nav */}
                         <div className="w-[55%] h-full flex flex-col">
-                            <div className="shrink-0 pb-4 relative z-20">
+                            <div className="shrink-0 pb-4">
                                 <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
-                                <div className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none" style={{ background: isDarkMode ? 'linear-gradient(to bottom, rgba(5,5,10,0), rgba(5,5,10,1))' : 'linear-gradient(to bottom, rgba(248,250,252,0), rgba(248,250,252,1))' }} />
                             </div>
-                            <div ref={viewportRef} className="flex-1 relative overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 88%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 88%, transparent 100%)' }}>
-                                <motion.div ref={cardsContainerRef} style={{ y: cardY }} className="flex flex-col gap-10 pt-4 pb-8 w-full will-change-transform">
-                                    {policyCards.map((card, index) => (
-                                        <PolicyCard key={card.title} index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
-                                    ))}
-                                </motion.div>
+                            <div
+                                className="flex-1 relative overflow-hidden"
+                                style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)' }}
+                            >
+                                <div className="absolute inset-0 flex items-start justify-center pt-4">
+                                    {policyCards.map((card, index) => {
+                                        const offset = index - currentCard;
+                                        const depth = Math.abs(offset);
+                                        const isVisible = offset <= 1 && offset >= -3;
+                                        const y = offset <= 0 ? depth * 22 : 42 + offset * 28;
+                                        const scale = offset <= 0 ? 1 - depth * 0.045 : 0.94;
+                                        const opacity = offset === 0 ? 1 : offset < 0 ? Math.max(0.24, 0.72 - depth * 0.16) : 0;
+                                        return (
+                                            <motion.div
+                                                key={card.title}
+                                                className="absolute w-full"
+                                                animate={{ opacity: isVisible ? opacity : 0, scale, y }}
+                                                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                                                style={{ zIndex: index <= currentCard ? index + 1 : 0, pointerEvents: offset === 0 ? 'auto' : 'none' }}
+                                            >
+                                                <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* MOBILE — Normal scroll */}
-            <div className="flex lg:hidden flex-col gap-8 md:gap-12 w-full px-4 py-10 md:py-20 mx-auto max-w-7xl">
-                <div className={`relative w-full h-[300px] md:h-[400px] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border ${isDarkMode ? 'border-white/10' : 'border-black/5'} shadow-xl`}>
+
+            {/* MOBILE */}
+            <div className="flex lg:hidden h-full flex-col w-full px-4 py-6 mx-auto max-w-2xl overflow-hidden">
+                <div className={`relative w-full h-[160px] sm:h-[200px] rounded-[1.25rem] overflow-hidden border mb-4 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-xl`}>
                     <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
                 </div>
-                <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
-                <div className="flex flex-col gap-4 md:gap-6">
-                    {policyCards.map((card, index) => (
-                        <PolicyCard key={card.title} index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
-                    ))}
+                <div className="shrink-0 mb-4">
+                    <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026." isDarkMode={isDarkMode} align="left" />
+                </div>
+                <div className="relative flex-1 min-h-0">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        {policyCards.map((card, index) => {
+                            const offset = index - currentCard;
+                            const distance = Math.abs(offset);
+                            const isVisible = distance <= 2;
+                            const x = offset === 0 ? 0 : offset > 0 ? 24 + (distance - 1) * 12 : -24 - (distance - 1) * 12;
+                            const scale = offset === 0 ? 1 : distance === 1 ? 0.88 : 0.76;
+                            const opacity = offset === 0 ? 1 : distance === 1 ? 0.45 : 0.18;
+                            return (
+                                <div
+                                    key={card.title}
+                                    className="absolute w-[88vw] max-w-[380px] transition-all duration-500 ease-out"
+                                    style={{
+                                        transform: `translateX(${x}%) scale(${scale})`,
+                                        opacity: isVisible ? opacity : 0,
+                                        zIndex: cardCount - distance,
+                                        pointerEvents: offset === 0 ? 'auto' : 'none',
+                                    }}
+                                >
+                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
@@ -1535,18 +1736,19 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-            className={`group relative overflow-hidden rounded-[20px] md:rounded-[28px] border transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.02] ${
+            className={`group relative min-h-[352px] w-full overflow-hidden rounded-[20px] border transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.02] md:min-h-0 md:rounded-[28px] md:backdrop-blur-2xl ${
                 isDarkMode
-                    ? 'border-[rgba(125,125,255,0.25)] hover:border-[rgba(125,125,255,0.5)] bg-[#0B0B14] shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]'
-                    : 'border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)]'
+                    ? 'border-[rgba(160,160,255,0.34)] hover:border-[rgba(125,125,255,0.5)] bg-[#121218] shadow-[0_18px_52px_rgba(0,0,0,0.65)] hover:bg-[#171722] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)] md:border-[rgba(125,125,255,0.25)] md:bg-[#0B0B14] md:shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
+                    : 'border-slate-200 hover:border-blue-500 bg-white shadow-[0_18px_42px_rgba(59,130,246,0.13)] hover:bg-white hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)] md:border-blue-300 md:shadow-[0_8px_32px_rgba(59,130,246,0.1)]'
             }`}
         >
+            <div className="pointer-events-none absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70 md:hidden" />
             {/* Background Image/Effects Full (Soft base) */}
             {isDarkMode && (
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0B0B14]/80 to-[#0B0B14] z-0" />
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/24 via-[#0B0B14]/65 to-[#0B0B14]/90 md:from-indigo-900/20 md:via-[#0B0B14]/80 md:to-[#0B0B14] z-0" />
             )}
             {!isDarkMode && (
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/60 via-white/80 to-white z-0" />
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/65 via-white/70 to-white/85 md:from-blue-100/60 md:via-white/80 md:to-white z-0" />
             )}
 
             {/* Soft Ambient Glow in Dark Mode */}
@@ -1557,11 +1759,11 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
             {/* Floating image (desktop) / Top image (mobile) */}
             {image && (
                 <div className={`
-                    relative w-full h-32 md:absolute md:right-0 md:top-0 md:bottom-0 md:w-[55%] md:h-auto z-0 pointer-events-none transition-opacity duration-700 
-                    [mask-image:linear-gradient(to_bottom,black_60%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
-                    ${isDarkMode ? 'opacity-80 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
+                    relative w-full h-40 md:absolute md:right-0 md:top-0 md:bottom-0 md:w-[55%] md:h-auto z-0 pointer-events-none transition-opacity duration-700 
+                    [mask-image:linear-gradient(to_bottom,black_72%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
+                    ${isDarkMode ? 'opacity-90 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
                 `}>
-                     <img src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} className={`w-full h-full object-cover ${isDarkMode ? 'mix-blend-screen opacity-80 md:opacity-50' : 'mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
+                     <img src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} className={`w-full h-full object-cover ${isDarkMode ? 'md:mix-blend-screen opacity-90 md:opacity-50' : 'md:mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
                 </div>
             )}
             
@@ -1671,11 +1873,7 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
 
 function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: { eyebrow: string; title: string; copy: string; isDarkMode: boolean; align?: 'left' | 'center' }) {
     return (
-        <div className={align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl'}>
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">{eyebrow}</p>
-            <h2 className="mt-3 md:mt-4 text-[26px] font-black uppercase leading-[1.1] md:text-6xl md:leading-[0.95]">{title}</h2>
-            <p className={`mt-3 md:mt-5 text-[14px] md:text-base leading-relaxed md:leading-7 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{copy}</p>
-        </div>
+        <AnimatedHeading eyebrow={eyebrow} title={title} copy={copy} isDarkMode={isDarkMode} align={align} />
     );
 }
 
@@ -1736,11 +1934,11 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 
     return (
-        <section ref={sectionRef} id="contact" className={`relative overflow-hidden px-4 py-12 md:py-24 px-4 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
+        <section ref={sectionRef} id="contact" className={`relative overflow-hidden px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
             <div className="relative mx-auto max-w-6xl">
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
                     {/* Left Column */}
-                    <div className="flex flex-col pt-4">
+                    <RevealOnScroll variant="fadeRight" className="flex flex-col pt-4">
                         <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Let's Talk</h3>
                         <p className={`mb-6 md:mb-12 max-w-sm text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
                             Have a question or want to work together? We'd love to hear from you.
@@ -1755,10 +1953,10 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                             <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
                             <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" />
                         </div>
-                    </div>
+                    </RevealOnScroll>
 
                     {/* Right Column (Form) */}
-                    <div className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/8 shadow-2xl shadow-black/50' : 'bg-white/70 border-white/80 shadow-xl shadow-slate-200/50'}`}>
+                    <RevealOnScroll variant="fadeLeft" delay={0.08} className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/8 shadow-2xl shadow-black/50' : 'bg-white/70 border-white/80 shadow-xl shadow-slate-200/50'}`}>
                         <h3 className={`text-xl md:text-2xl font-bold mb-2 md:mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Send us a message</h3>
                         <p className={`mb-6 md:mb-8 text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
                             Fill out the form below and we'll get back to you as soon as possible.
@@ -1796,7 +1994,7 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 </button>
                             </form>
                         )}
-                    </div>
+                    </RevealOnScroll>
                 </div>
             </div>
         </section>
@@ -1806,7 +2004,7 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
 function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: boolean; onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
     return (
         <section id="footer">
-            <footer className={`border-t px-4 py-8 px-4 sm:px-6 backdrop-blur-xl ${isDarkMode ? 'border-white/10 bg-black/60 text-white' : 'border-black/8 bg-white/80 text-slate-900'}`}>
+            <footer className={`border-t px-4 py-8 sm:px-6 backdrop-blur-xl ${isDarkMode ? 'border-white/10 bg-black/60 text-white' : 'border-black/8 bg-white/80 text-slate-900'}`}>
                 <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8 text-center md:text-left md:flex-row md:items-start md:justify-between">
                     <div className="flex flex-col items-center md:flex-row md:items-start gap-3 md:gap-4">
                         <div className="flex items-center gap-2 md:gap-3">
@@ -1886,7 +2084,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
     if (!isOpen) return null;
 
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitting(true);
         try {
