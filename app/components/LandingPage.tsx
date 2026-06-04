@@ -1366,8 +1366,8 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         What We<br />Stand For
                     </h2>
                     <p className={`mt-4 md:mt-6 max-w-md text-sm md:text-[16px] leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
-                        We're not just here to help you get placed.<br />
-                        We're here to prepare you, guide you, and stay<br />
+                        We&apos;re not just here to help you get placed.<br />
+                        We&apos;re here to prepare you, guide you, and stay<br />
                         with you until the right opportunity comes your way.
                     </p>
 
@@ -1700,25 +1700,8 @@ function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: {
 }
 
 
-function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-    const [sent, setSent] = useState(false);
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const mailSubject = encodeURIComponent(subject || `Message from ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-        window.location.href = `mailto:ascendiollp@gmail.com?subject=${mailSubject}&body=${body}`;
-        setName(''); setEmail(''); setSubject(''); setMessage('');
-        setSent(true);
-        setTimeout(() => setSent(false), 4000);
-    };
-
-    const InputBlock = ({ label, icon: Icon, isTextArea, ...props }: any) => (
+function InputBlock({ label, icon: Icon, isTextArea, isDarkMode, ...props }: { label: string, icon?: ElementType, isTextArea?: boolean, isDarkMode: boolean } & React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+    return (
         <div className={`relative rounded-xl border px-3 py-2.5 md:px-4 md:py-3 transition-all backdrop-blur-sm ${isDarkMode ? 'border-white/10 bg-white/[0.04] focus-within:border-violet-500/50 focus-within:bg-white/[0.06]' : 'border-white/60 bg-white/60 focus-within:border-blue-500/50 focus-within:bg-white/90'}`}>
             <label className={`block text-xs mb-1 font-medium ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>{label}</label>
             <div className="flex items-start">
@@ -1738,8 +1721,10 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
             </div>
         </div>
     );
+}
 
-    const ContactRow = ({ icon: Icon, title, value, link }: any) => (
+function ContactRow({ icon: Icon, title, value, link, isDarkMode }: { icon: ElementType, title: string, value: string, link?: string, isDarkMode: boolean }) {
+    return (
         <div className="flex items-center gap-4">
             <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full backdrop-blur-sm border ${isDarkMode ? 'bg-white/[0.06] border-white/10 text-violet-400' : 'bg-white/70 border-white/80 text-blue-600 shadow-sm'}`}>
                 <Icon className="h-5 w-5" />
@@ -1754,6 +1739,27 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
             </div>
         </div>
     );
+}
+
+function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
+    const sectionRef = useRef<HTMLElement>(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [sent, setSent] = useState(false);
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const mailSubject = encodeURIComponent(subject || `Message from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        window.location.href = `mailto:ascendiollp@gmail.com?subject=${mailSubject}&body=${body}`;
+        setName(''); setEmail(''); setSubject(''); setMessage('');
+        setSent(true);
+        setTimeout(() => setSent(false), 4000);
+    };
+
+
 
     return (
         <section ref={sectionRef} id="contact" className={`relative overflow-hidden px-4 py-12 md:py-24 px-4 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
@@ -1761,19 +1767,19 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
                     {/* Left Column */}
                     <div className="flex flex-col pt-4">
-                        <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Let's Talk</h3>
+                        <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Let&apos;s Talk</h3>
                         <p className={`mb-6 md:mb-12 max-w-sm text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
-                            Have a question or want to work together? We'd love to hear from you.
+                            Have a question or want to work together? We&apos;d love to hear from you.
                         </p>
 
                         <div className="flex flex-col gap-4 md:gap-6">
-                            <ContactRow icon={Mail} title="Email" value="ascendiollp@gmail.com" link="mailto:ascendiollp@gmail.com" />
+                            <ContactRow icon={Mail} title="Email" value="ascendiollp@gmail.com" link="mailto:ascendiollp@gmail.com" isDarkMode={isDarkMode} />
                             <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={Phone} title="Phone" value="+91 82818 91391" link="tel:+918281891391" />
+                            <ContactRow icon={Phone} title="Phone" value="+91 82818 91391" link="tel:+918281891391" isDarkMode={isDarkMode} />
                             <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={MapPin} title="Address" value="Trivandrum, Kerala" />
+                            <ContactRow icon={MapPin} title="Address" value="Trivandrum, Kerala" isDarkMode={isDarkMode} />
                             <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" />
+                            <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" isDarkMode={isDarkMode} />
                         </div>
                     </div>
 
@@ -1781,7 +1787,7 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <div className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/8 shadow-2xl shadow-black/50' : 'bg-white/70 border-white/80 shadow-xl shadow-slate-200/50'}`}>
                         <h3 className={`text-xl md:text-2xl font-bold mb-2 md:mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Send us a message</h3>
                         <p className={`mb-6 md:mb-8 text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
-                            Fill out the form below and we'll get back to you as soon as possible.
+                            Fill out the form below and we&apos;ll get back to you as soon as possible.
                         </p>
 
                         {sent ? (
@@ -1801,11 +1807,11 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                         ) : (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-                                    <InputBlock label="Full Name" placeholder="Enter your name" icon={User} value={name} onChange={(e: any) => setName(e.target.value)} required />
-                                    <InputBlock label="Email Address" placeholder="Enter your email" type="email" icon={Mail} value={email} onChange={(e: any) => setEmail(e.target.value)} required />
+                                    <InputBlock label="Full Name" placeholder="Enter your name" icon={User} value={name} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setName(e.target.value)} required isDarkMode={isDarkMode} />
+                                    <InputBlock label="Email Address" placeholder="Enter your email" type="email" icon={Mail} value={email} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setEmail(e.target.value)} required isDarkMode={isDarkMode} />
                                 </div>
-                                <InputBlock label="Subject" placeholder="What is this regarding?" icon={Tag} value={subject} onChange={(e: any) => setSubject(e.target.value)} required />
-                                <InputBlock label="Message" placeholder="Type your message here..." icon={Pencil} isTextArea value={message} onChange={(e: any) => setMessage(e.target.value)} required />
+                                <InputBlock label="Subject" placeholder="What is this regarding?" icon={Tag} value={subject} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSubject(e.target.value)} required isDarkMode={isDarkMode} />
+                                <InputBlock label="Message" placeholder="Type your message here..." icon={Pencil} isTextArea value={message} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setMessage(e.target.value)} required isDarkMode={isDarkMode} />
 
                                 <button
                                     type="submit"
@@ -1906,7 +1912,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
     if (!isOpen) return null;
 
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitting(true);
         try {
@@ -1925,7 +1931,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             <div className="absolute inset-0 bg-black/50" onClick={onClose} />
             <div className="relative z-70 w-full max-w-md rounded-lg bg-white p-6 shadow-2xl">
                 <h3 className="text-lg font-bold">Contact Us</h3>
-                <p className="mt-2 text-sm text-slate-600">Send us a message and we'll get back to you soon.</p>
+                <p className="mt-2 text-sm text-slate-600">Send us a message and we&apos;ll get back to you soon.</p>
                 <form onSubmit={handleSubmit} className="mt-4 space-y-3">
                     <input ref={nameRef} value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required className="w-full rounded border px-3 py-2" />
                     <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" type="email" required className="w-full rounded border px-3 py-2" />
