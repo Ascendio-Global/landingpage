@@ -36,6 +36,7 @@ import { useTheme } from 'next-themes';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
 import { InfiniteSlider } from '@/app/components/infinite-slider'
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 
@@ -186,7 +187,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     >
                                         {/* Image taking top portion */}
                                         <div className="absolute inset-0 w-full h-[65%] overflow-hidden">
-                                            <img src={c.image} alt={c.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                            <Image src={c.image || ''} alt={c.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                                         </div>
 
                                         {/* Content block overlapping image */}
@@ -655,12 +656,15 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                 style={{ y: boardY }}
             >
                 {/* Light mode image */}
-                <img
+                <Image
                     src="/hero-city.png"
                     alt=""
+                    fill
+                    sizes="100vw"
+                    priority
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    className="object-cover object-left-top select-none"
                     style={{
                         opacity: isDarkMode ? 0 : 0.95,
                         mixBlendMode: 'multiply',
@@ -671,12 +675,15 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     }}
                 />
                 {/* Dark mode image */}
-                <img
+                <Image
                     src="/hero-city-dark.png"
                     alt=""
+                    fill
+                    sizes="100vw"
+                    priority
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    className="object-cover object-left-top select-none"
                     style={{
                         opacity: isDarkMode ? 0.72 : 0,
                         mixBlendMode: 'screen',
@@ -917,16 +924,20 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             }}
                         />
                         <div className="relative aspect-[4/3] w-full bg-black/20">
-                            <img
+                            <Image
                                 src="/landing-dashboard-light.png"
                                 alt="Dashboard Light"
-                                className="absolute inset-0 h-full w-full object-cover"
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 66vw"
+                                className="object-cover"
                                 style={{ opacity: isDarkMode ? 0 : 1, transition: 'opacity 500ms ease' }}
                             />
-                            <img
+                            <Image
                                 src="/landing-dashboard-dark.png"
                                 alt="Dashboard Dark"
-                                className="absolute inset-0 h-full w-full object-cover"
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 66vw"
+                                className="object-cover"
                                 style={{ opacity: isDarkMode ? 1 : 0, transition: 'opacity 500ms ease' }}
                             />
                         </div>
@@ -1076,10 +1087,12 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem]"
                                 style={{ background: isDarkMode ? 'rgba(109,40,217,0.45)' : 'rgba(59,130,246,0.3)' }}
                             />
-                            <img
+                            <Image
                                 src="/interview.png"
                                 alt="Interview process"
-                                className="relative z-10 w-full rounded-3xl shadow-2xl object-cover"
+                                width={600}
+                                height={800}
+                                className="relative z-10 w-full rounded-3xl shadow-2xl object-cover h-auto"
                                 style={{
                                     aspectRatio: '3/4',
                                     border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
@@ -1483,7 +1496,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 {isDarkMode && (
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
                                 )}
-                                <img src="/terms&cond.png" alt="Legal & Compliance" className={`absolute inset-0 w-full h-full object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
+                                <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
                             </div>
 
                         </div>
@@ -1507,7 +1520,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
             {/* MOBILE — Normal scroll */}
             <div className="flex lg:hidden flex-col gap-8 md:gap-12 w-full px-4 py-10 md:py-20 mx-auto max-w-7xl">
                 <div className={`relative w-full h-[300px] md:h-[400px] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border ${isDarkMode ? 'border-white/10' : 'border-black/5'} shadow-xl`}>
-                    <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
+                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="100vw" className="object-cover" />
                 </div>
                 <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
                 <div className="flex flex-col gap-4 md:gap-6">
@@ -1561,7 +1574,7 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
                     [mask-image:linear-gradient(to_bottom,black_60%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
                     ${isDarkMode ? 'opacity-80 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
                 `}>
-                     <img src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} className={`w-full h-full object-cover ${isDarkMode ? 'mix-blend-screen opacity-80 md:opacity-50' : 'mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
+                     <Image src={isDarkMode ? (image || '/terms&cond.png') : `/term_${index + 1}.png`} alt={title} fill sizes="(max-width: 768px) 100vw, 50vw" className={`object-cover ${isDarkMode ? 'mix-blend-screen opacity-80 md:opacity-50' : 'mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
                 </div>
             )}
             
