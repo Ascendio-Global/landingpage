@@ -1,0 +1,130 @@
+@import "../app/styles/index.css";
+
+:root {
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-poppins), "Segoe UI", sans-serif;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Better touch targets on mobile */
+@media (max-width: 640px) {
+  button, [role="button"], a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Prevent iOS input zoom on focus */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  input[type="url"],
+  input[type="date"],
+  input[type="time"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+.resume-page-shell {
+  width: 794px;
+  min-height: 1123px;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: hidden !important;
+    background: #fff !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .resume-builder-root,
+  .resume-builder-root * {
+    visibility: visible !important;
+  }
+
+  .resume-builder-root {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9999 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    height: auto !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .resume-builder-root > div {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .resume-editor-pane,
+  .resume-preview-toolbar {
+    display: none !important;
+  }
+
+  .resume-preview-scroll {
+    overflow: visible !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .resume-preview-stage {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-preview-scale {
+    transform: none !important;
+    transform-origin: top left !important;
+  }
+
+  .resume-page-shell {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+}
