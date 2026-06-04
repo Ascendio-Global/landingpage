@@ -1,21 +1,36 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
-import type { ElementType } from 'react';
+import type { CSSProperties, ElementType, FormEvent, MouseEvent } from 'react';
 import {
     ArrowRight,
+    Briefcase,
     Building2,
-    CheckCircle2,
-    Crown,
+    ChevronDown,
+    Compass,
+    Eye,
     GraduationCap,
     LayoutDashboard,
+    LogIn,
     Menu,
     Moon,
     Sun,
     Target,
+    TrendingUp,
     X,
+    MapPin,
+    Mail,
+    Phone,
+    Clock,
+    Copy,
+    Check,
+    User,
+    Tag,
+    Pencil,
+    Send,
+    ChevronLeft,
+    ChevronRight
 } from 'lucide-react';
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform, useMotionValueEvent, useMotionValue } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import { useTheme } from 'next-themes';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
@@ -31,13 +46,112 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     const headingY = useTransform(smoothProgress, [0, 0.6], [64, 0]);
 
     const cards = [
-        { title: 'Opportunities', body: 'Explore placements, internships, and industry openings.' },
-        { title: 'Profile Reviews', body: 'Expert feedback on resumes and interview readiness.' },
-        { title: 'Analytics', body: 'Placement analytics to measure outcomes and improve strategies.' },
+        // Recruiter Services First
+        {
+            title: 'Campus Talent Pools',
+            subtitle: 'Curated Student Database',
+            badge: 'RECRUITER',
+            badgeColor: 'bg-indigo-600',
+            body: 'Access verified student profiles from partner colleges through a unified talent marketplace.',
+            metrics: ['Verified Profiles', 'Talent Pool'],
+            image: '/campus_talent_1780541304771.png',
+        },
+        {
+            title: 'Smart Discovery',
+            subtitle: 'AI-Powered Talent Search',
+            badge: 'SMART',
+            badgeColor: 'bg-pink-600',
+            body: 'Search candidates using skills, CGPA, projects, certifications, internships, and placement readiness scores.',
+            metrics: ['AI Search', 'Advanced Filters'],
+            image: '/smart_discovery_1780541317967.png',
+        },
+        {
+            title: 'Hiring Analytics',
+            subtitle: 'Measure Recruitment ROI',
+            badge: 'DATA',
+            badgeColor: 'bg-blue-600',
+            body: 'Monitor hiring performance, offer acceptance rates, recruiter engagement, and sourcing effectiveness.',
+            metrics: ['ROI Tracking', 'Reports'],
+            image: '/hiring_analytics_1780541331151.png',
+        },
+        {
+            title: 'Drive Automation',
+            subtitle: 'End-to-End Management',
+            badge: 'AUTO',
+            badgeColor: 'bg-yellow-600',
+            body: 'Automate job postings, applications, notifications, shortlisting, interviews, and offer rollouts.',
+            metrics: ['Automated', 'Efficient'],
+            image: '/drive_automation_1780541248122.png',
+        },
+        {
+            title: 'Placement Statistics',
+            subtitle: 'Institution Insights',
+            badge: 'COLLEGE',
+            badgeColor: 'bg-purple-600',
+            body: 'Provide colleges with placement trends, department-wise analytics, recruiter engagement, and performance reports.',
+            metrics: ['Insights', 'Reports'],
+            image: '/placement_stats_1780541262126.png',
+        },
+        // Student / Community Services
+        {
+            title: 'Eligibility Checker',
+            subtitle: 'Instant Validation',
+            badge: 'NEW',
+            badgeColor: 'bg-emerald-600',
+            body: 'Automatically verify eligibility for jobs based on CGPA, skills, backlogs, certifications, and company criteria.',
+            metrics: ['Smart Match', 'Verified'],
+            image: '/eligibility_checker_1780541223554.png',
+        },
+        {
+            title: 'Resume Builder',
+            subtitle: 'Professional Profiles',
+            badge: 'TOOL',
+            badgeColor: 'bg-orange-600',
+            body: 'Create recruiter-ready resumes automatically using academic, project, and achievement data.',
+            metrics: ['ATS Friendly', 'Auto Generated'],
+            image: '/resume_builder_1780541234998.png',
+        },
+        {
+            title: 'Community Forums',
+            subtitle: 'Collaborative Learning',
+            badge: 'COMMUNITY',
+            badgeColor: 'bg-teal-600',
+            body: 'Discuss opportunities, share experiences, ask questions, and learn from peers and mentors.',
+            metrics: ['Discussions', 'Support'],
+            image: '/community_forums_1780541278090.png',
+        },
+        {
+            title: 'Alumni Connect',
+            subtitle: 'Professional Networking',
+            badge: 'NETWORK',
+            badgeColor: 'bg-blue-500',
+            body: 'Connect with verified alumni for mentorship, referrals, career guidance, and industry insights.',
+            metrics: ['Mentorship', 'Referrals'],
+            image: '/alumni_connect_1780541292889.png',
+        },
+        // Original Services
+        {
+            title: 'Opportunities',
+            subtitle: 'Curated Openings',
+            badge: 'FRESH',
+            badgeColor: 'bg-blue-600',
+            body: 'Explore curated placements, internships, and live industry openings matched to your profile.',
+            metrics: ['100% Verified', 'Active Daily'],
+            image: '/opportunities_service.png',
+        },
+        {
+            title: 'Profile Reviews',
+            subtitle: 'Expert Feedback',
+            badge: 'PRO',
+            badgeColor: 'bg-violet-600',
+            body: 'Get expert, personalised feedback on your resume, LinkedIn, and interview presence from industry mentors.',
+            metrics: ['Top Mentors', 'Actionable'],
+            image: '/profile_reviews_service.png',
+        },
     ];
 
     return (
-        <section ref={sectionRef} id="services" className={`relative overflow-hidden border-b px-4 py-20 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/10 bg-white'}`}>
+        <section ref={sectionRef} id="services" className={`relative overflow-hidden border-b px-4 py-16 md:py-24 px-4 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
             <div className="mx-auto max-w-7xl">
                 <motion.div style={{ y: headingY }}>
                     <SectionHeader
@@ -48,58 +162,67 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                     />
                 </motion.div>
 
-                <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {cards.map((c, i) => (
-                        <motion.div
-                            key={c.title}
-                            initial={{ opacity: 0, y: 28 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.35 }}
-                            transition={{ duration: 0.55, delay: i * 0.08 }}
-                            className={`rounded-lg border p-6 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-[#f7f7f4]'}`}
-                        >
-                            <h3 className="text-xl font-bold">{c.title}</h3>
-                            <p className="mt-2 text-sm">{c.body}</p>
-                        </motion.div>
-                    ))}
+                {/* Infinite Carousel Wrapper */}
+                <div
+                    className="mt-14 relative w-full overflow-hidden"
+                    style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+                >
+                    <motion.div
+                        className="flex gap-6 w-max"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+                    >
+                        {[...cards, ...cards].map((c, i) => {
+                            return (
+                                <div
+                                    key={`${c.title}-${i}`}
+                                    className="w-[320px] md:w-[380px] shrink-0"
+                                >
+                                    <div
+                                        className={`h-auto min-h-[380px] md:h-[480px] group relative overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl ${isDarkMode
+                                            ? 'bg-white/[0.04] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+                                            : 'bg-white/60 border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+                                            }`}
+                                    >
+                                        {/* Image taking top portion */}
+                                        <div className="absolute inset-0 w-full h-[65%] overflow-hidden">
+                                            <img src={c.image} alt={c.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                        </div>
+
+                                        {/* Content block overlapping image */}
+                                        <div className={`absolute bottom-0 w-full rounded-t-3xl p-6 h-[250px] flex flex-col justify-between gap-6 border-t backdrop-blur-xl ${isDarkMode ? 'bg-black/70 border-white/5' : 'bg-white/80 border-white/60'
+                                            }`}>
+                                            <div>
+                                                <div className="flex items-center gap-3 mb-1">
+                                                    <h3 className={`text-2xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>{c.title}</h3>
+                                                </div>
+                                                <p className={`text-sm font-medium mb-3 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{c.subtitle}</p>
+
+                                                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-500'}`}>
+                                                    {c.body}
+                                                </p>
+                                            </div>
+
+                                            <div className="flex flex-wrap gap-2 mt-auto">
+                                                {c.metrics.map(metric => (
+                                                    <span key={metric} className={`px-3 py-1.5 rounded-lg text-xs font-medium border ${isDarkMode ? 'bg-white/5 border-white/10 text-zinc-400' : 'bg-black/5 border-black/10 text-zinc-600'}`}>
+                                                        {metric}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </motion.div>
                 </div>
             </div>
         </section>
     );
 }
 
-function AboutSection({ isDarkMode }: { isDarkMode: boolean }) {
-    const sectionRef = useRef<HTMLElement | null>(null);
-    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
-    const headingY = useTransform(smoothProgress, [0, 0.6], [48, 0]);
-
-    return (
-        <section ref={sectionRef} id="about" className={`relative border-b px-4 py-20 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/10 bg-[#f7f7f4]'}`}>
-            <div className="mx-auto max-w-4xl text-center">
-                <motion.div style={{ y: headingY }}>
-                    <SectionHeader
-                        eyebrow="About Us"
-                        title="About Aarambh"
-                        copy="Aarambh is a career launchpad dedicated to helping students convert potential into placement outcomes."
-                        isDarkMode={isDarkMode}
-                    />
-                </motion.div>
-            </div>
-        </section>
-    );
-}
-
-const HERO_CLIENTS = [
-    { name: 'Learning', icon: Target },
-    { name: 'Resume Review', icon: CheckCircle2 },
-    { name: 'Placements', icon: GraduationCap },
-    { name: 'Recruiter Connect', icon: Building2 },
-    { name: 'Progress Tracking', icon: LayoutDashboard },
-    { name: 'Career Pathways', icon: Crown },
-];
-
-
+import { Star, BadgeCheck } from 'lucide-react';
 
 const FEATURE_CARDS = [
     {
@@ -128,43 +251,108 @@ const FOUNDING_STATS = [
     { value: '100%', label: 'Committed', description: 'Every session, and feature exists solely to get you placed.' },
 ];
 
+import { ShieldCheck, Users, Network, ArrowUpRight, Zap, PieChart, Lock, Sparkles } from 'lucide-react';
+
 const WHY_US_POINTS = [
     {
-        title: 'Verified Student Profiles',
-        description: 'Showcase skills, achievements, projects, certifications, and experiences in a structured profile trusted by recruiters.',
+        title: 'Verified Profiles',
+        subtitle: 'Trusted & Structured',
+        description: 'Showcase skills, achievements, projects, and experiences in a structured profile trusted by recruiters.',
+        icon: ShieldCheck,
+        color: '#f97316', // Orange
+        bg: 'rgba(249, 115, 22, 0.1)',
     },
     {
-        title: 'Direct Recruiter Access',
-        description: 'Connect students with recruiters and opportunities through a unified platform designed to improve visibility and hiring efficiency.',
+        title: 'Recruiter Access',
+        subtitle: 'Direct Connections',
+        description: 'Connect students with opportunities through a unified platform designed to improve hiring efficiency.',
+        icon: Briefcase,
+        color: '#8b5cf6', // Violet
+        bg: 'rgba(139, 92, 246, 0.1)',
     },
     {
-        title: 'Alumni & Professional Networks',
-        description: 'Build meaningful connections with alumni and industry professionals who can open doors to opportunities and career growth.',
+        title: 'Alumni Network',
+        subtitle: 'Professional Growth',
+        description: 'Build meaningful connections with industry professionals who can open doors to career growth.',
+        icon: Network,
+        color: '#3b82f6', // Blue
+        bg: 'rgba(59, 130, 246, 0.1)',
+    },
+    {
+        title: 'AI-Powered Placement Readiness',
+        subtitle: 'Personalized Growth',
+        description: 'Track student preparedness through readiness scores, skill-gap analysis, company-specific eligibility checks, and AI-driven recommendations.',
+        icon: Target,
+        color: '#f43f5e', // Rose
+        bg: 'rgba(244, 63, 94, 0.1)',
+    },
+    {
+        title: 'Placement Analytics',
+        subtitle: 'Data-Driven Decisions',
+        description: 'Provide colleges with real-time insights into placement performance, recruiter engagement, hiring trends, department-wise statistics, and student outcomes.',
+        icon: PieChart,
+        color: '#06b6d4', // Cyan
+        bg: 'rgba(6, 182, 212, 0.1)',
+    },
+    {
+        title: 'End-to-End Automation',
+        subtitle: 'Reduced Manual Effort',
+        description: 'Automate eligibility verification, application processing, communication workflows, interview scheduling, offer management, and reporting.',
+        icon: Zap,
+        color: '#eab308', // Yellow
+        bg: 'rgba(234, 179, 8, 0.1)',
+    },
+    {
+        title: 'Secure & Verified Ecosystem',
+        subtitle: 'Trusted Platform',
+        description: 'Role-based access control, verified profiles, audit logs, secure document storage, and institution-specific data isolation ensure reliability and trust.',
+        icon: Lock,
+        color: '#10b981', // Emerald
+        bg: 'rgba(16, 185, 129, 0.1)',
+    },
+    {
+        title: 'Smart Recruiter Matching',
+        subtitle: 'Better Hiring Outcomes',
+        description: 'Automatically connect recruiters with the most suitable candidates using eligibility filtering, skill matching, readiness indicators, and academic criteria.',
+        icon: Sparkles,
+        color: '#d946ef', // Fuchsia
+        bg: 'rgba(217, 70, 239, 0.1)',
+    },
+    {
+        title: 'Multi-Stakeholder Collaboration',
+        subtitle: 'One Unified Platform',
+        description: 'Bring together students, recruiters, placement officers, and alumni in a single ecosystem to streamline communication and improve placement success.',
+        icon: Network,
+        color: '#84cc16', // Lime
+        bg: 'rgba(132, 204, 22, 0.1)',
     },
 ];
 
-const COMMITMENTS = [
+const ABOUT_SLIDES = [
     {
-        name: 'Our Placement Promise',
-        role: 'The standard we hold ourselves to — from day one',
-        quote: 'We don\'t just prepare you and wish you luck. We stay engaged until you have an offer in hand.',
+        title: 'Placement Commitment',
+        icon: Target,
+        body: 'We do not measure success by the number of students we train, but by the number we help place. Our commitment extends beyond preparation—we remain actively engaged until meaningful opportunities translate into successful outcomes.',
+        image: '/about_bg_1.png'
     },
     {
-        name: 'Our Responsibility',
-        role: 'What you must expect from us',
-        quote: 'We prioritize user privacy, communicate clearly, and design experiences centered on people.',
+        title: 'Transparent Guidance',
+        icon: Eye,
+        body: 'We believe informed decisions require honest conversations. Students receive clear assessments, constructive feedback, and realistic guidance on their strengths, gaps, and career opportunities.',
+        image: '/about_bg_2.png'
     },
     {
-        name: 'Our Principle',
-        role: 'How everything is built',
-        quote: 'We pursue practical innovation that improves people\'s lives and delivers measurable impact.',
+        title: 'Meaningful Opportunities',
+        icon: Compass,
+        body: 'Every opportunity shared through our platform is selected with purpose. We focus on connecting students with credible employers, relevant roles, and pathways that align with their potential.',
+        image: '/about_bg_3.png'
     },
     {
-        name: 'Our Honesty Pledge',
-        role: 'What you can always expect from us',
-        quote: 'We will tell you the truth about where you stand, what needs work, and what opportunities look like for your profile.',
+        title: 'Long-Term Growth',
+        icon: TrendingUp,
+        body: 'Our objective extends beyond securing a first role. We focus on enabling continuous professional development and long-term career advancement.',
+        image: '/about_bg_4.png'
     },
-
 ];
 
 const PARTNERS = [
@@ -186,30 +374,40 @@ const TERMS = [
     {
         title: 'Eligibility & Access',
         body: 'Aarambh is intended for students, alumni, recruiters, and authorized institutional staff. Access requires valid authentication and role-based approval where applicable.',
+        image: '/term_eligibility_1780542050852.png',
     },
     {
         title: 'Acceptable Use',
         body: 'Users must provide accurate information, use the platform only for placement-related activity, and avoid credential sharing, automation abuse, or unauthorized access.',
+        image: '/term_acceptable_1780542063038.png',
     },
     {
         title: 'Privacy & Security',
         body: 'Personal and placement data is stored securely and protected through access controls, encryption in transit, and role-based visibility. We do not sell user data.',
+        image: '/term_privacy_security_1780542076044.png',
     },
     {
         title: 'Applications & Deadlines',
         body: 'Users must follow posting deadlines and submission rules. False, incomplete, or misleading information may lead to suspension from placement activity.',
+        image: '/term_applications_1780542088947.png',
     },
     {
         title: 'Ownership & IP',
         body: 'Aarambh, its code, design, branding, and infrastructure remain the property of the platform owner. Institutional branding remains the property of the respective institution.',
+        image: '/term_ownership_1780542102938.png',
     },
     {
         title: 'Disclaimer',
         body: 'Placement information is provided for guidance only and does not guarantee outcomes. Continued use after policy updates means you accept the revised terms.',
+        image: '/term_disclaimer_1780542116712.png',
     },
 ];
 
-export function LandingPage() {
+type LoginHandler = (role: 'student' | 'alumni' | 'admin' | 'rep' | null, name: string) => void | Promise<void>;
+
+export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [loginInitialType, setLoginInitialType] = useState<'student' | 'alumni' | 'rep' | 'admin' | undefined>(undefined);
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
     const { resolvedTheme, setTheme } = useTheme();
@@ -229,29 +427,38 @@ export function LandingPage() {
         };
     }, []);
 
+    const handleAuthSuccess = (role: 'student' | 'alumni' | 'admin' | 'rep', name: string, uid: string) => {
+        if (onLogin) {
+            // call parent handler (AppClient.handleLogin expects role,name)
+            void onLogin(role, name);
+        }
+    };
+
 
 
     return (
         <div
             style={{
-                '--landing-accent': isDarkMode ? '#22d3ee' : '#2563eb',
-                '--landing-accent-strong': isDarkMode ? '#0891b2' : '#1d4ed8',
-                '--landing-soft': isDarkMode ? 'rgba(8,145,178,0.12)' : '#eff6ff',
+                '--landing-accent': isDarkMode ? '#7c3aed' : '#2563eb',
+                '--landing-accent-strong': isDarkMode ? '#6d28d9' : '#1d4ed8',
+                '--landing-soft': isDarkMode ? 'rgba(124,58,237,0.14)' : '#eff6ff',
             } as CSSProperties}
-            className={`relative min-h-screen font-sans transition-colors duration-500 ${isDarkMode ? 'bg-[#06080f] text-white selection:bg-cyan-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
+            className={`relative min-h-screen font-sans transition-colors duration-150 ${isDarkMode ? 'bg-[#070509] text-white selection:bg-purple-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
         >
             <Navbar
-                onLoginClick={() => {}}
+                onLoginClick={() => {
+                    setLoginInitialType(undefined);
+                    setIsLoginOpen(true);
+                }}
                 isDarkMode={isDarkMode}
             />
 
-            <Hero isDarkMode={isDarkMode} onExploreClick={() => {}} />
+            <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
             <StatsSection isDarkMode={isDarkMode} />
+            <TestimonialsSection isDarkMode={isDarkMode} />
+            <WhyChooseUsSection isDarkMode={isDarkMode} />
             <FeaturesSection isDarkMode={isDarkMode} />
             <ServicesSection isDarkMode={isDarkMode} />
-            <AboutSection isDarkMode={isDarkMode} />
-            <TestimonialsSection isDarkMode={isDarkMode} />
-            <PartnersSection isDarkMode={isDarkMode} />
             <TermsSection isDarkMode={isDarkMode} />
             <ContactSection isDarkMode={isDarkMode} />
             <Footer isDarkMode={isDarkMode} onOpenSupport={() => setIsContactOpen(true)} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
@@ -294,49 +501,96 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
     const closeMobileMenu = () => setMobileMenuOpen(false);
 
     return (
-        <nav className={`fixed inset-x-0 top-0 z-50 px-4 py-4 transition-all duration-300 sm:px-6 ${scrolled ? (isDarkMode ? 'border-b border-white/10 bg-[#06080f]/86 backdrop-blur-xl' : 'border-b border-blue-100 bg-white/86 backdrop-blur-xl') : 'bg-transparent'}`}>
-            <div className="mx-auto flex max-w-7xl items-center justify-between">
-                <a href="#" className="flex items-center gap-3" aria-label="Aarambh home">
-                    <AnimatedLogoMark size="sm" role="landing" />
-                    <div className="flex flex-col leading-none">
-                        <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
-                        <span className="mt-0.5 font-Cinzel	 text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
-                    </div>
-                </a>
-
-                <div className={`hidden items-center gap-7 text-sm font-semibold md:flex ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                    {['Features', 'Services', 'About'].map((item) => (
-                        <a key={item} href={`#${item.toLowerCase()}`} className={`group relative transition ${isDarkMode ? 'hover:text-white' : 'hover:text-blue-700'}`}>
-                            {item}
-                            <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-cyan-500 transition-all group-hover:w-full" />
+        <nav className="fixed inset-x-0 top-0 z-50 flex justify-center px-2 py-2 md:px-6 md:py-4 transition-all duration-500 pointer-events-none">
+            <div className="relative w-[94%] md:w-full max-w-7xl flex justify-center">
+                <motion.div
+                    layout
+                    className={`pointer-events-auto flex w-full items-center justify-between rounded-[16px] md:rounded-[20px] border shadow-lg transition-colors duration-300 overflow-hidden ${isDarkMode ? 'border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl' : 'border-black/10 bg-white/90 backdrop-blur-xl'
+                        }`}
+                    style={{
+                        padding: scrolled ? '4px' : '6px'
+                    }}
+                >
+                    {/* Logo Area */}
+                    <div className="flex items-center pl-1 md:pl-2 pr-2 md:pr-4 scale-95 md:scale-100 origin-left">
+                        <a href="#" className="flex items-center" aria-label="Aarambh home">
+                            <AnimatedLogoMark size="sm" role="landing" />
+                            <AnimatePresence>
+                                {!scrolled && (
+                                    <motion.div
+                                        initial={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: 'auto' }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        className="overflow-hidden whitespace-nowrap"
+                                    >
+                                        <div className="flex flex-col leading-none pl-3">
+                                            <span className="text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
+                                            <span className="mt-0.5 font-Cinzel text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </a>
-                    ))}
-                    {/* Admin link removed per design request */}
-                </div>
+                    </div>
 
-                <button
-                    type="button"
-                    onClick={() => setMobileMenuOpen((open) => !open)}
-                    className={`inline-flex h-11 w-11 items-center justify-center rounded-lg ring-1 transition active:scale-95 md:hidden ${isDarkMode ? 'border-white/10 bg-white/5 text-white ring-white/10' : 'border-black/10 bg-white text-slate-900 ring-black/10'}`}
-                    aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-                    aria-expanded={mobileMenuOpen}
-                >
-                    {mobileMenuOpen ? <Target className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                </button>
+                    {/* Nav Links */}
+                    <div className={`hidden items-center md:flex px-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                        {[
+                            { label: 'About', href: '#about' },
+                            { label: 'Features', href: '#why-choose-us' },
+                            { label: 'Services', href: '#services' },
+                            { label: 'Contact', href: '#contact' },
+                        ].map((item, idx) => (
+                            <a
+                                key={item.label}
+                                href={item.href}
+                                className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${isDarkMode
+                                    ? 'hover:bg-white/10 hover:text-white'
+                                    : 'hover:bg-black/5 hover:text-black'
+                                    }`}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+                    </div>
 
-                {/* <button
-                    onClick={onLoginClick}
-                    className={`group hidden h-11 items-center gap-2 rounded-lg px-4 text-m font-bold transition active:scale-95 md:inline-flex ${isDarkMode ? '  hover:text-white ring-1 ring-white/10 ' : ' text-black ring-1 ring-black/10 '}`}
-                >
-                    Log In
-                    <LogIn className="h-4 w-4 transition group-hover:translate-x-0.5" />
-                </button> */}
-                <Link
-                    href="#contact"
-                    className={`group hidden h-11 items-center gap-2 rounded-lg px-4 text-m font-bold transition active:scale-95 md:inline-flex ${isDarkMode ? '  hover:text-white ring-1 ring-white/10 ' : ' text-black ring-1 ring-black/10 '}`}
-                >
-                    Contact Us
-                </Link>
+                    {/* Right Actions */}
+                    <div className="flex items-center gap-2 pr-1">
+                        <button
+                            onClick={onLoginClick}
+                            className={`group flex items-center justify-center rounded-[14px] text-sm font-medium transition-all h-[38px] md:h-[42px] ${isDarkMode
+                                ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]'
+                                : 'bg-blue-600 text-white hover:bg-blue-700'
+                                }`}
+                            style={{
+                                padding: scrolled ? '0 14px' : '0 20px',
+                            }}
+                        >
+                            <AnimatePresence>
+                                {!scrolled && (
+                                    <motion.span
+                                        initial={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: 'auto' }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        className="overflow-hidden whitespace-nowrap"
+                                    >
+                                        <span className="pr-2">Log In</span>
+                                    </motion.span>
+                                )}
+                            </AnimatePresence>
+                            <LogIn className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => setMobileMenuOpen((open) => !open)}
+                            className={`inline-flex h-[38px] md:h-[42px] w-[38px] md:w-[42px] items-center justify-center rounded-[14px] transition md:hidden ${isDarkMode ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-black/5 text-black hover:bg-black/10'
+                                }`}
+                        >
+                            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                        </button>
+                    </div>
+                </motion.div>
             </div>
 
             <AnimatePresence>
@@ -345,26 +599,31 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className={`mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border p-4 shadow-2xl md:hidden ${isDarkMode ? 'border-white/10 bg-[#090a0f]/96 text-white' : 'border-blue-100 bg-white/96 text-slate-900'}`}
+                        className={`absolute inset-x-4 top-20 mx-auto max-w-7xl overflow-hidden rounded-2xl border p-4 shadow-2xl md:hidden pointer-events-auto backdrop-blur-2xl ${isDarkMode ? 'border-white/10 bg-black/70 text-white' : 'border-blue-100/60 bg-white/80 text-slate-900'}`}
                     >
                         <div className="grid gap-2">
-                            {['Features', 'Services', 'About'].map((item) => (
+                            {[
+                                { label: 'About', href: '#about' },
+                                { label: 'Features', href: '#why-choose-us' },
+                                { label: 'Services', href: '#services' },
+                                { label: 'Contact', href: '#contact' },
+                            ].map((item) => (
                                 <a
-                                    key={item}
-                                    href={`#${item.toLowerCase()}`}
+                                    key={item.label}
+                                    href={item.href}
                                     onClick={closeMobileMenu}
                                     className={`rounded-xl px-3 py-3 text-sm font-semibold transition ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'}`}
                                 >
-                                    {item}
+                                    {item.label}
                                 </a>
                             ))}
-                            <Link
-                                href="#contact"
-                                onClick={closeMobileMenu}
-                                className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-cyan-400/15 text-cyan-200 hover:bg-cyan-400/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
+                            <button
+                                onClick={() => { closeMobileMenu(); onLoginClick(); }}
+                                className={`mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition ${isDarkMode ? 'bg-purple-500/15 text-purple-200 hover:bg-purple-500/20' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
                             >
-                                Contact Us
-                            </Link>
+                                Log In
+                                <LogIn className="h-4 w-4" />
+                            </button>
                         </div>
                     </motion.div>
                 ) : null}
@@ -382,192 +641,226 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.35 });
     const headlineY = useTransform(smoothProgress, [0, 1], [0, -72]);
     const headlineOpacity = useTransform(smoothProgress, [0, 0.75], [1, 0.58]);
-    const boardY = useTransform(smoothProgress, [0, 1], [0, 120]);
-    const boardScale = useTransform(smoothProgress, [0, 1], [1, 0.9]);
-    const redPanelX = useTransform(smoothProgress, [0, 1], ['8%', '-10%']);
-    const gridY = useTransform(smoothProgress, [0, 1], [0, 42]);
+    const boardY = useTransform(smoothProgress, [0, 1], [0, 60]);
 
     return (
-        <section ref={heroRef} className={`relative min-h-screen overflow-hidden border-b pt-24 ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/10 bg-[#f7f7f4]'}`}>
-            <div className={`absolute inset-0 ${isDarkMode ? 'opacity-25' : 'opacity-70'} bg-[linear-gradient(90deg,transparent_0,transparent_31px,rgba(120,120,120,0.10)_32px),linear-gradient(180deg,transparent_0,transparent_31px,rgba(120,120,120,0.10)_32px)] bg-size-[32px_32px]`} />
-            <motion.div
-                className="absolute right-0 top-0 h-full w-[34vw] bg-(--landing-accent)/15"
-                style={{ x: redPanelX }}
-                animate={{ opacity: [0.72, 1, 0.72] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-                className={`absolute left-0 top-[14%] h-28 w-[42vw] ${isDarkMode ? 'bg-cyan-400/8' : 'bg-cyan-300/18'}`}
-                style={{ y: gridY }}
-            />
+        <section ref={heroRef} className={`relative min-h-[88vh] md:min-h-screen overflow-hidden border-b pt-16 md:pt-24 ${isDarkMode ? 'border-white/10 bg-[#070509]' : 'border-slate-100 bg-slate-100'}`}>
 
-            <div className="relative mx-auto grid min-h-[calc(100vh-96px)] max-w-7xl items-start gap-8 px-4 pb-12 sm:px-6 lg:grid-cols-[1fr_1.1fr] xl:gap-12">
+            {/* ── Background illustration — absolutely positioned, behind all content ── */}
+            <motion.div
+                className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[68%]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
+                style={{ y: boardY }}
+            >
+                {/* Light mode image */}
+                <img
+                    src="/hero-city.png"
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    style={{
+                        opacity: isDarkMode ? 0 : 0.95,
+                        mixBlendMode: 'multiply',
+                        WebkitMaskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
+                        maskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
+                        filter: 'contrast(1.2) saturate(1.4) brightness(1.03)',
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+                {/* Dark mode image */}
+                <img
+                    src="/hero-city-dark.png"
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-cover object-left-top select-none"
+                    style={{
+                        opacity: isDarkMode ? 0.72 : 0,
+                        mixBlendMode: 'screen',
+                        WebkitMaskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
+                        maskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
+                        filter: 'saturate(1.1) brightness(1.05)',
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+                {/* Left-edge feather — light */}
+                <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                        background: 'linear-gradient(to right, #f1f5f9 0%, transparent 45%)',
+                        opacity: isDarkMode ? 0 : 1,
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+                {/* Left-edge feather — dark */}
+                <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                        background: 'linear-gradient(to right, #070509 0%, transparent 35%)',
+                        opacity: isDarkMode ? 1 : 0,
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+                {/* Bottom fade — light */}
+                <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+                    style={{
+                        background: 'linear-gradient(to top, #f1f5f9, transparent)',
+                        opacity: isDarkMode ? 0 : 1,
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+                {/* Bottom fade — dark */}
+                <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+                    style={{
+                        background: 'linear-gradient(to top, #070509, transparent)',
+                        opacity: isDarkMode ? 1 : 0,
+                        transition: 'opacity 500ms ease',
+                    }}
+                />
+            </motion.div>
+
+            {/* Content — single column, z-10 over the background image */}
+            <div className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-96px)] max-w-7xl flex-col justify-center px-5 pb-8 pt-4 md:pt-8 sm:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 28 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: 'easeOut' }}
                     style={{ y: headlineY, opacity: headlineOpacity }}
-                    className="z-10 max-w-4xl"
+                    className="max-w-2xl"
                 >
 
-
-                    <h1 className="max-w-4xl text-[clamp(2.8rem,6.4vw,6.4rem)] font-black uppercase leading-[0.88] tracking-normal xl:text-[clamp(3rem,5.8vw,6.8rem)]">
+                    <h1 className="mt-2 md:mt-7 text-[clamp(2.2rem,8vw,5.6rem)] font-black leading-[1.05] md:leading-[0.96] tracking-tight">
                         Build Careers
                         <span className="block text-(--landing-accent)">With Legendary</span>
-                        <span className="block">Placement Outcomes</span>
+                        <span className="block">Placement Outcomes.</span>
                     </h1>
 
-                    <p className={`mt-7 max-w-xl border-l-4 border-(--landing-accent) pl-5 text-base leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                        Bringing together talent, opportunities, and industry connections in one platform.
+                    <p className={`mt-4 md:mt-6 max-w-lg text-sm md:text-base leading-relaxed md:leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                        We bring together talent, opportunities, and industry connections
+                        in one intelligent platform built for placement success.
                     </p>
 
-
-                    {/* <div className="mt-8">
-                        <button onClick={() => { onExploreClick && onExploreClick(); }} className="group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_40px_rgba(8,145,178,0.25)] transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95">
-                            Explore Opportunities
+                    <div className="mt-6 md:mt-9 flex flex-wrap items-center gap-3">
+                        <a
+                            href="#contact"
+                            className={`group inline-flex h-12 items-center gap-2 rounded-xl px-6 text-sm font-bold shadow-lg transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-[#ffffff] text-[#0a0a0f] shadow-black/40 hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-blue-600/25 hover:bg-blue-700'}`}
+                        >
+                            Connect With Us
                             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                        </button>
-                    </div> */}
+                        </a>
+                        <a
+                            href="#why-choose-us"
+                            className={`inline-flex h-12 items-center gap-2 rounded-xl border px-6 text-sm font-bold transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]' : 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700'}`}
+                        >
+                            Why Aarambh?
+                        </a>
+                    </div>
+
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 32 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
-                    style={{ y: boardY, scale: boardScale }}
-                    className="relative z-10 mx-auto w-full max-w-xl self-start lg:max-w-2xl lg:justify-self-end"
-                >
-                    <HeroMotionBoard isDarkMode={isDarkMode} />
-                </motion.div>
+                {/* ── Pill strip at bottom ── */}
+                <div className="mt-8 md:mt-32 w-full">
+                    <HeroPillStrip isDarkMode={isDarkMode} />
+                </div>
             </div>
         </section>
     );
 }
 
-function HeroMotionBoard({ isDarkMode }: { isDarkMode: boolean }) {
+
+const HERO_PILLS = [
+    {
+        label: 'Connect',
+        sub: 'Talent & Recruiters',
+        icon: (
+            // Two people / network icon matching the reference
+            <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-9 w-11">
+                <circle cx="13" cy="9" r="5" />
+                <path d="M3 28v-2a8 8 0 0 1 8-8h4a8 8 0 0 1 8 8v2" />
+                <circle cx="31" cy="11" r="4" />
+                <path d="M37 28v-1.5a5 5 0 0 0-4-4.9" />
+                <path d="M25 28v-1.5a5 5 0 0 1 4-4.9" />
+            </svg>
+        ),
+    },
+    {
+        label: 'Empower',
+        sub: 'Students & Colleges',
+        icon: (
+            // Mortarboard / graduation cap matching the reference
+            <svg viewBox="0 0 36 30" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-9 w-10">
+                <path d="M4 11l14-7 14 7-14 7-14-7z" />
+                <path d="M10 14.5v7c3.33 1.67 9.67 1.67 13 0v-7" />
+                <line x1="32" y1="11" x2="32" y2="22" />
+                <circle cx="32" cy="23" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+        ),
+    },
+    {
+        label: 'Collaborate',
+        sub: 'Alumni & Communities',
+        icon: (
+            // Handshake matching the reference
+            <svg viewBox="0 0 40 28" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-9 w-11">
+                <path d="M3 18l6-6h6l4-4h6l6 6" />
+                <path d="M3 18c0 0 4 4 8 4s5-2 5-2l5 5c0 0 2 2 4 0l8-8c0 0 2-2 0-4" />
+                <path d="M15 16l4 4" />
+                <path d="M19 12l4 4" />
+                <path d="M23 8l4 4" />
+            </svg>
+        ),
+    },
+    {
+        label: 'Build',
+        sub: 'Stronger Futures',
+        icon: (
+            // Bar chart with upward arrow matching the reference
+            <svg viewBox="0 0 36 30" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-9 w-10">
+                <rect x="3" y="18" width="6" height="9" rx="1" />
+                <rect x="13" y="12" width="6" height="15" rx="1" />
+                <rect x="23" y="6" width="6" height="21" rx="1" />
+                <path d="M31 3l3 3-3 3" />
+                <path d="M34 6H29" />
+            </svg>
+        ),
+    },
+];
+
+function HeroPillStrip({ isDarkMode }: { isDarkMode: boolean }) {
     return (
-        <div className={`relative overflow-hidden border p-4 shadow-2xl lg:p-5 ${isDarkMode ? 'border-white/10 bg-[#111318]' : 'border-black/10 bg-white'}`}>
-            <div className={`absolute inset-x-3 top-3 h-24 ${isDarkMode ? 'bg-(--landing-accent)/20' : 'bg-(--landing-accent)/12'}`} />
-            <motion.div
-                className="absolute left-1/2 top-8 z-20 h-32 w-px bg-zinc-400"
-                animate={{ y: [0, 14, 0] }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-                className="  border-zinc-400 bg-white shadow-sm"
-                animate={{ y: [0, 14, 0], rotate: [-1, 1, -1] }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-
-            <div className="relative grid gap-4 sm:grid-cols-[1fr_0.98fr]">
-                <div className="min-h-107.5 overflow-hidden border border-current/10 bg-[#f1f1ed] p-5 text-[#111111] dark:bg-[#f3f4f6] lg:min-h-117.5">
-                    <div className="mb-6 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <span className="h-5 w-5 bg-(--landing-accent)" />
-                            <span className="max-w-32 text-[10px] font-black uppercase leading-4 tracking-[0.24em] lg:max-w-none lg:text-xs">Trusted by Industry Leaders</span>
-                        </div>
-                        <span className="rounded-lg bg-[#111111] px-3 py-2 text-xs font-bold text-white">ACTIVE</span>
-                    </div>
-
-                    <div className="relative min-h-77.5">
-                        <motion.div
-                            className="absolute bottom-10 left-1/2 h-40 w-[88%] -translate-x-1/2 skew-x-[-8deg] bg-(--landing-accent) shadow-[20px_24px_0_rgba(17,17,17,0.12)]"
-                            animate={{ x: ['-54%', '-50%', '-54%'], y: [0, -10, 0] }}
-                            transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
-                        />
-                        <motion.div
-                            className="absolute bottom-16 left-[0.7%] z-10 text-[2.55rem] font-black leading-[0.9] lg:text-[3.3rem]"
-                            style={{ color: '#000' }}
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            <span className="inline-block" style={{ color: '#000' }}>
-                                Build Careers
-                            </span>
-                        </motion.div>
-                        <motion.div
-                            className="absolute bottom-16 right-[10%] z-10 flex gap-2 lg:right-[12%]"
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-
-                        </motion.div>
-                        <motion.div
-                            className="absolute left-4 top-18 max-w-28 text-[10px] font-bold uppercase leading-4 tracking-[0.16em] text-zinc-500"
-                            animate={{ opacity: [0.55, 1, 0.55], x: [0, 8, 0] }}
-                            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            Opportunities
-                        </motion.div>
-                        <motion.div
-                            className="absolute right-4 top-24 max-w-24 text-[10px] font-bold uppercase leading-4 tracking-[0.16em] text-zinc-500"
-                            animate={{ opacity: [1, 0.55, 1], x: [0, -8, 0] }}
-                            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            Recruiter matching
-                        </motion.div>
+        <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.55, ease: 'easeOut' }}
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 sm:gap-6"
+        >
+            {HERO_PILLS.map((pill, i) => (
+                <div
+                    key={pill.label}
+                    className={`flex items-center gap-2 md:gap-4 px-3 py-3 md:px-6 md:py-5 rounded-xl md:rounded-2xl border backdrop-blur-xl ${isDarkMode
+                        ? 'bg-white/[0.03] border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.3)]'
+                        : 'bg-white/70 border-white/80 shadow-[0_4px_24px_rgba(0,0,0,0.06)]'
+                        }`}
+                >
+                    <span className={`shrink-0 scale-75 md:scale-100 ${isDarkMode ? 'text-violet-400' : 'text-blue-600'}`}>
+                        {pill.icon}
+                    </span>
+                    <div className="min-w-0">
+                        <p className={`text-xs md:text-sm font-bold leading-tight truncate ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                            {pill.label}
+                        </p>
+                        <p className={`mt-0.5 text-[10px] md:text-xs leading-[1.1] md:whitespace-nowrap ${isDarkMode ? 'text-white/45' : 'text-slate-500'}`}>
+                            {pill.sub}
+                        </p>
                     </div>
                 </div>
-
-                <div className={`grid gap-3 ${isDarkMode ? 'text-white' : 'text-[#111111]'}`}>
-                    <div className={`border p-5 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-[#fafafa]'}`}>
-                        <div className="mb-4 flex items-center justify-between">
-                            <span className="text-xs font-black uppercase tracking-[0.22em]">Placement Focus</span>
-                            <Target className="h-5 w-5 text-(--landing-accent)" />
-                        </div>
-
-                        <div className="mb-4 flex items-end justify-between">
-                            <div>
-                                <div className="text-4xl font-black lg:text-[3.4rem]">100%</div>
-                                <div className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Dedicated</div>
-                            </div>
-                            <div className="rounded-lg bg-(--landing-accent) px-3 py-1 text-xs font-black text-white">LIVE</div>
-                        </div>
-
-                        <div className="space-y-2.5">
-                            <div className="flex justify-between text-sm">
-                                <span className={isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}>Platform Readiness</span>
-                                <span className="font-bold">100%</span>
-                            </div>
-                            <div className={`h-2 overflow-hidden rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-zinc-200'}`}>
-                                <motion.div
-                                    className="h-full rounded-full bg-(--landing-accent)"
-                                    initial={{ width: '0%' }}
-                                    animate={{ width: '100%' }}
-                                    transition={{ duration: 1.4, delay: 0.35, ease: 'easeOut' }}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="mt-5 grid grid-cols-3 border-t border-current/10 pt-4 text-center">
-                            <HeroStatItem value="2026" label="Founded" isDarkMode={isDarkMode} />
-                            <HeroStatItem value="1:1" label="Assistance" isDarkMode={isDarkMode} />
-                            <HeroStatItem value="24/7" label="Support" isDarkMode={isDarkMode} />
-                        </div>
-                    </div>
-
-                    <div className={`overflow-hidden border py-4 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-[#fafafa]'}`}>
-                        <InfiniteSlider speedOnHover={20} speed={35} gap={76}>
-                            {[...HERO_CLIENTS, ...HERO_CLIENTS].map((client, index) => (
-                                <div key={`${client.name}-${index}`} className="flex items-center gap-2">
-                                    <client.icon className={`h-5 w-5 ${isDarkMode ? 'text-white' : 'text-[#111111]'}`} />
-                                    <span className="text-sm font-black tracking-wide">{client.name}</span>
-                                </div>
-                            ))}
-                        </InfiniteSlider>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function HeroStatItem({ value, label, isDarkMode }: { value: string; label: string; isDarkMode: boolean }) {
-    return (
-        <div className="flex cursor-default flex-col items-center justify-center">
-            <span className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-[#111111]'}`}>{value}</span>
-            <span className={`text-[10px] font-bold uppercase tracking-wider ${isDarkMode ? 'text-zinc-500' : 'text-zinc-500'}`}>{label}</span>
-        </div>
+            ))}
+        </motion.div>
     );
 }
 
@@ -594,7 +887,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
     }, []);
 
     return (
-        <section ref={sectionRef} className={`relative overflow-hidden border-b px-4 py-24 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/10 bg-white'}`}>
+        <section ref={sectionRef} id="stats" className={`relative overflow-hidden border-b px-4 py-10 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
             <motion.div
                 className="absolute left-0 top-0 h-full w-2 origin-top bg-(--landing-accent)"
                 style={{ scaleY: railScale }}
@@ -603,65 +896,158 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                 className={`absolute right-[6%] top-20 hidden h-36 w-36 lg:block ${isDarkMode ? 'bg-cyan-400/10' : 'bg-cyan-300/25'}`}
                 style={{ y: panelY, rotate: -8 }}
             />
-            <div className="relative mx-auto max-w-7xl">
-                <SectionHeader
-                    eyebrow="Who We Are"
-                    title="Built Different. Built for You."
-                    copy="We started in 2026 with a single objective — get every student placed and trained successfully."
-                    isDarkMode={isDarkMode}
-                />
+            <div className="relative mx-auto max-w-[90rem]">
+                <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
 
-                {/* Founding story stats */}
-                <motion.div
-                    className="mt-12 grid grid-cols-1 border border-current/10 sm:grid-cols-3"
-                    style={{ y: panelY }}
-                >
-                    {FOUNDING_STATS.map((stat, index) => (
+                    {/* Left: Dashboard Image */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.7, ease: 'easeOut' }}
+                        className="relative rounded-[2rem] border shadow-2xl overflow-hidden hidden md:block"
+                        style={{
+                            borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                        }}
+                    >
+                        <div
+                            className="absolute -bottom-10 left-1/2 -translate-x-1/2 h-32 w-[80%] rounded-full opacity-40 blur-[3rem]"
+                            style={{
+                                background: isDarkMode ? '#6d28d9' : '#3b82f6',
+                            }}
+                        />
+                        <div className="relative aspect-[4/3] w-full bg-black/20">
+                            <img
+                                src="/landing-dashboard-light.png"
+                                alt="Dashboard Light"
+                                className="absolute inset-0 h-full w-full object-cover"
+                                style={{ opacity: isDarkMode ? 0 : 1, transition: 'opacity 500ms ease' }}
+                            />
+                            <img
+                                src="/landing-dashboard-dark.png"
+                                alt="Dashboard Dark"
+                                className="absolute inset-0 h-full w-full object-cover"
+                                style={{ opacity: isDarkMode ? 1 : 0, transition: 'opacity 500ms ease' }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* Right: Content */}
+                    <div>
+                        <SectionHeader
+                            eyebrow="Who We Are"
+                            title="Built Different. Built for You."
+                            copy="We started in 2026 with a single objective — get every student placed and trained successfully."
+                            isDarkMode={isDarkMode}
+                            align="left"
+                        />
+
+                        {/* Founding story stats */}
                         <motion.div
-                            key={stat.label}
-                            initial={{ opacity: 0, y: 28 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.55, delay: index * 0.08 }}
-                            className="border-b border-r border-current/10 p-6 last:border-r-0 sm:min-h-52 lg:border-b-0"
+                            className={`mt-6 md:mt-12 grid grid-cols-1 border sm:grid-cols-2 backdrop-blur-xl rounded-xl md:rounded-2xl overflow-hidden ${isDarkMode ? 'border-white/8 bg-white/[0.02]' : 'border-black/8 bg-white/60'}`}
+                            style={{ y: panelY }}
                         >
-                            <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
-                            <div className="text-5xl font-black text-(--landing-accent) md:text-6xl">
-                                {stat.value}
-                            </div>
-                            <p className={`mt-2 text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                {stat.label}
-                            </p>
-                            <p className={`mt-3 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                                {stat.description}
-                            </p>
+                            {FOUNDING_STATS.map((stat, index) => (
+                                <motion.div
+                                    key={stat.label}
+                                    initial={{ opacity: 0, y: 28 }}
+                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ duration: 0.55, delay: index * 0.08 }}
+                                    className={`p-5 md:p-8 min-h-24 sm:min-h-52 flex flex-col justify-center border-white/[0.06] ${index === 0 ? 'border-b sm:border-r' :
+                                        index === 1 ? 'border-b sm:border-b-0 sm:row-span-2' :
+                                            'sm:border-r'
+                                        }`}
+                                >
+                                    <div className="mb-3 md:mb-6 h-1 md:h-2 w-8 md:w-12 bg-(--landing-accent)" />
+                                    <div className="text-3xl font-black text-(--landing-accent) md:text-5xl">
+                                        {stat.value}
+                                    </div>
+                                    <p className={`mt-2 text-xs md:text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                        {stat.label}
+                                    </p>
+                                    <p className={`mt-2 md:mt-4 text-xs md:text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                        {stat.description}
+                                    </p>
+                                </motion.div>
+                            ))}
                         </motion.div>
-                    ))}
-                </motion.div>
+                    </div>
+                </div>
 
-                {/* Why Us differentiators */}
-                <div className="mt-16">
-                    <p className={`mb-8 text-center text-xs font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
-                        Why Choose Us
-                    </p>
-                    <div className="grid grid-cols-1 gap-px border border-current/10 md:grid-cols-3">
-                        {WHY_US_POINTS.map((point, index) => (
+            </div>
+        </section>
+    );
+}
+
+function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
+    const [isInView, setIsInView] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) setIsInView(true);
+            },
+            { threshold: 0.2 }
+        );
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b px-4 py-12 md:py-28 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
+            <div className="mx-auto max-w-7xl">
+                <p className={`mb-6 md:mb-12 text-xs md:text-sm font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
+                    Why Choose Us
+                </p>
+                <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3">
+                    {WHY_US_POINTS.map((point, index) => {
+                        const Icon = point.icon;
+                        return (
                             <motion.div
                                 key={point.title}
-                                initial={{ opacity: 0, y: 24 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.5, delay: 0.35 + index * 0.1 }}
-                                className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}
+                                transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
+                                style={{
+                                    '--hover-border': point.color,
+                                    '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                } as React.CSSProperties}
+                                className={`group relative overflow-hidden rounded-[16px] md:rounded-[20px] p-5 md:p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
+                                    ? 'bg-white/[0.03] border-white/8 hover:bg-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+                                    : 'bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
+                                    }`}
                             >
-                                <div className="mb-4 h-2 w-8 bg-(--landing-accent)" />
-                                <h3 className={`mb-3 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                {/* Top subtle glow */}
+                                <div
+                                    className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+                                    style={{ backgroundColor: point.color }}
+                                />
+
+                                <div className="flex justify-between items-start mb-4 md:mb-12">
+                                    {/* Icon Container */}
+                                    <div
+                                        className="grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-full"
+                                        style={{ backgroundColor: point.bg, color: point.color }}
+                                    >
+                                        <Icon className="h-5 w-5 md:h-6 md:w-6" />
+                                    </div>
+                                </div>
+
+                                {/* Text Content */}
+                                <h3 className={`text-lg md:text-xl font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
                                     {point.title}
                                 </h3>
-                                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                <p className={`mt-1 text-xs md:text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    {point.subtitle}
+                                </p>
+
+                                <p className={`mt-2 md:mt-8 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
                                     {point.description}
                                 </p>
                             </motion.div>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
@@ -675,80 +1061,91 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
         offset: ['start end', 'end start'],
     });
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
-    const headingY = useTransform(smoothProgress, [0, 0.45, 1], [80, 0, -80]);
+    const headingY = useTransform(smoothProgress, [0, 0.45, 1], [40, 0, -40]);
 
     return (
-        <section ref={sectionRef} id="features" className={`relative border-b px-4 py-28 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/10 bg-[#f7f7f4]'}`}>
-            <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-                <motion.div style={{ y: headingY }} className="lg:sticky lg:top-28 lg:h-fit">
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">Core Capabilities</p>
-                    <h2 className="mt-4 text-4xl font-black uppercase leading-[0.95] md:text-6xl">
-                        Seamless
-                        <br />
-                        Recruitment
-                    </h2>
-                    <p className={`mt-6 max-w-md text-lg leading-8 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                        Our advanced tools help you manage every stage of the hiring pipeline, from initial application to final offer letter.
-                    </p>
-                    <div className="mt-8 h-1 w-20 bg-(--landing-accent)" />
-                </motion.div>
+        <section ref={sectionRef} id="features" className={`relative border-b px-4 md:px-6 py-12 md:py-28 overflow-hidden ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/6 bg-[#f7f7f4]/80 backdrop-blur-sm'}`}>
+            <div className="mx-auto max-w-[88rem]">
+                <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-                <div className="relative space-y-10 lg:px-6 lg:pb-0">
-                    <svg
-                        aria-hidden="true"
-                        viewBox="0 0 100 360"
-                        preserveAspectRatio="none"
-                        className="pointer-events-none absolute inset-y-0 left-0 hidden w-full text-(--landing-accent)/70 lg:block"
-                    >
-                        <line x1="8" y1="0" x2="8" y2="155" stroke="currentColor" strokeWidth="0.4" opacity="0.42" />
-                        <line x1="92" y1="0" x2="92" y2="155" stroke="currentColor" strokeWidth="0.4" opacity="0.42" />
-                    </svg>
-                    {FEATURE_CARDS.map((feature, index) => (
-                        <FeatureCard key={feature.title} {...feature} index={index} isDarkMode={isDarkMode} sectionProgress={smoothProgress} />
-                    ))}
+                    {/* LEFT: Sticky image that spans the full section */}
+                    <div className="hidden lg:block lg:sticky lg:top-24">
+                        <div className="relative">
+                            {/* glow */}
+                            <div
+                                className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem]"
+                                style={{ background: isDarkMode ? 'rgba(109,40,217,0.45)' : 'rgba(59,130,246,0.3)' }}
+                            />
+                            <img
+                                src="/interview.png"
+                                alt="Interview process"
+                                className="relative z-10 w-full rounded-3xl shadow-2xl object-cover"
+                                style={{
+                                    aspectRatio: '3/4',
+                                    border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+                                }}
+                            />
+                        </div>
+                    </div>
+
+                    {/* RIGHT: Header + cards */}
+                    <div>
+                        <motion.div style={{ y: headingY }} className="mb-8 md:mb-12">
+                            <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">Core Capabilities</p>
+                            <h2 className="mt-2 md:mt-4 text-3xl font-black uppercase leading-[1.05] md:text-7xl md:leading-[0.9]">
+                                Seamless<br />Recruitment
+                            </h2>
+                            <p className={`mt-3 md:mt-6 text-[15px] md:text-lg leading-7 md:leading-8 max-w-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
+                                }`}>
+                                Our advanced tools help you manage every stage of the hiring pipeline, from initial application to final offer letter.
+                            </p>
+                            <div className="mt-6 md:mt-8 h-1 w-20 bg-(--landing-accent)" />
+                        </motion.div>
+
+                        <div className="space-y-4 md:space-y-5">
+                            {FEATURE_CARDS.map((feature, index) => (
+                                <FeatureCard
+                                    key={feature.title}
+                                    {...feature}
+                                    index={index}
+                                    isDarkMode={isDarkMode}
+                                    sectionProgress={smoothProgress}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     );
 }
 
-function FeatureCard({ number, title, description, icon: Icon, index, isDarkMode, sectionProgress }: { number: string; title: string; description: string; icon: ElementType; index: number; isDarkMode: boolean; sectionProgress: MotionValue<number> }) {
-    const start = 0.12 + index * 0.18;
-    const end = start + 0.34;
-    const y = useTransform(sectionProgress, [start, end], [88 - index * 18, -34 - index * 16]);
-    const scale = useTransform(sectionProgress, [start, end], [0.96, 1]);
-    const redX = useTransform(sectionProgress, [start, end], ['100%', index === 0 ? '18%' : '58%']);
-
+function FeatureCard({ number, title, description, icon: Icon, index, isDarkMode }: { number: string; title: string; description: string; icon: ElementType; index: number; isDarkMode: boolean; sectionProgress: MotionValue<number> }) {
     return (
         <motion.article
-            initial={{ opacity: 0, x: 48 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            style={{ y, scale, top: 112 + index * 28 }}
-            className={`sticky min-h-86 overflow-hidden border p-7 shadow-2xl md:p-9 ${index === 0 ? 'bg-[#111111] text-white' : isDarkMode ? 'border-white/10 bg-white/8 text-white backdrop-blur-xl' : 'border-black/10 bg-white text-[#111111]'}`}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`group relative flex items-start gap-4 md:gap-8 rounded-2xl border p-5 md:p-10 transition hover:-translate-y-0.5 hover:shadow-lg backdrop-blur-xl ${isDarkMode
+                ? 'border-white/8 bg-white/[0.04] text-white hover:border-white/15 hover:bg-white/[0.07] shadow-[0_2px_20px_rgba(0,0,0,0.3)]'
+                : 'border-white/70 bg-white/60 text-slate-900 hover:border-white/90 hover:bg-white/80 hover:shadow-slate-200 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
+                }`}
         >
-            <motion.div
-                className="absolute right-0 top-0 h-full w-32 bg-(--landing-accent)"
-                initial={{ x: '100%' }}
-                style={{ x: redX }}
-            />
-            <motion.div
-                className={`absolute left-0 top-0 h-full w-20 ${isDarkMode ? 'bg-cyan-400/10' : 'bg-cyan-200/40'}`}
-                animate={{ y: ['-20%', '12%', '-20%'] }}
-                transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <div className="relative z-10 flex h-full min-h-64 flex-col justify-between">
-                <div className="flex items-start justify-between">
-                    <span className="font-mono text-5xl font-black opacity-30">{number}</span>
-                    <div className={`grid h-14 w-14 place-items-center rounded-lg border ${index === 0 ? 'border-white/15 bg-white/10' : isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/10 bg-[#f7f7f4]'}`}>
-                        <Icon className="h-7 w-7" />
-                    </div>
-                </div>
-                <div>
-                    <h3 className="text-3xl font-black md:text-5xl">{title}</h3>
-                    <p className={`mt-5 max-w-xl text-lg leading-8 ${index === 0 ? 'text-white/70' : isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{description}</p>
-                </div>
+            {/* Accent bar on left edge */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-10 md:h-16 w-1 rounded-r-full bg-(--landing-accent) opacity-0 group-hover:opacity-100 transition" />
+
+            {/* Icon box */}
+            <div className={`shrink-0 grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-xl border text-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-blue-100 bg-blue-50'
+                }`}>
+                <Icon className="h-5 w-5 md:h-7 md:w-7" />
+            </div>
+
+            {/* Text */}
+            <div className="flex-1">
+                <h3 className="mb-1.5 md:mb-3 text-lg md:text-2xl font-black">{title}</h3>
+                <p className={`text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
+                    }`}>{description}</p>
             </div>
         </motion.article>
     );
@@ -762,355 +1159,513 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
         offset: ['start end', 'end start'],
     });
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 22, mass: 0.4 });
-    const cardY = useTransform(smoothProgress, [0, 0.5, 1], [70, 0, -70]);
-    const redX = useTransform(smoothProgress, [0, 1], ['-24%', '18%']);
-    const quoteScale = useTransform(smoothProgress, [0, 0.5, 1], [0.96, 1, 0.97]);
+    const contentY = useTransform(smoothProgress, [0, 0.5, 1], [50, 0, -50]);
 
     useEffect(() => {
         const interval = window.setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % COMMITMENTS.length);
-        }, 5000);
+            setActiveIndex((prev) => (prev + 1) % ABOUT_SLIDES.length);
+        }, 6000);
         return () => window.clearInterval(interval);
     }, []);
 
+    const goNext = () => setActiveIndex((prev) => (prev + 1) % ABOUT_SLIDES.length);
+    const goPrev = () => setActiveIndex((prev) => (prev - 1 + ABOUT_SLIDES.length) % ABOUT_SLIDES.length);
+
+    const ActiveIcon = ABOUT_SLIDES[activeIndex].icon;
+
     return (
-        <section ref={sectionRef} className={`relative overflow-hidden border-b px-4 py-24 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/10 bg-white'}`}>
-            <motion.div
-                className={`absolute right-0 top-20 hidden h-44 w-[30vw] lg:block ${isDarkMode ? 'bg-cyan-400/8' : 'bg-cyan-300/25'}`}
-                style={{ y: cardY }}
-            />
-            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-                <SectionHeader
-                    eyebrow="Our Commitments"
-                    title="What We Stand For"
-                    copy="Not testimonials — promises. This is how we operate, from day one."
-                    isDarkMode={isDarkMode}
-                    align="left"
-                />
+        <section
+            id="about"
+            ref={sectionRef}
+            className={`relative overflow-hidden border-b px-4 py-12 md:py-28 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0A0A14]' : 'border-black/6 bg-white'}`}
+        >
+            {/* Background ambient glow */}
+            {isDarkMode && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] rounded-full blur-[10rem] bg-indigo-600/10 pointer-events-none" />
+            )}
 
-                <motion.div style={{ y: cardY, scale: quoteScale }} className={`relative min-h-96 overflow-hidden border ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-[#f7f7f4]'}`}>
-                    <motion.div
-                        className="absolute left-0 top-0 h-full w-36 bg-(--landing-accent)"
-                        style={{ x: redX }}
-                        animate={{ opacity: [0.8, 1, 0.8] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                    />
+            <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] items-center">
+                
+                {/* ── Left Column — Carousel Card ── */}
+                <motion.div style={{ y: contentY }} className="order-2 lg:order-1">
+                    <div className={`group relative overflow-hidden rounded-[28px] border transition-all duration-500 min-h-[380px] md:min-h-[460px] flex flex-col justify-between hover:-translate-y-1.5 hover:scale-[1.02] ${
+                        isDarkMode
+                            ? 'border-[rgba(125,125,255,0.25)] hover:border-[rgba(125,125,255,0.5)] bg-[#0B0B14] shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]'
+                            : 'border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)]'
+                    }`}>
+                        
+                        {/* ── Background Images (Cross-fading) ── */}
+                        <div className="absolute inset-0 z-0">
+                            <AnimatePresence mode="popLayout">
+                                <motion.div
+                                    key={activeIndex}
+                                    initial={{ opacity: 0, scale: 1.05 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                                    className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-700 [mask-image:linear-gradient(to_bottom,transparent,black_100%)] sm:[mask-image:linear-gradient(to_right,transparent,black_40%)] ${
+                                        isDarkMode ? 'opacity-40 group-hover:opacity-100 mix-blend-screen' : 'opacity-20 group-hover:opacity-60 mix-blend-multiply'
+                                    }`}
+                                >
+                                    <div 
+                                        className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60"
+                                        style={{ backgroundImage: `url(${isDarkMode ? ABOUT_SLIDES[activeIndex].image : ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')})` }}
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
 
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeIndex}
-                            initial={{ opacity: 0, x: 80 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -80 }}
-                            transition={{ duration: 0.45, ease: 'easeOut' }}
-                            className="absolute inset-0 flex flex-col justify-between p-8 md:p-10 overflow-hidden"
-                        >
-                            <p className="relative z-10 max-w-3xl text-2xl font-black leading-snug md:text-4xl wrap-break-word">
-                                "{COMMITMENTS[activeIndex].quote}"
-                            </p>
-                            <div className="relative z-10">
-                                <p className="text-lg font-black">{COMMITMENTS[activeIndex].name}</p>
-                                <p className={`text-sm font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-black'}`}>{COMMITMENTS[activeIndex].role}</p>
+                        {/* Background Image/Effects Full (Soft base) */}
+                        {isDarkMode && (
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0B0B14]/80 to-[#0B0B14] z-0" />
+                        )}
+                        {!isDarkMode && (
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/60 via-white/80 to-white z-0" />
+                        )}
+
+                        {/* Soft Ambient Glow in Dark Mode */}
+                        {isDarkMode && (
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                        )}
+
+                        {/* Top Row: Icon + Slide Counter */}
+                        <div className="relative z-10 flex items-start justify-between p-5 md:p-10 pb-0 mb-4 md:mb-8">
+                            <div className={`grid h-12 w-12 md:h-14 md:w-14 place-items-center rounded-2xl border transition-all duration-500 backdrop-blur-md ${
+                                isDarkMode
+                                    ? 'border-indigo-400/40 bg-indigo-500/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_20px_rgba(99,102,241,0.25)]'
+                                    : 'border-blue-300/50 bg-white/50 text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.12)]'
+                            }`}>
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeIndex}
+                                        initial={{ opacity: 0, scale: 0.7, rotate: -20 }}
+                                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                                        exit={{ opacity: 0, scale: 0.7, rotate: 20 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <ActiveIcon className="h-5 w-5 md:h-6 md:w-6" />
+                                    </motion.div>
+                                </AnimatePresence>
                             </div>
-                        </motion.div>
-                    </AnimatePresence>
 
-                    <div className="absolute bottom-8 right-8 z-20 flex gap-2">
-                        {COMMITMENTS.map((testimonial, index) => (
-                            <button
-                                key={testimonial.name}
-                                onClick={() => setActiveIndex(index)}
-                                aria-label={`Show ${testimonial.name}`}
-                                className={`h-2.5 transition-all ${index === activeIndex ? 'w-10 bg-(--landing-accent)' : isDarkMode ? 'w-2.5 bg-white/25' : 'w-2.5 bg-black/20'}`}
-                            />
-                        ))}
+                            <div className="flex items-baseline gap-1 bg-black/10 dark:bg-white/5 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
+                                <span className={`text-xl md:text-2xl font-black tabular-nums ${isDarkMode ? 'text-indigo-400' : 'text-blue-600'}`}>
+                                    0{activeIndex + 1}
+                                </span>
+                                <span className={`text-xs md:text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                                    / 0{ABOUT_SLIDES.length}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="relative z-10 flex flex-col justify-between p-5 md:p-10 pt-0">
+                            <div className="min-h-[140px] md:min-h-[160px]">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeIndex}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -15 }}
+                                        transition={{ duration: 0.3, ease: "easeOut" }}
+                                        className="flex flex-col"
+                                    >
+                                        <h3 className={`text-xl font-bold tracking-tight md:text-3xl drop-shadow-sm ${
+                                            isDarkMode ? 'text-white' : 'text-slate-900'
+                                        }`}>
+                                            {ABOUT_SLIDES[activeIndex].title}
+                                        </h3>
+
+                                        {/* Divider */}
+                                        <div className={`mt-3 md:mt-5 h-[2px] w-12 rounded-full ${
+                                            isDarkMode ? 'bg-indigo-500/50' : 'bg-blue-500/50'
+                                        }`} />
+
+                                        <p className={`mt-3 md:mt-5 text-sm md:text-[15px] leading-relaxed max-w-md ${
+                                            isDarkMode ? 'text-zinc-300' : 'text-slate-600'
+                                        }`}>
+                                            {ABOUT_SLIDES[activeIndex].body}
+                                        </p>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Bottom Row: Arrows + Dots */}
+                            <div className="mt-4 md:mt-8 flex items-center justify-between">
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={goPrev}
+                                        aria-label="Previous slide"
+                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 ${
+                                            isDarkMode
+                                                ? 'border-white/10 bg-black/20 text-white hover:border-indigo-500/40 hover:bg-indigo-500/20 hover:text-indigo-300'
+                                                : 'border-slate-300/50 bg-white/50 text-slate-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600'
+                                        }`}
+                                    >
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </button>
+                                    <button
+                                        onClick={goNext}
+                                        aria-label="Next slide"
+                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 ${
+                                            isDarkMode
+                                                ? 'border-indigo-500/40 bg-indigo-500/20 text-indigo-300 shadow-[0_0_16px_rgba(99,102,241,0.2)] hover:bg-indigo-500/30'
+                                                : 'border-blue-300 bg-blue-600 text-white shadow-[0_4px_12px_rgba(59,130,246,0.25)] hover:bg-blue-700'
+                                        }`}
+                                    >
+                                        <ChevronRight className="h-5 w-5" />
+                                    </button>
+                                </div>
+
+                                <div className="flex gap-2 bg-black/10 dark:bg-black/20 p-2 rounded-full backdrop-blur-sm border border-white/5">
+                                    {ABOUT_SLIDES.map((slide, index) => (
+                                        <button
+                                            key={slide.title}
+                                            onClick={() => setActiveIndex(index)}
+                                            aria-label={`Go to ${slide.title}`}
+                                            className={`h-2 rounded-full transition-all duration-300 ${
+                                                index === activeIndex
+                                                    ? `w-6 ${isDarkMode ? 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.8)]' : 'bg-blue-600 shadow-[0_0_8px_rgba(59,130,246,0.5)]'}`
+                                                    : `w-2 ${isDarkMode ? 'bg-white/20 hover:bg-white/40' : 'bg-slate-400 hover:bg-slate-600'}`
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </motion.div>
+
+                {/* ── Right Column — Heading + Description + Bottom Callout ── */}
+                <motion.div
+                    style={{ y: contentY }}
+                    className="flex flex-col order-1 lg:order-2"
+                >
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">About Us</p>
+                    <h2 className="mt-3 md:mt-5 text-4xl md:text-5xl lg:text-7xl font-black leading-[1.05] md:leading-[0.95]">
+                        What We<br />Stand For
+                    </h2>
+                    <p className={`mt-4 md:mt-6 max-w-md text-sm md:text-[16px] leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                        We're not just here to help you get placed.<br />
+                        We're here to prepare you, guide you, and stay<br />
+                        with you until the right opportunity comes your way.
+                    </p>
+
+                    {/* Divider */}
+                    <div className={`mt-6 md:mt-10 h-px w-16 ${isDarkMode ? 'bg-white/15' : 'bg-black/15'}`} />
+
+                    {/* Bottom Callout */}
+                    <div className="mt-6 md:mt-8 flex items-center gap-4">
+                        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border backdrop-blur-sm ${
+                            isDarkMode
+                                ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400 shadow-[0_0_16px_rgba(99,102,241,0.2)]'
+                                : 'border-blue-200 bg-blue-50 text-blue-600 shadow-[0_2px_10px_rgba(59,130,246,0.1)]'
+                        }`}>
+                            <Check className="h-5 w-5" />
+                        </div>
+                        <div>
+                            <p className={`text-[15px] font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Our Placement Promise</p>
+                            <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                                The standard we hold ourselves to —<br />from day one.
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
+
             </div>
         </section>
     );
 }
 
-function PartnersSection({ isDarkMode }: { isDarkMode: boolean }) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ['start end', 'end start'],
-    });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.42 });
-    const titleX = useTransform(smoothProgress, [0, 0.7], [-48, 0]);
-    const stripY = useTransform(smoothProgress, [0, 1], [56, -26]);
-
-    return (
-        <section ref={sectionRef} className={`relative overflow-hidden border-b px-4 py-20 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/10 bg-[#f7f7f4]'}`}>
-            <div className="mx-auto max-w-7xl">
-                <motion.div className="mb-8" style={{ x: titleX }}>
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">Domains We Cover</p>
-                    <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">We Place You Across Industries</h2>
-                    <p className={`mt-4 text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>From core tech to emerging fields — we prepare and place you where you belong</p>
-                </motion.div>
-
-                <motion.div style={{ y: stripY }} className={`border py-5 ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-white'}`}>
-                    <InfiniteSlider speed={34} speedOnHover={18} gap={72}>
-                        {[...PARTNERS, ...PARTNERS].map((partner, index) => (
-                            <div key={`${partner}-${index}`} className="flex items-center gap-3">
-                                <span className="h-3 w-3 bg-(--landing-accent)" />
-                                <span className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-[#111111]'}`}>{partner}</span>
-                            </div>
-                        ))}
-                    </InfiniteSlider>
-                </motion.div>
-            </div>
-        </section>
-    );
-}
 
 function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
-    const [scrollTop, setScrollTop] = useState(0);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const sidebarListRef = useRef<HTMLDivElement>(null);
-
     const policyCards = [
         ...TERMS,
         {
             title: 'Privacy',
             body: 'We collect only the information needed for placement operations, communication, and analytics. Data is used to support student profiles, recruiter workflows, and institution-level reporting.',
-            id: 'privacy',
+            image: '/term_privacy_1780542135426.png',
         },
         {
             title: 'Support',
             body: 'Report security issues, bugs, or access problems to the platform administrator. Users should keep their contact details current for important updates and verification.',
-            id: 'support',
+            image: '/term_support_1780542146969.png',
         },
     ];
 
-    const cardSpacing = 356; // Calculated card height + gap - sticky overlap offset
+    const cardCount = policyCards.length;
+    const sectionRef = useRef<HTMLElement>(null);
+    const cardsContainerRef = useRef<HTMLDivElement>(null);
+    const viewportRef = useRef<HTMLDivElement>(null);
+    const maxOffsetRef = useRef(0);
+    const [activeCard, setActiveCard] = useState(0);
 
-    const activeCardIndex = Math.min(
-        policyCards.length - 1,
-        Math.max(0, Math.floor((scrollTop + cardSpacing / 2) / cardSpacing))
-    );
+    // Motion values for smooth card animation
+    const targetOffset = useMotionValue(0);
+    const smoothOffset = useSpring(targetOffset, { stiffness: 120, damping: 22 });
+    const cardY = useTransform(smoothOffset, (v: number) => -v);
+    const progressWidth = useTransform(smoothOffset, (v: number) => {
+        const max = maxOffsetRef.current;
+        return max > 0 ? `${Math.min(100, (v / max) * 100)}%` : '0%';
+    });
 
+    // Track active card
+    useMotionValueEvent(smoothOffset, 'change', (v: number) => {
+        const max = maxOffsetRef.current;
+        if (max > 0) {
+            setActiveCard(Math.min(cardCount - 1, Math.floor((v / max) * cardCount)));
+        }
+    });
+
+    // Measure card overflow
     useEffect(() => {
-        if (!sidebarListRef.current) return;
-        const container = sidebarListRef.current;
-        const activeItem = container.children[activeCardIndex] as HTMLElement;
-        if (activeItem) {
-            const containerHeight = container.clientHeight;
-            const itemHeight = activeItem.clientHeight;
-            const itemTop = activeItem.offsetTop;
-            const targetScrollTop = itemTop - (containerHeight / 2) + (itemHeight / 2);
-            container.scrollTo({
-                top: Math.max(0, targetScrollTop),
-                behavior: 'smooth',
-            });
-        }
-    }, [activeCardIndex]);
+        const measure = () => {
+            if (cardsContainerRef.current && viewportRef.current) {
+                const containerH = cardsContainerRef.current.scrollHeight;
+                const viewportH = viewportRef.current.clientHeight;
+                maxOffsetRef.current = Math.max(0, containerH - viewportH);
+            }
+        };
+        const timer = setTimeout(measure, 200);
+        const ro = new ResizeObserver(measure);
+        if (cardsContainerRef.current) ro.observe(cardsContainerRef.current);
+        if (viewportRef.current) ro.observe(viewportRef.current);
+        return () => { clearTimeout(timer); ro.disconnect(); };
+    }, []);
 
-    const handleScroll = () => {
-        if (!scrollContainerRef.current) return;
-        setScrollTop(scrollContainerRef.current.scrollTop);
-    };
+    // TRUE SCROLL HIJACKING — intercept wheel, freeze page, drive cards
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleWheel = (e: WheelEvent) => {
+            const section = sectionRef.current;
+            if (!section || window.innerWidth < 1024) return;
+            const max = maxOffsetRef.current;
+            if (max <= 0) return;
+            const rect = section.getBoundingClientRect();
+            const current = targetOffset.get();
 
-    const scrollToCard = (index: number) => {
-        if (!scrollContainerRef.current) return;
-        scrollContainerRef.current.scrollTo({
-            top: index * cardSpacing,
-            behavior: 'smooth',
-        });
-    };
+            // Activation zone: section top is within 100px of viewport top
+            // and section bottom is still visible on screen
+            const isNearTop = rect.top <= 100 && rect.top >= -100;
+            const isStillVisible = rect.bottom > window.innerHeight * 0.3;
+            if (!isNearTop || !isStillVisible) return;
 
-    const getCardOpacity = (index: number) => {
-        const fadeWindow = cardSpacing * 0.18;
-
-        if (index === 0) {
-            const progress = scrollTop / fadeWindow;
-            return Math.max(0, Math.min(1, 1 - progress));
-        }
-        if (index === policyCards.length - 1) {
-            if (scrollTop >= index * cardSpacing) return 1;
-        }
-        if (scrollTop < (index - 1) * cardSpacing) return 0;
-        if (scrollTop < index * cardSpacing) {
-            const progress = (scrollTop - (index - 1) * cardSpacing) / fadeWindow;
-            return Math.max(0, Math.min(1, progress));
-        }
-        const progress = (scrollTop - index * cardSpacing) / fadeWindow;
-        return Math.max(0, Math.min(1, 1 - progress));
-    };
-
-    const getCardScale = (index: number) => {
-        const opacity = getCardOpacity(index);
-        return 0.95 + opacity * 0.05;
-    };
-
-    const getCardRotate = (index: number, total: number) => {
-        const baseRotate = (index - (total - 1) / 2) * 0.55;
-        const opacity = getCardOpacity(index);
-        const wobble = (index % 2 === 0 ? -1.5 : 1.5) * (1 - opacity);
-        return baseRotate + wobble;
-    };
+            if (e.deltaY > 0 && current < max) {
+                e.preventDefault();
+                // Snap the section to viewport top so it stays pinned
+                if (Math.abs(rect.top) > 2) {
+                    window.scrollTo({ top: window.scrollY + rect.top, behavior: 'instant' as ScrollBehavior });
+                }
+                targetOffset.set(Math.min(max, current + Math.abs(e.deltaY)));
+            } else if (e.deltaY < 0 && current > 0) {
+                e.preventDefault();
+                if (Math.abs(rect.top) > 2) {
+                    window.scrollTo({ top: window.scrollY + rect.top, behavior: 'instant' as ScrollBehavior });
+                }
+                targetOffset.set(Math.max(0, current - Math.abs(e.deltaY)));
+            }
+            // At boundaries (current >= max scrolling down, or current <= 0 scrolling up)
+            // → don't preventDefault → page scrolls naturally past the section
+        };
+        window.addEventListener('wheel', handleWheel, { passive: false });
+        return () => window.removeEventListener('wheel', handleWheel);
+    }, [targetOffset]);
 
     return (
-        <section id="terms" className={`relative min-h-screen overflow-visible px-4 py-24 sm:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-white'}`}>
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}} />
-            <div
-                className="absolute left-0 top-24 bottom-24 w-1 origin-top bg-(--landing-accent) transition-transform duration-300"
-                style={{ transform: `scaleY(${(activeCardIndex + 1) / policyCards.length})` }}
-            />
-            <div className="mx-auto grid max-w-7xl gap-10 py-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-                <div className="lg:h-fit lg:sticky lg:top-28">
-                    <SectionHeader
-                        eyebrow="Legal"
-                        title="Aarambh Terms & Conditions"
-                        copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used."
-                        isDarkMode={isDarkMode}
-                        align="left"
-                    />
-                    <div className={`mt-8 overflow-hidden border ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-blue-100 bg-blue-50'}`}>
-                        <div className="bg-(--landing-accent) px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-white">
-                            Policy Stack
+        <section id="terms" ref={sectionRef} className={`relative ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}>
+            {/* DESKTOP — 100vh pinned viewport, wheel-driven cards */}
+            <div className="hidden lg:flex h-screen w-full overflow-hidden">
+                <div className="mx-auto w-full max-w-7xl px-8 h-full flex items-center">
+                    <div className="flex items-start gap-16 w-full h-[85vh]">
+                        {/* Left Column — Image */}
+                        <div className="w-[45%] h-full shrink-0 flex flex-col gap-4">
+                            <div className={`relative w-full flex-1 rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
+                                {isDarkMode && (
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
+                                )}
+                                <img src="/terms&cond.png" alt="Legal & Compliance" className={`absolute inset-0 w-full h-full object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
+                            </div>
+
                         </div>
-                        <div
-                            ref={sidebarListRef}
-                            className="relative flex h-60 flex-col gap-2 overflow-y-auto scroll-smooth p-4 no-scrollbar"
-                        >
-                            {policyCards.map((card, index) => {
-                                const isActive = activeCardIndex === index;
-                                return (
-                                    <button
-                                        key={card.title}
-                                        onClick={() => scrollToCard(index)}
-                                        className={`flex items-center gap-4 shrink-0 rounded-xl p-3 text-sm font-bold text-left transition-all duration-300 ${isActive
-                                            ? isDarkMode
-                                                ? 'bg-cyan-500/15 border-l-4 border-cyan-400 text-white pl-4'
-                                                : 'bg-blue-50 border-l-4 border-blue-600 text-blue-700 pl-4'
-                                            : isDarkMode
-                                                ? 'hover:bg-white/5 border-l-4 border-transparent text-zinc-400 hover:text-zinc-200 pl-2'
-                                                : 'hover:bg-slate-50 border-l-4 border-transparent text-slate-600 hover:text-slate-900 pl-2'
-                                            }`}
-                                    >
-                                        <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11px] font-black transition-colors duration-300 ${isActive
-                                            ? 'bg-(--landing-accent) text-white'
-                                            : isDarkMode
-                                                ? 'bg-zinc-800 text-zinc-400'
-                                                : 'bg-slate-200 text-slate-600'
-                                            }`}>
-                                            {String(index + 1).padStart(2, '0')}
-                                        </span>
-                                        <span className="transition-colors duration-300">{card.title}</span>
-                                    </button>
-                                );
-                            })}
+                        {/* Right Column — Heading + Cards */}
+                        <div className="w-[55%] h-full flex flex-col">
+                            <div className="shrink-0 pb-4 relative z-20">
+                                <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
+                                <div className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none" style={{ background: isDarkMode ? 'linear-gradient(to bottom, rgba(5,5,10,0), rgba(5,5,10,1))' : 'linear-gradient(to bottom, rgba(248,250,252,0), rgba(248,250,252,1))' }} />
+                            </div>
+                            <div ref={viewportRef} className="flex-1 relative overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 88%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 88%, transparent 100%)' }}>
+                                <motion.div ref={cardsContainerRef} style={{ y: cardY }} className="flex flex-col gap-10 pt-4 pb-8 w-full will-change-transform">
+                                    {policyCards.map((card, index) => (
+                                        <PolicyCard key={card.title} index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                    ))}
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div
-                    ref={scrollContainerRef}
-                    onScroll={handleScroll}
-                    className="relative h-152 overflow-y-auto scroll-smooth no-scrollbar"
-                >
-                    <div className="relative flex flex-col gap-6 pb-29">
-                        {policyCards.map((section, index) => {
-                            const opacity = getCardOpacity(index);
-                            const scale = getCardScale(index);
-                            const rotate = getCardRotate(index, policyCards.length);
-                            return (
-                                <PolicyStackCard
-                                    key={section.title}
-                                    id={'id' in section ? section.id : undefined}
-                                    index={index}
-                                    title={section.title}
-                                    body={section.body}
-                                    isDarkMode={isDarkMode}
-                                    total={policyCards.length}
-                                    opacity={opacity}
-                                    scale={scale}
-                                    rotate={rotate}
-                                />
-                            );
-                        })}
-                    </div>
+            </div>
+            {/* MOBILE — Normal scroll */}
+            <div className="flex lg:hidden flex-col gap-8 md:gap-12 w-full px-4 py-10 md:py-20 mx-auto max-w-7xl">
+                <div className={`relative w-full h-[300px] md:h-[400px] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border ${isDarkMode ? 'border-white/10' : 'border-black/5'} shadow-xl`}>
+                    <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
+                </div>
+                <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
+                <div className="flex flex-col gap-4 md:gap-6">
+                    {policyCards.map((card, index) => (
+                        <PolicyCard key={card.title} index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                    ))}
                 </div>
             </div>
         </section>
     );
 }
 
-function PolicyStackCard({
-    id,
-    index,
-    title,
-    body,
-    isDarkMode,
-    total,
-    opacity,
-    scale,
-    rotate
-}: {
-    id?: string;
+function PolicyCard({ index, title, body, image, isDarkMode }: {
     index: number;
     title: string;
     body: string;
+    image?: string;
     isDarkMode: boolean;
-    total: number;
-    opacity: number;
-    scale: number;
-    rotate: number;
 }) {
+    const bulletPoints = body.split('. ').filter(Boolean).map(s => s.trim() + (s.endsWith('.') ? '' : '.'));
+
     return (
-        <motion.article
-            id={`policy-card-${index}`}
-            initial={{ y: 30 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: index * 0.04 }}
-            style={{
-                position: 'sticky',
-                top: `${index * 20}px`,
-                zIndex: 10 + index,
-                opacity: opacity,
-                scale: scale,
-                rotate: rotate,
-            }}
-            className={`w-full min-h-88 overflow-hidden rounded-2xl border p-7 shadow-2xl transition-all duration-300 ease-out origin-center md:p-9 ${index === 0
-                ? 'bg-(--landing-accent) text-white'
-                : isDarkMode
-                    ? 'border-white/10 bg-[#101624]/95 text-white backdrop-blur-xl'
-                    : 'border-blue-100 bg-white text-slate-950'
-                }`}
+        <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+            className={`group relative overflow-hidden rounded-[20px] md:rounded-[28px] border transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.02] ${
+                isDarkMode
+                    ? 'border-[rgba(125,125,255,0.25)] hover:border-[rgba(125,125,255,0.5)] bg-[#0B0B14] shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]'
+                    : 'border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)]'
+            }`}
         >
-            {index !== 0 && (
-                <div
-                    className="absolute right-0 top-0 h-full w-40 pointer-events-none bg-(--landing-soft) opacity-40"
-                    style={{ transform: 'translateX(10%) skewX(-12deg)' }}
-                />
+            {/* Background Image/Effects Full (Soft base) */}
+            {isDarkMode && (
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0B0B14]/80 to-[#0B0B14] z-0" />
             )}
-            <div className="relative z-10 flex min-h-72 flex-col justify-between">
-                <div className="flex items-start justify-between gap-6">
-                    <span className={`font-mono text-6xl font-black ${index === 0 ? 'text-white/45' : isDarkMode ? 'text-cyan-300/35' : 'text-blue-200'}`}>
-                        {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <div className={`rounded-lg border px-3 py-1 text-xs font-black uppercase tracking-[0.16em] ${index === 0 ? 'border-white/25 bg-white/10 text-white' : isDarkMode ? 'border-cyan-300/20 bg-cyan-300/10 text-cyan-200' : 'border-blue-200 bg-blue-50 text-blue-700'}`}>
-                        {index + 1} / {total}
+            {!isDarkMode && (
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/60 via-white/80 to-white z-0" />
+            )}
+
+            {/* Soft Ambient Glow in Dark Mode */}
+            {isDarkMode && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+            )}
+
+            {/* Floating image (desktop) / Top image (mobile) */}
+            {image && (
+                <div className={`
+                    relative w-full h-32 md:absolute md:right-0 md:top-0 md:bottom-0 md:w-[55%] md:h-auto z-0 pointer-events-none transition-opacity duration-700 
+                    [mask-image:linear-gradient(to_bottom,black_60%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
+                    ${isDarkMode ? 'opacity-80 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
+                `}>
+                     <img src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} className={`w-full h-full object-cover ${isDarkMode ? 'mix-blend-screen opacity-80 md:opacity-50' : 'mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
+                </div>
+            )}
+            
+            <div className="relative z-10 p-5 md:p-10 flex flex-col h-full w-full lg:w-[85%]">
+                
+                {/* Header Row: Icon + Title */}
+                <div className="flex items-start gap-4 md:gap-6">
+                    <div className={`shrink-0 grid h-10 w-10 md:h-16 md:w-16 place-items-center rounded-xl md:rounded-2xl border transition-all duration-500 ${
+                        isDarkMode
+                            ? 'border-indigo-400/40 bg-gradient-to-br from-indigo-500/30 to-violet-600/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_rgba(99,102,241,0.2)] group-hover:border-indigo-400/70 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]'
+                            : 'border-blue-400 bg-white text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.1)] group-hover:border-blue-500 group-hover:shadow-[0_8px_24px_rgba(59,130,246,0.2)]'
+                    }`}>
+                        <svg className="w-5 h-5 md:w-7 md:h-7 drop-shadow-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                            <circle cx="12" cy="10" r="2.5" />
+                            <path d="M16 16.5c0-1.5-2-2.5-4-2.5s-4 1-4 2.5" />
+                        </svg>
+                    </div>
+
+                    <div className="pt-0.5 md:pt-1">
+                        <h3 className={`text-xl md:text-3xl font-bold tracking-tight transition-colors duration-300 ${
+                            isDarkMode ? 'text-white drop-shadow-md' : 'text-slate-900 drop-shadow-sm'
+                        }`}>
+                            {title}
+                        </h3>
+                        <p className={`mt-2 md:mt-3 text-[13px] md:text-[15px] leading-relaxed max-w-xl transition-colors duration-300 ${
+                            isDarkMode ? 'text-zinc-300' : 'text-slate-600'
+                        }`}>
+                            {bulletPoints[0]}
+                        </p>
                     </div>
                 </div>
-                <div>
-                    <h3 className="text-3xl font-black md:text-5xl">{title}</h3>
-                    <p className={`mt-5 max-w-2xl text-base leading-8 md:text-lg ${index === 0 ? 'text-white/80' : isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>{body}</p>
+
+                {/* Divider */}
+                <div className={`my-4 md:my-8 h-px w-full max-w-xl ${
+                    isDarkMode ? 'bg-gradient-to-r from-white/10 to-transparent' : 'bg-gradient-to-r from-black/10 to-transparent'
+                }`} />
+
+                {/* List Items */}
+                <div className="flex-1 flex flex-col gap-3 md:gap-4 max-w-md">
+                    {bulletPoints.slice(1).map((pt, i) => (
+                        <div key={i} className="flex items-center gap-3 md:gap-4">
+                            <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
+                                isDarkMode 
+                                    ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' 
+                                    : 'border-blue-200 bg-blue-50 text-blue-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
+                            }`}>
+                                {i === 0 ? <Check className="w-3 h-3 md:w-4 md:h-4" /> : i === 1 ? <User className="w-3 h-3 md:w-4 md:h-4" /> : <Tag className="w-3 h-3 md:w-4 md:h-4" />}
+                            </div>
+                            <span className={`text-[13px] md:text-[15px] ${
+                                isDarkMode ? 'text-zinc-300' : 'text-slate-600'
+                            }`}>
+                                {pt}
+                            </span>
+                        </div>
+                    ))}
+                    {/* Fallback items if there are not enough sentences in body */}
+                    {bulletPoints.length <= 1 && (
+                         <>
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
+                                    isDarkMode 
+                                        ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' 
+                                        : 'border-blue-200 bg-blue-50 text-blue-600'
+                                }`}>
+                                    <Check className="w-3 h-3 md:w-4 md:h-4" />
+                                </div>
+                                <span className={`text-[13px] md:text-[15px] ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>Strict compliance guidelines applied</span>
+                            </div>
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
+                                    isDarkMode 
+                                        ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' 
+                                        : 'border-blue-200 bg-blue-50 text-blue-600'
+                                }`}>
+                                    <User className="w-3 h-3 md:w-4 md:h-4" />
+                                </div>
+                                <span className={`text-[13px] md:text-[15px] ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>Role-based access permissions</span>
+                            </div>
+                         </>
+                    )}
+                </div>
+
+                {/* Bottom Tags */}
+                <div className="mt-5 md:mt-8 flex flex-wrap gap-3 md:gap-4 shrink-0">
+                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 ${
+                        isDarkMode
+                            ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]'
+                            : 'border-blue-200 bg-blue-50/50 text-blue-700 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
+                    }`}>
+                        <Check className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        Compliance
+                    </div>
+                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 ${
+                        isDarkMode
+                            ? 'border-white/10 bg-white/[0.03] text-zinc-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]'
+                            : 'border-black/5 bg-black/[0.02] text-slate-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
+                    }`}>
+                        <User className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        Access Control
+                    </div>
                 </div>
             </div>
-        </motion.article>
+        </motion.div>
     );
 }
 
@@ -1118,119 +1673,126 @@ function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: {
     return (
         <div className={align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl'}>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">{eyebrow}</p>
-            <h2 className="mt-4 text-4xl font-black uppercase leading-[0.95] md:text-6xl">{title}</h2>
-            <p className={`mt-5 text-base leading-7 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{copy}</p>
+            <h2 className="mt-3 md:mt-4 text-[26px] font-black uppercase leading-[1.1] md:text-6xl md:leading-[0.95]">{title}</h2>
+            <p className={`mt-3 md:mt-5 text-[14px] md:text-base leading-relaxed md:leading-7 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{copy}</p>
         </div>
     );
 }
+
 
 function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [sent, setSent] = useState(false);
 
-    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
-    const railScale = useTransform(smoothProgress, [0.05, 0.85], [0, 1]);
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const subject = encodeURIComponent(`Message from ${name}`);
+        const mailSubject = encodeURIComponent(subject || `Message from ${name}`);
         const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-        window.location.href = `mailto:ascendiollp@gmail.com?subject=${subject}&body=${body}`;
-        setName(''); setEmail(''); setMessage('');
+        window.location.href = `mailto:ascendiollp@gmail.com?subject=${mailSubject}&body=${body}`;
+        setName(''); setEmail(''); setSubject(''); setMessage('');
         setSent(true);
         setTimeout(() => setSent(false), 4000);
     };
 
-    return (
-        <section ref={sectionRef} id="contact" className={`relative overflow-hidden border-b px-4 py-24 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/10 bg-white'}`}>
-            <motion.div
-                className="absolute left-0 top-0 h-full w-2 origin-top bg-(--landing-accent)"
-                style={{ scaleY: railScale }}
-            />
-            <div className="relative mx-auto max-w-7xl">
-                <SectionHeader
-                    eyebrow="Get in Touch"
-                    title="Contact Us"
-                    copy="Have a question or want to get started? Reach out — we respond within 24 hours."
-                    isDarkMode={isDarkMode}
-                />
+    const InputBlock = ({ label, icon: Icon, isTextArea, ...props }: any) => (
+        <div className={`relative rounded-xl border px-3 py-2.5 md:px-4 md:py-3 transition-all backdrop-blur-sm ${isDarkMode ? 'border-white/10 bg-white/[0.04] focus-within:border-violet-500/50 focus-within:bg-white/[0.06]' : 'border-white/60 bg-white/60 focus-within:border-blue-500/50 focus-within:bg-white/90'}`}>
+            <label className={`block text-xs mb-1 font-medium ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>{label}</label>
+            <div className="flex items-start">
+                {isTextArea ? (
+                    <textarea 
+                        className={`w-full bg-transparent text-sm outline-none resize-none ${isDarkMode ? 'text-white placeholder:text-zinc-600' : 'text-slate-900 placeholder:text-slate-400'}`} 
+                        rows={4}
+                        {...props} 
+                    />
+                ) : (
+                    <input 
+                        className={`w-full bg-transparent text-sm outline-none ${isDarkMode ? 'text-white placeholder:text-zinc-600' : 'text-slate-900 placeholder:text-slate-400'}`} 
+                        {...props} 
+                    />
+                )}
+                {Icon && <Icon className={`h-4 w-4 mt-0.5 ml-2 ${isDarkMode ? 'text-zinc-500' : 'text-slate-400'}`} />}
+            </div>
+        </div>
+    );
 
-                <div className="mt-12 grid gap-px border border-current/10 md:grid-cols-2">
-                    {/* Contact info */}
-                    <div className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}>
-                        <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
-                        <h3 className={`mb-6 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
-                            Reach Us Directly
-                        </h3>
-                        <div className={`space-y-5 text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                            <div>
-                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Location</p>
-                                <p>Trivandrum, Kerala</p>
-                            </div>
-                            <div>
-                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Email</p>
-                                <Link href="mailto:ascendiollp@gmail.com" className="text-(--landing-accent) hover:underline">ascendiollp@gmail.com</Link>
-                            </div>
-                            <div>
-                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Phone</p>
-                                <Link href="tel:+918281891391" className="block hover:text-(--landing-accent)">+91 82818 91391</Link>
-                                <Link href="tel:+918921519949" className="mt-1 block hover:text-(--landing-accent)">+91 89215 19949</Link>
-                            </div>
-                            {/* <div>
-                                <p className={`mb-1 text-xs font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Response Time</p>
-                                <p>Within 24 hours on business days</p>
-                            </div> */}
+    const ContactRow = ({ icon: Icon, title, value, link }: any) => (
+        <div className="flex items-center gap-4">
+            <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full backdrop-blur-sm border ${isDarkMode ? 'bg-white/[0.06] border-white/10 text-violet-400' : 'bg-white/70 border-white/80 text-blue-600 shadow-sm'}`}>
+                <Icon className="h-5 w-5" />
+            </div>
+            <div>
+                <div className={`text-[15px] font-semibold mb-0.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{title}</div>
+                {link ? (
+                    <a href={link} className={`text-[15px] ${isDarkMode ? 'text-violet-400 hover:text-violet-300' : 'text-blue-600 hover:text-blue-700'}`}>{value}</a>
+                ) : (
+                    <div className={`text-[15px] ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>{value}</div>
+                )}
+            </div>
+        </div>
+    );
+
+    return (
+        <section ref={sectionRef} id="contact" className={`relative overflow-hidden px-4 py-12 md:py-24 px-4 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
+            <div className="relative mx-auto max-w-6xl">
+                <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+                    {/* Left Column */}
+                    <div className="flex flex-col pt-4">
+                        <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Let's Talk</h3>
+                        <p className={`mb-6 md:mb-12 max-w-sm text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                            Have a question or want to work together? We'd love to hear from you.
+                        </p>
+
+                        <div className="flex flex-col gap-4 md:gap-6">
+                            <ContactRow icon={Mail} title="Email" value="ascendiollp@gmail.com" link="mailto:ascendiollp@gmail.com" />
+                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
+                            <ContactRow icon={Phone} title="Phone" value="+91 82818 91391" link="tel:+918281891391" />
+                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
+                            <ContactRow icon={MapPin} title="Address" value="Trivandrum, Kerala" />
+                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
+                            <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" />
                         </div>
                     </div>
 
-                    {/* Contact form */}
-                    <div className={`p-8 ${isDarkMode ? 'bg-white/3' : 'bg-zinc-50/60'}`}>
-                        <div className="mb-6 h-2 w-12 bg-(--landing-accent)" />
-                        <h3 className={`mb-6 text-base font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
-                            Send a Message
-                        </h3>
+                    {/* Right Column (Form) */}
+                    <div className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/8 shadow-2xl shadow-black/50' : 'bg-white/70 border-white/80 shadow-xl shadow-slate-200/50'}`}>
+                        <h3 className={`text-xl md:text-2xl font-bold mb-2 md:mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Send us a message</h3>
+                        <p className={`mb-6 md:mb-8 text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                            Fill out the form below and we'll get back to you as soon as possible.
+                        </p>
+
                         {sent ? (
-                            <div className={`flex h-48 items-center justify-center text-center ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                                <div>
-                                    <div className="mb-2 text-2xl font-black text-(--landing-accent)">Sent!</div>
-                                    <p className="text-sm">We'll get back to you soon.</p>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="flex h-52 md:h-64 flex-col items-center justify-center text-center"
+                            >
+                                <div className={`grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-full border mb-4 ${isDarkMode ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : 'border-emerald-200 bg-emerald-50 text-emerald-600'}`}>
+                                    <Check className="h-6 w-6 md:h-8 md:w-8" />
                                 </div>
-                            </div>
+                                <div className="mb-2 text-xl md:text-2xl font-bold text-emerald-500">Message Sent!</div>
+                                <p className={`text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                                    Thank you for reaching out. We will get back to you soon.
+                                </p>
+                            </motion.div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <input
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    placeholder="Your name"
-                                    required
-                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
-                                />
-                                <input
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Your email"
-                                    type="email"
-                                    required
-                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
-                                />
-                                <textarea
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Your message"
-                                    required
-                                    rows={5}
-                                    className={`w-full border px-4 py-3 text-sm outline-none focus:border-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5 text-white placeholder:text-zinc-500' : 'border-black/10 bg-white text-zinc-900 placeholder:text-zinc-400'}`}
-                                />
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+                                    <InputBlock label="Full Name" placeholder="Enter your name" icon={User} value={name} onChange={(e: any) => setName(e.target.value)} required />
+                                    <InputBlock label="Email Address" placeholder="Enter your email" type="email" icon={Mail} value={email} onChange={(e: any) => setEmail(e.target.value)} required />
+                                </div>
+                                <InputBlock label="Subject" placeholder="What is this regarding?" icon={Tag} value={subject} onChange={(e: any) => setSubject(e.target.value)} required />
+                                <InputBlock label="Message" placeholder="Type your message here..." icon={Pencil} isTextArea value={message} onChange={(e: any) => setMessage(e.target.value)} required />
+
                                 <button
                                     type="submit"
-                                    className="group inline-flex h-11 items-center gap-2 bg-(--landing-accent) px-6 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:-translate-y-0.5 hover:bg-(--landing-accent-strong) active:scale-95"
+                                    className={`mt-2 flex h-12 md:h-14 w-full items-center justify-center gap-2 rounded-xl text-sm md:text-[15px] font-semibold transition-all hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-violet-600 text-white hover:bg-violet-500 shadow-[0_0_20px_rgba(124,58,237,0.3)]' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20'}`}
                                 >
+                                    <Send className="h-4 w-4 md:h-[18px] md:w-[18px]" />
                                     Send Message
-                                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                                 </button>
                             </form>
                         )}
@@ -1244,19 +1806,16 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
 function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: boolean; onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
     return (
         <section id="footer">
-            <footer className={`border-t px-4 py-8 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#08090b] text-white' : 'border-black/10 bg-white text-slate-900'}`}>
-                <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
-                    <div className="flex items-start gap-4">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white/0 rounded-lg p-1 shadow-sm">
+            <footer className={`border-t px-4 py-8 px-4 sm:px-6 backdrop-blur-xl ${isDarkMode ? 'border-white/10 bg-black/60 text-white' : 'border-black/8 bg-white/80 text-slate-900'}`}>
+                <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8 text-center md:text-left md:flex-row md:items-start md:justify-between">
+                    <div className="flex flex-col items-center md:flex-row md:items-start gap-3 md:gap-4">
+                        <div className="flex items-center gap-2 md:gap-3">
+                            <div className="bg-white/0 rounded-lg p-1 shadow-sm scale-90 md:scale-100">
                                 <AnimatedLogoMark size="sm" role="landing" />
                             </div>
-                            <div className="hidden sm:flex flex-col leading-none">
-                                <span className="block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
-                                <span className="mt-0.5 font-Cinzel	 text-[8px] font-normal tracking-[0.28em] opacity-55">By Ascendio Global</span>
-                            </div>
+                            <span className="hidden sm:block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>
                         </div>
-                        <div className="ml-2 text-sm text-slate-600">
+                        <div className="md:ml-2 text-xs md:text-sm text-slate-600">
                             {/* <div className="font-semibold text-slate-800">Aarambh Platform</div> */}
                             {/* <div className="mt-1">123 Innovation Drive</div> */}
                             <div>Trivandrum, Kerala</div>
@@ -1266,25 +1825,25 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-start gap-3 md:items-center">
-                        <p className="text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
+                    <div className="flex flex-col items-center gap-3 md:gap-4">
+                        <p className="text-xs md:text-sm text-slate-500">© 2026 Aarambh by Ascendio LLP. All rights reserved.</p>
 
                         <div className="flex gap-2">
                             <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                                className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <svg className="h-3.5 w-3.5 md:h-4 md:w-4" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                                     <rect x="2" y="9" width="4" height="12" />
                                     <circle cx="4" cy="4" r="2" />
                                 </svg>
                             </Link>
-                            <Link href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"
-                                className={` hidden grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                                <X className="h-4 w-4" />
+                            <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X"
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
                             </Link>
                             <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                                className={`grid h-9 w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
-                                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                <svg className="h-3.5 w-3.5 md:h-4 md:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -1293,7 +1852,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                         </div>
                     </div>
 
-                    <div className="flex gap-6 text-sm font-semibold text-slate-700">
+                    <div className="flex justify-center flex-wrap gap-4 md:gap-6 text-xs md:text-sm font-semibold text-slate-700">
                         <button onClick={(e) => { e.preventDefault(); onOpenPrivacy && onOpenPrivacy(); }} className="transition hover:text-(--landing-accent)">Privacy</button>
                         <button
                             onClick={(e) => {
@@ -1327,7 +1886,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
     if (!isOpen) return null;
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitting(true);
         try {

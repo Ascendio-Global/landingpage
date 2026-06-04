@@ -1,9 +1,6 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import logoDark from '../public/Logos/landing-dark.png';
-import logoLight from '../public/Logos/landing-light.png';
+
 type Props = {
   size?: 'sm' | 'md';
   showText?: boolean; // whether to render "Aarambh" text to the right
@@ -26,9 +23,18 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   const isDark = mounted ? resolvedTheme === 'dark' : false;
   const activeRole = role || 'landing';
 
+  let logoSrc = '/aarambh%20logo.png';
   const isFallback = !['student', 'admin', 'rep', 'alumni', 'alumini', 'landing'].includes(activeRole);
-  let logoSrc = isDark ? logoDark : logoLight;
 
+  if (activeRole === 'student') {
+    logoSrc = isDark ? '/Logos/student-dark.png' : '/Logos/student-light.png';
+  } else if (activeRole === 'admin' || activeRole === 'rep') {
+    logoSrc = isDark ? '/Logos/admin-dark.png' : '/Logos/admin-light.png';
+  } else if (activeRole === 'alumni' || activeRole === 'alumini') {
+    logoSrc = isDark ? '/Logos/alumini-dark.png' : '/Logos/alumini-light.png';
+  } else if (activeRole === 'landing') {
+    logoSrc = isDark ? '/Logos/landing-dark.jpeg' : '/Logos/landing-light.png';
+  }
 
   const imgClass = isFallback
     ? `h-full w-full ${imgFitClass} contrast-125 mix-blend-multiply dark:invert dark:contrast-125 dark:mix-blend-screen`
@@ -37,12 +43,11 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`relative ${sizeClass}`}>
-        <Image
-        src={logoSrc}
-        alt={`${activeRole} logo`}
-        className={imgClass}
-        width={size === 'sm' ? 80 : 112}
-        height={size === 'sm' ? 48 : 64} />
+        <img
+          src={logoSrc}
+          alt={`${activeRole} logo`}
+          className={imgClass}
+        />
       </div>
 
       {showText ? (

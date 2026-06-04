@@ -10,6 +10,10 @@ html {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Non-static position is required by motion's useScroll() when computing
+     offsets of target sections relative to the document scrolling element.
+     Without it, motion logs a "container has a static position" warning. */
+  position: relative;
 }
 
 body {
@@ -19,6 +23,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* See note on html above — motion's useScroll() inspects the scrolling
+     element's computed position; some browsers report body as the scrolling
+     element instead of html, so set both. */
+  position: relative;
 }
 
 /* Better touch targets on mobile */
