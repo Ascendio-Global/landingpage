@@ -506,7 +506,8 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
             <div className="relative w-[94%] md:w-full max-w-7xl flex justify-center">
                 <motion.div
                     layout
-                    className={`pointer-events-auto flex items-center justify-between border shadow-lg transition-all duration-300 overflow-hidden ${
+                    transition={{ layout: { type: 'spring', stiffness: 400, damping: 30 } }}
+                    className={`pointer-events-auto flex items-center justify-between border shadow-lg transition-colors duration-300 overflow-hidden ${
                         scrolled ? 'w-auto rounded-full' : 'w-full rounded-[16px] md:rounded-[20px]'
                     } ${isDarkMode ? 'border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl' : 'border-black/10 bg-white/90 backdrop-blur-xl'
                         }`}
@@ -524,6 +525,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                         initial={{ opacity: 0, width: 0 }}
                                         animate={{ opacity: 1, width: 'auto' }}
                                         exit={{ opacity: 0, width: 0 }}
+                                        transition={{ opacity: { duration: 0.2 }, width: { type: 'spring', stiffness: 400, damping: 30 } }}
                                         className="overflow-hidden whitespace-nowrap"
                                     >
                                         <div className="flex flex-col leading-none pl-3">
@@ -577,6 +579,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                         initial={{ opacity: 0, width: 0 }}
                                         animate={{ opacity: 1, width: 'auto' }}
                                         exit={{ opacity: 0, width: 0 }}
+                                        transition={{ opacity: { duration: 0.2 }, width: { type: 'spring', stiffness: 400, damping: 30 } }}
                                         className="overflow-hidden whitespace-nowrap"
                                     >
                                         <span className="pr-2">Log In</span>
