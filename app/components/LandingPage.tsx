@@ -506,7 +506,9 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
             <div className="relative w-[94%] md:w-full max-w-7xl flex justify-center">
                 <motion.div
                     layout
-                    className={`pointer-events-auto flex w-full items-center justify-between rounded-[16px] md:rounded-[20px] border shadow-lg transition-colors duration-300 overflow-hidden ${isDarkMode ? 'border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl' : 'border-black/10 bg-white/90 backdrop-blur-xl'
+                    className={`pointer-events-auto flex items-center justify-between border shadow-lg transition-all duration-300 overflow-hidden ${
+                        scrolled ? 'w-auto rounded-full' : 'w-full rounded-[16px] md:rounded-[20px]'
+                    } ${isDarkMode ? 'border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl' : 'border-black/10 bg-white/90 backdrop-blur-xl'
                         }`}
                     style={{
                         padding: scrolled ? '4px' : '6px'
@@ -559,7 +561,9 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                     <div className="flex items-center gap-2 pr-1">
                         <button
                             onClick={onLoginClick}
-                            className={`group flex items-center justify-center rounded-[14px] text-sm font-medium transition-all h-[38px] md:h-[42px] ${isDarkMode
+                            className={`group flex items-center justify-center text-sm font-medium transition-all h-[38px] md:h-[42px] ${
+                                scrolled ? 'rounded-full' : 'rounded-[14px]'
+                            } ${isDarkMode
                                 ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]'
                                 : 'bg-blue-600 text-white hover:bg-blue-700'
                                 }`}
