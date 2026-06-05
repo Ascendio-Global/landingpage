@@ -62,20 +62,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: "/Logos/landing-light.png",
-        href: "/Logos/landing-light.png",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/Logos/landing-dark.jpeg",
-        href: "/Logos/landing-dark.jpeg",
-      },
-    ],
-  },
+  // The browser-tab PNG icon (light vs dark) is managed at runtime by
+  // <DynamicFavicon> so it follows the SITE theme, including a manual in-page
+  // toggle — not just the OS `prefers-color-scheme`. The `app/favicon.ico`
+  // (auto-served at /favicon.ico) remains the SSR/crawler/no-JS fallback.
 };
 
 export default function RootLayout({
