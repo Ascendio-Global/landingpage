@@ -1118,107 +1118,226 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
 function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
+    const mobileScrollRef = useRef<HTMLDivElement>(null);
+    const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+    const mobileActiveRef = useRef(0);
+    const mobileTouchStartXRef = useRef<number | null>(null);
+    const mobileTouchStartYRef = useRef<number | null>(null);
+    const cardCount = WHY_US_POINTS.length;
+
+    useEffect(() => {
+        const container = mobileScrollRef.current;
+        if (!container) return;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            mobileTouchStartXRef.current = e.touches[0]?.clientX ?? null;
+            mobileTouchStartYRef.current = e.touches[0]?.clientY ?? null;
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            if (mobileTouchStartXRef.current === null || mobileTouchStartYRef.current === null) return;
+            const endX = e.changedTouches[0]?.clientX ?? mobileTouchStartXRef.current;
+            const endY = e.changedTouches[0]?.clientY ?? mobileTouchStartYRef.current;
+            const dx = mobileTouchStartXRef.current - endX;
+            const dy = Math.abs(mobileTouchStartYRef.current - endY);
+            if (Math.abs(dx) < 40 || dy > Math.abs(dx)) return;
+            const cur = mobileActiveRef.current;
+            if (dx > 0 && cur < cardCount - 1) {
+                mobileActiveRef.current = cur + 1;
+                setMobileActiveIndex(cur + 1);
+            } else if (dx < 0 && cur > 0) {
+                mobileActiveRef.current = cur - 1;
+                setMobileActiveIndex(cur - 1);
+            }
+            mobileTouchStartXRef.current = null;
+            mobileTouchStartYRef.current = null;
+        };
+
+        container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        container.addEventListener('touchend', handleTouchEnd, { passive: true });
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [cardCount]);
+
+    useEffect(() => { mobileActiveRef.current = mobileActiveIndex; }, [mobileActiveIndex]);
+
+    // Mobile section wheel: horizontal card nav first, then allow page scroll
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+        const handleWheel = (e: WheelEvent) => {
+            const isDesktop = window.innerWidth >= 768;
+            if (isDesktop) return;
+            const cur = mobileActiveRef.current;
+            if (e.deltaX !== 0) return; // let horizontal trackpad pass through
+            if (e.deltaY > 0 && cur < cardCount - 1) {
+                e.preventDefault();
+                mobileActiveRef.current = cur + 1;
+                setMobileActiveIndex(cur + 1);
+            } else if (e.deltaY < 0 && cur > 0) {
+                e.preventDefault();
+                mobileActiveRef.current = cur - 1;
+                setMobileActiveIndex(cur - 1);
+            }
+        };
+        section.addEventListener('wheel', handleWheel, { passive: false });
+        return () => section.removeEventListener('wheel', handleWheel);
+    }, [cardCount]);
 
     return (
-        <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b px-4 py-12 md:py-28 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
-            <div className="mx-auto max-w-7xl">
-                <RevealOnScroll variant="fadeDown" className={`mb-6 md:mb-12 text-xs md:text-sm font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
+        <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
+            {/* ── MOBILE (< md) ── */}
+            <div className="md:hidden flex flex-col h-screen px-4 py-10">
+                <RevealOnScroll variant="fadeDown" className={`mb-6 text-xs font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
                     Why Choose Us
                 </RevealOnScroll>
-                <InfiniteSlider className="md:hidden pb-5" gap={16} duration={85}>
-                    {WHY_US_POINTS.map((point, index) => {
-                        const Icon = point.icon;
-                        return (
-                            <RevealOnScroll
-                                key={point.title}
-                                variant="scaleIn"
-                                delay={index * 0.04}
-                                style={{
-                                    '--hover-border': point.color,
-                                    '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
-                                } as React.CSSProperties}
-                                className={`group relative min-h-[260px] w-[calc(100vw-2rem)] shrink-0 overflow-hidden rounded-[16px] p-5 border transition-all duration-300 backdrop-blur-2xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
-                                    ? 'bg-white/[0.055] border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_18px_48px_rgba(0,0,0,0.35)] hover:bg-white/[0.08]'
-                                    : 'bg-white/65 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_18px_42px_rgba(15,23,42,0.09)] hover:bg-white/85'
-                                    }`}
-                            >
-                                <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70" />
-                                <div
-                                    className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
-                                    style={{ backgroundColor: point.color }}
-                                />
 
-                                <div className="flex justify-between items-start mb-4">
+                {/* Card stack */}
+                <div ref={mobileScrollRef} className="relative flex-1 min-h-0">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        {WHY_US_POINTS.map((point, index) => {
+                            const Icon = point.icon;
+                            const offset = index - mobileActiveIndex;
+                            const distance = Math.abs(offset);
+                            const isVisible = distance <= 2;
+                            const x = offset === 0 ? 0 : offset > 0 ? 100 + (distance - 1) * 8 : -100 - (distance - 1) * 8;
+                            const scale = offset === 0 ? 1 : distance === 1 ? 0.9 : 0.8;
+                            const opacity = offset === 0 ? 1 : distance === 1 ? 0.4 : 0.15;
+                            return (
+                                <div
+                                    key={point.title}
+                                    className="absolute w-[88vw] max-w-[360px] transition-all duration-500 ease-out"
+                                    style={{
+                                        transform: `translateX(${x}%) scale(${scale})`,
+                                        opacity: isVisible ? opacity : 0,
+                                        zIndex: cardCount - distance,
+                                        pointerEvents: offset === 0 ? 'auto' : 'none',
+                                    }}
+                                >
                                     <div
-                                        className="grid h-10 w-10 place-items-center rounded-full"
-                                        style={{ backgroundColor: point.bg, color: point.color }}
+                                        style={{
+                                            '--hover-border': point.color,
+                                            '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                        } as React.CSSProperties}
+                                        className={`group relative min-h-[260px] w-full overflow-hidden rounded-[20px] p-5 border transition-all duration-300 backdrop-blur-2xl ${isDarkMode
+                                            ? 'bg-white/[0.055] border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_18px_48px_rgba(0,0,0,0.35)]'
+                                            : 'bg-white border-slate-200 shadow-[0_18px_42px_rgba(15,23,42,0.09)]'
+                                        }`}
                                     >
-                                        <Icon className="h-5 w-5" />
+                                        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70" />
+                                        <div
+                                            className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-30 pointer-events-none"
+                                            style={{ backgroundColor: point.color }}
+                                        />
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div
+                                                className="grid h-10 w-10 place-items-center rounded-full"
+                                                style={{ backgroundColor: point.bg, color: point.color }}
+                                            >
+                                                <Icon className="h-5 w-5" />
+                                            </div>
+                                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full`} style={{ background: point.bg, color: point.color }}>
+                                                {index + 1}/{cardCount}
+                                            </span>
+                                        </div>
+                                        <h3 className={`text-lg font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                            {point.title}
+                                        </h3>
+                                        <p className={`mt-1 text-xs font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                            {point.subtitle}
+                                        </p>
+                                        <p className={`mt-3 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                                            {point.description}
+                                        </p>
                                     </div>
                                 </div>
+                            );
+                        })}
+                    </div>
+                </div>
 
-                                <h3 className={`text-lg font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
-                                    {point.title}
-                                </h3>
-                                <p className={`mt-1 text-xs font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                    {point.subtitle}
-                                </p>
-
-                                <p className={`mt-2 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
-                                    {point.description}
-                                </p>
-                            </RevealOnScroll>
-                        );
-                    })}
-                </InfiniteSlider>
-
-                <StaggerContainer className="hidden md:grid md:grid-cols-3 md:gap-6" delayChildren={0.12} staggerChildren={0.08}>
-                    {WHY_US_POINTS.map((point, index) => {
-                        const Icon = point.icon;
-                        return (
-                            <AnimatedCard
-                                key={point.title}
-                                variant="scaleIn"
+                {/* Dot indicators + arrows */}
+                <div className="shrink-0 flex items-center justify-center gap-4 pb-2 pt-4">
+                    <button
+                        onClick={() => { const n = Math.max(0, mobileActiveIndex - 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
+                        disabled={mobileActiveIndex === 0}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === 0 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
+                    >
+                        <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <div className="flex gap-1.5">
+                        {WHY_US_POINTS.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => { mobileActiveRef.current = i; setMobileActiveIndex(i); }}
+                                className="h-1.5 rounded-full transition-all duration-300"
                                 style={{
-                                    '--hover-border': point.color,
-                                    '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
-                                } as React.CSSProperties}
-                                className={`group relative overflow-hidden rounded-[20px] p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
-                                    ? 'bg-white/[0.03] border-white/8 hover:bg-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
-                                    : 'bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
+                                    width: i === mobileActiveIndex ? 20 : 6,
+                                    background: i === mobileActiveIndex ? WHY_US_POINTS[mobileActiveIndex].color : isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => { const n = Math.min(cardCount - 1, mobileActiveIndex + 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
+                        disabled={mobileActiveIndex === cardCount - 1}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === cardCount - 1 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
+                    >
+                        <ChevronRight className="h-4 w-4" />
+                    </button>
+                </div>
+            </div>
+
+            {/* ── DESKTOP (≥ md) ── */}
+            <div className="hidden md:block px-6 py-28">
+                <div className="mx-auto max-w-7xl">
+                    <RevealOnScroll variant="fadeDown" className={`mb-12 text-sm font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
+                        Why Choose Us
+                    </RevealOnScroll>
+                    <StaggerContainer className="grid md:grid-cols-3 gap-6" delayChildren={0.12} staggerChildren={0.08}>
+                        {WHY_US_POINTS.map((point) => {
+                            const Icon = point.icon;
+                            return (
+                                <AnimatedCard
+                                    key={point.title}
+                                    variant="scaleIn"
+                                    style={{
+                                        '--hover-border': point.color,
+                                        '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                    } as React.CSSProperties}
+                                    className={`group relative overflow-hidden rounded-[20px] p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
+                                        ? 'bg-white/[0.03] border-white/8 hover:bg-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+                                        : 'bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
                                     }`}
-                            >
-                                {/* Top subtle glow */}
-                                <div
-                                    className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
-                                    style={{ backgroundColor: point.color }}
-                                />
-
-                                <div className="flex justify-between items-start mb-4 md:mb-12">
-                                    {/* Icon Container */}
+                                >
                                     <div
-                                        className="grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-full"
-                                        style={{ backgroundColor: point.bg, color: point.color }}
-                                    >
-                                        <Icon className="h-5 w-5 md:h-6 md:w-6" />
+                                        className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+                                        style={{ backgroundColor: point.color }}
+                                    />
+                                    <div className="flex justify-between items-start mb-12">
+                                        <div
+                                            className="grid h-12 w-12 place-items-center rounded-full"
+                                            style={{ backgroundColor: point.bg, color: point.color }}
+                                        >
+                                            <Icon className="h-6 w-6" />
+                                        </div>
                                     </div>
-                                </div>
-
-                                {/* Text Content */}
-                                <h3 className={`text-lg md:text-xl font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
-                                    {point.title}
-                                </h3>
-                                <p className={`mt-1 text-xs md:text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                    {point.subtitle}
-                                </p>
-
-                                <p className={`mt-2 md:mt-8 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
-                                    {point.description}
-                                </p>
-                            </AnimatedCard>
-                        );
-                    })}
-                </StaggerContainer>
+                                    <h3 className={`text-xl font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                        {point.title}
+                                    </h3>
+                                    <p className={`mt-1 text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                        {point.subtitle}
+                                    </p>
+                                    <p className={`mt-8 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
+                                        {point.description}
+                                    </p>
+                                </AnimatedCard>
+                            );
+                        })}
+                    </StaggerContainer>
+                </div>
             </div>
         </section>
     );
@@ -1690,26 +1809,57 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
             </div>
 
             {/* MOBILE */}
-            <div className="flex lg:hidden h-full flex-col w-full px-4 py-6 mx-auto max-w-2xl overflow-hidden">
-                <div className={`relative w-full h-[160px] sm:h-[200px] rounded-[1.25rem] overflow-hidden border mb-4 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-xl`}>
+            <div className="flex lg:hidden h-full flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
+                {/* Header image — compact strip */}
+                <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-lg`}>
                     <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
+                    {/* overlay text on image */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-blue-300">Legal & Policies</span>
+                        <span className="text-sm font-bold text-white leading-tight">Terms and Conditions</span>
+                        <span className={`text-[10px] mt-0.5 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-200'}`}>Last updated: May 2026</span>
+                    </div>
                 </div>
-                <div className="shrink-0 mb-4">
-                    <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026." isDarkMode={isDarkMode} align="left" />
-                </div>
+
+                {/* Card area with floating side buttons */}
                 <div className="relative flex-1 min-h-0">
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    {/* Floating LEFT button */}
+                    <button
+                        onClick={() => { const n = Math.max(0, activeCard - 1); setActiveCard(n); activeCardRef.current = n; }}
+                        disabled={activeCard === 0}
+                        className={`absolute left-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === 0 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
+                            ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
+                            : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
+                        }`}
+                    >
+                        <ChevronLeft className="h-4 w-4" />
+                    </button>
+
+                    {/* Floating RIGHT button */}
+                    <button
+                        onClick={() => { const n = Math.min(cardCount - 1, activeCard + 1); setActiveCard(n); activeCardRef.current = n; }}
+                        disabled={activeCard === cardCount - 1}
+                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === cardCount - 1 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
+                            ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
+                            : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
+                        }`}
+                    >
+                        <ChevronRight className="h-4 w-4" />
+                    </button>
+
+                    {/* Card stack */}
+                    <div className="absolute inset-0 flex items-center justify-center px-12">
                         {policyCards.map((card, index) => {
                             const offset = index - currentCard;
                             const distance = Math.abs(offset);
                             const isVisible = distance <= 2;
-                            const x = offset === 0 ? 0 : offset > 0 ? 24 + (distance - 1) * 12 : -24 - (distance - 1) * 12;
+                            const x = offset === 0 ? 0 : offset > 0 ? 105 + (distance - 1) * 6 : -105 - (distance - 1) * 6;
                             const scale = offset === 0 ? 1 : distance === 1 ? 0.88 : 0.76;
-                            const opacity = offset === 0 ? 1 : distance === 1 ? 0.45 : 0.18;
+                            const opacity = offset === 0 ? 1 : distance === 1 ? 0.35 : 0.12;
                             return (
                                 <div
                                     key={card.title}
-                                    className="absolute w-[88vw] max-w-[380px] transition-all duration-500 ease-out"
+                                    className="absolute w-full max-w-[320px] transition-all duration-500 ease-out"
                                     style={{
                                         transform: `translateX(${x}%) scale(${scale})`,
                                         opacity: isVisible ? opacity : 0,
@@ -1722,6 +1872,23 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             );
                         })}
                     </div>
+                </div>
+
+                {/* Dot indicator strip */}
+                <div className="shrink-0 flex items-center justify-center gap-1.5 pt-3 pb-1">
+                    {policyCards.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => { setActiveCard(i); activeCardRef.current = i; }}
+                            className="h-1.5 rounded-full transition-all duration-300"
+                            style={{
+                                width: i === activeCard ? 18 : 5,
+                                background: i === activeCard
+                                    ? (isDarkMode ? '#818cf8' : '#2563eb')
+                                    : (isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'),
+                            }}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
