@@ -492,7 +492,6 @@ const NAV_LINKS = [
     { label: 'About', href: '#about' },
     { label: 'Features', href: '#why-choose-us' },
     { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
 ];
 
 function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDarkMode: boolean }) {
