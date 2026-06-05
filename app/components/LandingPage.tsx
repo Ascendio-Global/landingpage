@@ -40,7 +40,7 @@ import {
     X,
     Zap,
 } from 'lucide-react';
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform, useMotionValueEvent } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import { useTheme } from 'next-themes';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
@@ -1691,115 +1691,97 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
     const cardCount = policyCards.length;
     const sectionRef = useRef<HTMLElement>(null);
+    const stickyTrackRef = useRef<HTMLDivElement>(null);
     const [activeCard, setActiveCard] = useState(0);
     const currentCard = activeCard;
     const activeCardRef = useRef(0);
-    const touchStartYRef = useRef<number | null>(null);
 
     useEffect(() => { activeCardRef.current = activeCard; }, [activeCard]);
 
-    // Section-scoped wheel + touch — no window hijacking, no extra height
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
+    // ── DESKTOP: native sticky-scroll ──────────────────────────────────────
+    // The outer track is (cardCount) screen-heights tall. While it is in view,
+    // the inner viewport sticks (top:0, h-screen) so the image + heading stay
+    // fixed and only the card stack advances. Once the last card is reached the
+    // track scrolls past naturally, releasing the section. Symmetric on the way
+    // back up — all driven by the browser's own scroll, no wheel hijacking.
+    const { scrollYProgress } = useScroll({
+        target: stickyTrackRef,
+        offset: ['start start', 'end end'],
+    });
 
-        const handleWheel = (e: WheelEvent) => {
-            const cur = activeCardRef.current;
-            if (e.deltaY > 0 && cur < cardCount - 1) {
-                e.preventDefault();
-                e.stopPropagation();
-                activeCardRef.current = cur + 1;
-                setActiveCard(cur + 1);
-            } else if (e.deltaY < 0 && cur > 0) {
-                e.preventDefault();
-                e.stopPropagation();
-                activeCardRef.current = cur - 1;
-                setActiveCard(cur - 1);
-            }
-        };
-
-        const handleTouchStart = (e: TouchEvent) => {
-            touchStartYRef.current = e.touches[0]?.clientY ?? null;
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (touchStartYRef.current === null) return;
-            const currentY = e.touches[0]?.clientY;
-            if (currentY === undefined) return;
-            const delta = touchStartYRef.current - currentY;
-            if (Math.abs(delta) < 36) return;
-            const cur = activeCardRef.current;
-            if (delta > 0 && cur < cardCount - 1) {
-                e.preventDefault();
-                activeCardRef.current = cur + 1;
-                setActiveCard(cur + 1);
-                touchStartYRef.current = currentY;
-            } else if (delta < 0 && cur > 0) {
-                e.preventDefault();
-                activeCardRef.current = cur - 1;
-                setActiveCard(cur - 1);
-                touchStartYRef.current = currentY;
-            }
-        };
-
-        section.addEventListener('wheel', handleWheel, { passive: false });
-        section.addEventListener('touchstart', handleTouchStart, { passive: true });
-        section.addEventListener('touchmove', handleTouchMove, { passive: false });
-        return () => {
-            section.removeEventListener('wheel', handleWheel);
-            section.removeEventListener('touchstart', handleTouchStart);
-            section.removeEventListener('touchmove', handleTouchMove);
-        };
-    }, [cardCount]);
+    useMotionValueEvent(scrollYProgress, 'change', (p) => {
+        // Map 0..1 progress across the card list. Bias the active range so the
+        // first/last cards get a full "dwell" before the section releases.
+        const idx = Math.min(cardCount - 1, Math.max(0, Math.round(p * (cardCount - 1))));
+        if (idx !== activeCardRef.current) {
+            activeCardRef.current = idx;
+            setActiveCard(idx);
+        }
+    });
 
     return (
         <section
             id="terms"
             ref={sectionRef}
-            className={`relative h-screen overflow-hidden ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}
+            className={`relative ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}
         >
-            {/* DESKTOP */}
-            <div className="hidden lg:flex h-full w-full">
-                <div className="mx-auto w-full max-w-7xl px-8 h-full flex items-center">
-                    <div className="flex items-start gap-16 w-full h-[88vh]">
-                        {/* Left — Image */}
-                        <div className="w-[45%] h-full shrink-0">
-                            <div className={`relative w-full h-full rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
-                                {isDarkMode && (
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
-                                )}
-                                <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
+            {/* DESKTOP — tall track drives the sticky viewport */}
+            <div ref={stickyTrackRef} className="relative hidden lg:block" style={{ height: `${cardCount * 100}vh` }}>
+                <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+                    <div className="mx-auto w-full max-w-7xl px-8 h-full flex items-center">
+                        <div className="flex items-stretch gap-16 w-full h-[88vh]">
+                            {/* Left — Image (pinned, matches content height) */}
+                            <div className="w-[42%] h-full shrink-0">
+                                <div className={`relative w-full h-full rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
+                                    {isDarkMode && (
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
+                                    )}
+                                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
+                                </div>
                             </div>
-                        </div>
-                        {/* Right — Heading + Card stack + Nav */}
-                        <div className="w-[55%] h-full flex flex-col">
-                            <div className="shrink-0 pb-4">
-                                <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
-                            </div>
-                            <div
-                                className="flex-1 relative overflow-hidden"
-                                style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)' }}
-                            >
-                                <div className="absolute inset-0 flex items-start justify-center pt-4">
-                                    {policyCards.map((card, index) => {
-                                        const offset = index - currentCard;
-                                        const depth = Math.abs(offset);
-                                        const isVisible = offset <= 1 && offset >= -3;
-                                        const y = offset <= 0 ? depth * 22 : 42 + offset * 28;
-                                        const scale = offset <= 0 ? 1 - depth * 0.045 : 0.94;
-                                        const opacity = offset === 0 ? 1 : offset < 0 ? Math.max(0.24, 0.72 - depth * 0.16) : 0;
-                                        return (
+                            {/* Right — Heading (pinned) + scrolling card stack */}
+                            <div className="w-[58%] h-full flex flex-col">
+                                <div className="shrink-0 pb-4">
+                                    <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
+                                    {/* Progress indicator: which term you're on */}
+                                    <div className="mt-3 flex items-center gap-2">
+                                        <div className={`relative h-1 flex-1 max-w-[220px] overflow-hidden rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-black/10'}`}>
                                             <motion.div
-                                                key={card.title}
-                                                className="absolute w-full"
-                                                animate={{ opacity: isVisible ? opacity : 0, scale, y }}
-                                                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                                                style={{ zIndex: index <= currentCard ? index + 1 : 0, pointerEvents: offset === 0 ? 'auto' : 'none' }}
-                                            >
-                                                <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
-                                            </motion.div>
-                                        );
-                                    })}
+                                                className="absolute inset-y-0 left-0 rounded-full"
+                                                style={{ background: isDarkMode ? '#818cf8' : '#2563eb', width: `${((currentCard + 1) / cardCount) * 100}%` }}
+                                                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                            />
+                                        </div>
+                                        <span className={`text-xs font-semibold tabular-nums ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                                            {String(currentCard + 1).padStart(2, '0')} / {String(cardCount).padStart(2, '0')}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex-1 relative overflow-hidden"
+                                    style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 6%, black 92%, transparent 100%)' }}
+                                >
+                                    <div className="absolute inset-0 flex items-start justify-center pt-4">
+                                        {policyCards.map((card, index) => {
+                                            const offset = index - currentCard;
+                                            const depth = Math.abs(offset);
+                                            const isVisible = offset <= 1 && offset >= -3;
+                                            const y = offset <= 0 ? depth * 22 : 42 + offset * 28;
+                                            const scale = offset <= 0 ? 1 - depth * 0.045 : 0.94;
+                                            const opacity = offset === 0 ? 1 : offset < 0 ? Math.max(0.24, 0.72 - depth * 0.16) : 0;
+                                            return (
+                                                <motion.div
+                                                    key={card.title}
+                                                    className="absolute w-full"
+                                                    animate={{ opacity: isVisible ? opacity : 0, scale, y }}
+                                                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                                                    style={{ zIndex: index <= currentCard ? index + 1 : 0, pointerEvents: offset === 0 ? 'auto' : 'none' }}
+                                                >
+                                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                                </motion.div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1808,7 +1790,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
             </div>
 
             {/* MOBILE */}
-            <div className="flex lg:hidden h-full flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
+            <div className="flex lg:hidden h-screen flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
                 {/* Header image — compact strip */}
                 <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-lg`}>
                     <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
