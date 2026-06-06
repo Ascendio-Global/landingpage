@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 type Props = {
   size?: 'sm' | 'md';
-  showText?: boolean; // whether to render "Aarambh" text to the right
+  showText?: boolean;
   className?: string;
   role?: string | null;
 };
 
 export function AnimatedLogoMark({ size = 'md', showText = false, className = '', role }: Props) {
   const sizeClass = size === 'sm' ? 'h-12 w-20 p-0.5' : 'h-16 w-28 p-0.5';
-  const imgFitClass = 'object-contain';
 
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -19,7 +19,6 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
     setMounted(true);
   }, []);
 
-  // Hydration mismatch prevention: default to light mode on server side
   const isDark = mounted ? resolvedTheme === 'dark' : false;
   const activeRole = role || 'landing';
 
@@ -37,15 +36,18 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   }
 
   const imgClass = isFallback
-    ? `h-full w-full ${imgFitClass} contrast-125 mix-blend-multiply dark:invert dark:contrast-125 dark:mix-blend-screen`
-    : `h-full w-full ${imgFitClass}`;
+    ? 'object-contain contrast-125 mix-blend-multiply dark:invert dark:contrast-125 dark:mix-blend-screen'
+    : 'object-contain';
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`relative ${sizeClass}`}>
-        <img
+        <Image
           src={logoSrc}
           alt={`${activeRole} logo`}
+          fill
+          priority
+          sizes="112px"
           className={imgClass}
         />
       </div>
@@ -60,4 +62,3 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
 }
 
 export default AnimatedLogoMark;
-

@@ -440,9 +440,9 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     return (
         <div
             style={{
-                '--landing-accent': isDarkMode ? '#7c3aed' : '#2563eb',
-                '--landing-accent-strong': isDarkMode ? '#6d28d9' : '#1d4ed8',
-                '--landing-soft': isDarkMode ? 'rgba(124,58,237,0.14)' : '#eff6ff',
+                '--landing-accent': isDarkMode ? '#a78bfa' : '#2563eb',
+                '--landing-accent-strong': isDarkMode ? '#7c3aed' : '#1d4ed8',
+                '--landing-soft': isDarkMode ? 'rgba(167,139,250,0.14)' : '#eff6ff',
             } as CSSProperties}
             className={`relative min-h-screen font-sans transition-colors duration-150 ${isDarkMode ? 'bg-[#070509] text-white selection:bg-purple-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
         >
@@ -1003,6 +1003,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     src="/landing-dashboard-light.png"
                     alt=""
                     fill
+                    priority
                     aria-hidden="true"
                     sizes="100vw"
                     className="object-cover"
@@ -1017,6 +1018,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     src="/landing-dashboard-dark.png"
                     alt=""
                     fill
+                    priority
                     aria-hidden="true"
                     sizes="100vw"
                     className="object-cover"
