@@ -198,7 +198,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     >
                                         {/* Image taking top portion */}
                                         <div className="relative h-44 w-full overflow-hidden md:absolute md:inset-0 md:h-[65%]">
-                                            <img src={c.image} alt={c.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                            <Image src={c.image} alt={c.title} fill sizes="(max-width: 768px) 82vw, 380px" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                                         </div>
 
                                         {/* Content block overlapping image */}
@@ -454,14 +454,16 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
                 isDarkMode={isDarkMode}
             />
 
-            <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
-            <StatsSection isDarkMode={isDarkMode} />
-            <TestimonialsSection isDarkMode={isDarkMode} />
-            <WhyChooseUsSection isDarkMode={isDarkMode} />
-            <FeaturesSection isDarkMode={isDarkMode} />
-            <ServicesSection isDarkMode={isDarkMode} />
-            <TermsSection isDarkMode={isDarkMode} />
-            <ContactSection isDarkMode={isDarkMode} />
+            <main>
+                <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
+                <StatsSection isDarkMode={isDarkMode} />
+                <TestimonialsSection isDarkMode={isDarkMode} />
+                <WhyChooseUsSection isDarkMode={isDarkMode} />
+                <FeaturesSection isDarkMode={isDarkMode} />
+                <ServicesSection isDarkMode={isDarkMode} />
+                <TermsSection isDarkMode={isDarkMode} />
+                <ContactSection isDarkMode={isDarkMode} />
+            </main>
             <Footer isDarkMode={isDarkMode} onOpenSupport={() => setIsContactOpen(true)} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
 
             <button
@@ -661,6 +663,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                 <div className="flex items-center gap-1.5 shrink-0">
                     <button
                         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                        aria-label="Go to contact"
                         className={`grid h-[34px] w-[34px] place-items-center rounded-full transition-colors ${
                             isDarkMode ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]' : 'bg-blue-600 text-white hover:bg-blue-700'
                         }`}
@@ -670,6 +673,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen(o => !o)}
+                        aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                         className={`grid h-[34px] w-[34px] place-items-center rounded-full border transition-colors ${
                             isDarkMode ? 'border-white/[0.13] bg-white/[0.07] text-white hover:bg-white/[0.13]' : 'border-black/[0.1] bg-black/[0.04] text-slate-700 hover:bg-black/[0.08]'
                         }`}
@@ -995,11 +999,13 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                 style={{ scaleY: railScale }}
             />
             <div className="pointer-events-none absolute inset-x-0 -top-10 h-[520px] overflow-hidden lg:hidden">
-                <img
+                <Image
                     src="/landing-dashboard-light.png"
                     alt=""
+                    fill
                     aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    sizes="100vw"
+                    className="object-cover"
                     style={{
                         opacity: isDarkMode ? 0 : 0.58,
                         transition: 'opacity 500ms ease',
@@ -1007,11 +1013,13 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         maskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
                     }}
                 />
-                <img
+                <Image
                     src="/landing-dashboard-dark.png"
                     alt=""
+                    fill
                     aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    sizes="100vw"
+                    className="object-cover"
                     style={{
                         opacity: isDarkMode ? 0.42 : 0,
                         transition: 'opacity 500ms ease',
@@ -1053,16 +1061,20 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             }}
                         />
                         <div className="relative aspect-[16/10] md:aspect-[4/3] w-full bg-black/20">
-                            <img
+                            <Image
                                 src="/landing-dashboard-light.png"
                                 alt="Dashboard Light"
-                                className="absolute inset-0 h-full w-full object-contain md:object-cover"
+                                fill
+                                sizes="(max-width: 1280px) 50vw, 720px"
+                                className="object-contain md:object-cover"
                                 style={{ opacity: isDarkMode ? 0 : 1, transition: 'opacity 500ms ease' }}
                             />
-                            <img
+                            <Image
                                 src="/landing-dashboard-dark.png"
                                 alt="Dashboard Dark"
-                                className="absolute inset-0 h-full w-full object-contain md:object-cover"
+                                fill
+                                sizes="(max-width: 1280px) 50vw, 720px"
+                                className="object-contain md:object-cover"
                                 style={{ opacity: isDarkMode ? 1 : 0, transition: 'opacity 500ms ease' }}
                             />
                         </div>
@@ -1101,7 +1113,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     <p className={`mt-2 text-xs md:text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
                                         {stat.label}
                                     </p>
-                                    <p className={`mt-2 md:mt-4 text-xs md:text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                    <p className={`mt-2 md:mt-4 text-xs md:text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
                                         {stat.description}
                                     </p>
                                 </motion.div>
@@ -1188,13 +1200,13 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
     return (
         <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
             {/* ── MOBILE (< md) ── */}
-            <div className="md:hidden flex flex-col h-screen px-4 py-10">
+            <div className="md:hidden flex flex-col px-4 py-6">
                 <RevealOnScroll variant="fadeDown" className={`mb-6 text-xs font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
                     Why Choose Us
                 </RevealOnScroll>
 
                 {/* Card stack */}
-                <div ref={mobileScrollRef} className="relative flex-1 min-h-0">
+                <div ref={mobileScrollRef} className="relative h-[320px]">
                     <div className="absolute inset-0 flex items-center justify-center">
                         {WHY_US_POINTS.map((point, index) => {
                             const Icon = point.icon;
@@ -1262,26 +1274,34 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <button
                         onClick={() => { const n = Math.max(0, mobileActiveIndex - 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
                         disabled={mobileActiveIndex === 0}
+                        aria-label="Previous feature"
                         className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === 0 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
                     >
                         <ChevronLeft className="h-4 w-4" />
                     </button>
                     <div className="flex gap-1.5">
-                        {WHY_US_POINTS.map((_, i) => (
+                        {WHY_US_POINTS.map((point, i) => (
                             <button
                                 key={i}
                                 onClick={() => { mobileActiveRef.current = i; setMobileActiveIndex(i); }}
-                                className="h-1.5 rounded-full transition-all duration-300"
-                                style={{
-                                    width: i === mobileActiveIndex ? 20 : 6,
-                                    background: i === mobileActiveIndex ? WHY_US_POINTS[mobileActiveIndex].color : isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
-                                }}
-                            />
+                                aria-label={`Go to ${point.title}`}
+                                className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
+                            >
+                                <span
+                                    className="absolute rounded-full pointer-events-none transition-all duration-300"
+                                    style={{
+                                        width: i === mobileActiveIndex ? 20 : 6,
+                                        height: 6,
+                                        background: i === mobileActiveIndex ? WHY_US_POINTS[mobileActiveIndex].color : isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
+                                    }}
+                                />
+                            </button>
                         ))}
                     </div>
                     <button
                         onClick={() => { const n = Math.min(cardCount - 1, mobileActiveIndex + 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
                         disabled={mobileActiveIndex === cardCount - 1}
+                        aria-label="Next feature"
                         className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === cardCount - 1 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
                     >
                         <ChevronRight className="h-4 w-4" />
@@ -1364,14 +1384,21 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem]"
                                 style={{ background: isDarkMode ? 'rgba(109,40,217,0.45)' : 'rgba(59,130,246,0.3)' }}
                             />
-                            <img
-                                src="/interview.png"
-                                alt="Interview process"
-                                className="relative z-10 aspect-[16/10] w-full rounded-2xl object-cover shadow-2xl md:rounded-3xl lg:aspect-[3/4]"
+                            <div
+                                className="relative z-10 aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl md:rounded-3xl lg:aspect-[3/4]"
                                 style={{
                                     border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
                                 }}
-                            />
+                            >
+                                <Image
+                                    src="/interview.png"
+                                    alt="Interview process"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                    className="object-cover"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -1499,10 +1526,16 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                         isDarkMode ? 'opacity-65 group-hover:opacity-100 mix-blend-screen' : 'opacity-45 group-hover:opacity-70 mix-blend-multiply'
                                     }`}
                                 >
-                                    <div 
-                                        className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-80 md:opacity-60"
-                                        style={{ backgroundImage: `url(${isDarkMode ? ABOUT_SLIDES[activeIndex].image : ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')})` }}
-                                    />
+                                    <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700 opacity-80 md:opacity-60">
+                                        <Image
+                                            src={isDarkMode ? ABOUT_SLIDES[activeIndex].image : ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')}
+                                            alt=""
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                            className="object-cover object-center"
+                                            loading="lazy"
+                                        />
+                                    </div>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
@@ -1793,7 +1826,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
             <div className="flex lg:hidden h-screen flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
                 {/* Header image — compact strip */}
                 <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-lg`}>
-                    <img src="/terms&cond.png" alt="Legal & Compliance" className="w-full h-full object-cover" />
+                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="100vw" className="object-cover" loading="lazy" />
                     {/* overlay text on image */}
                     <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
                         <span className="text-[10px] font-black uppercase tracking-widest text-blue-300">Legal & Policies</span>
@@ -1808,6 +1841,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <button
                         onClick={() => { const n = Math.max(0, activeCard - 1); setActiveCard(n); activeCardRef.current = n; }}
                         disabled={activeCard === 0}
+                        aria-label="Previous term"
                         className={`absolute left-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === 0 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
                             ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
                             : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
@@ -1820,6 +1854,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <button
                         onClick={() => { const n = Math.min(cardCount - 1, activeCard + 1); setActiveCard(n); activeCardRef.current = n; }}
                         disabled={activeCard === cardCount - 1}
+                        aria-label="Next term"
                         className={`absolute right-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === cardCount - 1 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
                             ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
                             : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
@@ -1857,18 +1892,24 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
 
                 {/* Dot indicator strip */}
                 <div className="shrink-0 flex items-center justify-center gap-1.5 pt-3 pb-1">
-                    {policyCards.map((_, i) => (
+                    {policyCards.map((card, i) => (
                         <button
                             key={i}
                             onClick={() => { setActiveCard(i); activeCardRef.current = i; }}
-                            className="h-1.5 rounded-full transition-all duration-300"
-                            style={{
-                                width: i === activeCard ? 18 : 5,
-                                background: i === activeCard
-                                    ? (isDarkMode ? '#818cf8' : '#2563eb')
-                                    : (isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'),
-                            }}
-                        />
+                            aria-label={`Go to ${card.title}`}
+                            className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
+                        >
+                            <span
+                                className="absolute rounded-full pointer-events-none transition-all duration-300"
+                                style={{
+                                    width: i === activeCard ? 18 : 5,
+                                    height: 6,
+                                    background: i === activeCard
+                                        ? (isDarkMode ? '#818cf8' : '#2563eb')
+                                        : (isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'),
+                                }}
+                            />
+                        </button>
                     ))}
                 </div>
             </div>
@@ -1918,7 +1959,7 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
                     [mask-image:linear-gradient(to_bottom,black_72%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
                     ${isDarkMode ? 'opacity-90 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
                 `}>
-                     <img src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} className={`w-full h-full object-cover ${isDarkMode ? 'md:mix-blend-screen opacity-90 md:opacity-50' : 'md:mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} />
+                     <Image src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover ${isDarkMode ? 'md:mix-blend-screen opacity-90 md:opacity-50' : 'md:mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} loading="lazy" />
                 </div>
             )}
             
