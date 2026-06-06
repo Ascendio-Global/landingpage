@@ -2,7 +2,7 @@
 
 :root {
   --font-sans: var(--font-poppins);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
 }
 
 html {

@@ -163,7 +163,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     ];
 
     return (
-        <section ref={sectionRef} id="services" className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="services" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 720px' }} className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
             <div className="mx-auto max-w-7xl">
                 <motion.div style={{ y: headingY }}>
                     <SectionHeader
@@ -424,8 +424,7 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     const isDarkMode = mounted && resolvedTheme === 'dark';
 
     const toggleTheme = () => {
-        setTheme(isDarkMode ? 'light' : 'dark')
-        console.log('Toggled theme to', isDarkMode ? 'light' : 'dark');
+        setTheme(isDarkMode ? 'light' : 'dark');
     };
 
     const handleAuthSuccess = (role: 'student' | 'alumni' | 'admin' | 'rep', name: string, uid: string) => {
@@ -2138,7 +2137,7 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
 
 
     return (
-        <section ref={sectionRef} id="contact" className={`relative overflow-hidden px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
+        <section ref={sectionRef} id="contact" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 900px' }} className={`relative overflow-hidden px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
             <div className="relative mx-auto max-w-6xl">
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
                     {/* Left Column */}
