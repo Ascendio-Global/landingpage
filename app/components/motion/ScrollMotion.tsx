@@ -145,21 +145,19 @@ export function AnimatedHeading({
   title,
   copy,
   className,
-  isDarkMode,
   align = "center",
 }: {
   eyebrow: string;
   title: ReactNode;
   copy?: ReactNode;
   className?: string;
-  isDarkMode?: boolean;
   align?: "left" | "center";
 }) {
   return (
     <RevealOnScroll variant="blurReveal" className={cn(align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl", className)}>
       <p className="text-xs font-black uppercase tracking-[0.28em] text-(--landing-accent)">{eyebrow}</p>
       <h2 className="mt-3 md:mt-4 text-[26px] font-black uppercase leading-[1.1] md:text-6xl md:leading-[0.95]">{title}</h2>
-      {copy ? <p className={cn("mt-3 md:mt-5 text-[14px] md:text-base leading-relaxed md:leading-7", isDarkMode ? "text-zinc-400" : "text-zinc-600")}>{copy}</p> : null}
+      {copy ? <p className={cn("mt-3 md:mt-5 text-[14px] md:text-base leading-relaxed md:leading-7 text-zinc-600 dark:text-zinc-400")}>{copy}</p> : null}
     </RevealOnScroll>
   );
 }

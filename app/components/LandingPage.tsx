@@ -51,7 +51,7 @@ import Image from 'next/image';
 
 
 
-function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
+function ServicesSection() {
     const sectionRef = useRef<HTMLElement | null>(null);
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
@@ -163,14 +163,13 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
     ];
 
     return (
-        <section ref={sectionRef} id="services" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 720px' }} className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0b0c0f]' : 'border-black/6 bg-white/70 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="services" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 720px' }} className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 border-black/6 bg-white/70 backdrop-blur-sm dark:border-white/10 dark:bg-[#0b0c0f]`}>
             <div className="mx-auto max-w-7xl">
                 <motion.div style={{ y: headingY }}>
                     <SectionHeader
                         eyebrow="What We Offer"
                         title="Services"
                         copy="End-to-end placement services including placement support, recruiter outreach, profile reviews, and analytics to track progress."
-                        isDarkMode={isDarkMode}
                     />
                 </motion.div>
 
@@ -191,10 +190,7 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     className="w-[min(82vw,300px)] md:w-[380px] shrink-0"
                                 >
                                     <div
-                                        className={`min-h-[390px] md:h-[480px] group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl ${isDarkMode
-                                            ? 'bg-white/[0.04] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-                                            : 'bg-white/60 border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
-                                            }`}
+                                        className={`min-h-[390px] md:h-[480px] group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl bg-white/60 border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:bg-white/[0.04] dark:border-white/10 dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]`}
                                     >
                                         {/* Image taking top portion */}
                                         <div className="relative h-44 w-full overflow-hidden md:absolute md:inset-0 md:h-[65%]">
@@ -202,22 +198,21 @@ function ServicesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                         </div>
 
                                         {/* Content block overlapping image */}
-                                        <div className={`relative z-10 mt-auto w-full rounded-t-3xl p-4 md:p-6 md:absolute md:bottom-0 md:h-[250px] flex flex-col justify-between gap-4 md:gap-6 border-t backdrop-blur-xl ${isDarkMode ? 'bg-black/78 border-white/5' : 'bg-white/88 border-white/60'
-                                            }`}>
+                                        <div className={`relative z-10 mt-auto w-full rounded-t-3xl p-4 md:p-6 md:absolute md:bottom-0 md:h-[250px] flex flex-col justify-between gap-4 md:gap-6 border-t backdrop-blur-xl bg-white/88 border-white/60 dark:bg-black/78 dark:border-white/5`}>
                                             <div>
                                                 <div className="flex items-center gap-3 mb-1">
-                                                    <h3 className={`text-xl md:text-2xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>{c.title}</h3>
+                                                    <h3 className={`text-xl md:text-2xl font-black tracking-tight text-zinc-900 dark:text-white`}>{c.title}</h3>
                                                 </div>
-                                                <p className={`text-sm font-medium mb-3 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>{c.subtitle}</p>
+                                                <p className={`text-sm font-medium mb-3 text-zinc-600 dark:text-zinc-400`}>{c.subtitle}</p>
 
-                                                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-500'}`}>
+                                                <p className={`text-sm leading-relaxed text-zinc-500 dark:text-zinc-500`}>
                                                     {c.body}
                                                 </p>
                                             </div>
 
                                             <div className="flex flex-wrap gap-2 mt-auto">
                                                 {c.metrics.map(metric => (
-                                                    <span key={metric} className={`px-3 py-1.5 rounded-lg text-xs font-medium border ${isDarkMode ? 'bg-white/5 border-white/10 text-zinc-400' : 'bg-black/5 border-black/10 text-zinc-600'}`}>
+                                                    <span key={metric} className={`px-3 py-1.5 rounded-lg text-xs font-medium border bg-black/5 border-black/10 text-zinc-600 dark:bg-white/5 dark:border-white/10 dark:text-zinc-400`}>
                                                         {metric}
                                                     </span>
                                                 ))}
@@ -421,10 +416,8 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     const [mounted, setMounted] = useState(false);
     useEffect(() => { setMounted(true); }, []);
     const { resolvedTheme, setTheme } = useTheme();
-    const isDarkMode = mounted && resolvedTheme === 'dark';
-
     const toggleTheme = () => {
-        setTheme(isDarkMode ? 'light' : 'dark');
+        setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
     };
 
     const handleAuthSuccess = (role: 'student' | 'alumni' | 'admin' | 'rep', name: string, uid: string) => {
@@ -439,38 +432,37 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
     return (
         <div
             style={{
-                '--landing-accent': isDarkMode ? '#a78bfa' : '#2563eb',
-                '--landing-accent-strong': isDarkMode ? '#7c3aed' : '#1d4ed8',
-                '--landing-soft': isDarkMode ? 'rgba(167,139,250,0.14)' : '#eff6ff',
+                
+                
+                
             } as CSSProperties}
-            className={`relative min-h-screen font-sans transition-colors duration-150 ${isDarkMode ? 'bg-[#070509] text-white selection:bg-purple-500/30' : 'bg-slate-100 text-slate-950 selection:bg-blue-100'}`}
+            className={`relative min-h-screen font-sans bg-slate-100 text-slate-950 selection:bg-blue-100 dark:bg-[#070509] dark:text-white dark:selection:bg-purple-500/30`}
         >
             <Navbar
                 onLoginClick={() => {
                     setLoginInitialType(undefined);
                     setIsLoginOpen(true);
                 }}
-                isDarkMode={isDarkMode}
             />
 
             <main>
-                <Hero isDarkMode={isDarkMode} onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
-                <StatsSection isDarkMode={isDarkMode} />
-                <TestimonialsSection isDarkMode={isDarkMode} />
-                <WhyChooseUsSection isDarkMode={isDarkMode} />
-                <FeaturesSection isDarkMode={isDarkMode} />
-                <ServicesSection isDarkMode={isDarkMode} />
-                <TermsSection isDarkMode={isDarkMode} />
-                <ContactSection isDarkMode={isDarkMode} />
+                <Hero onExploreClick={() => { setLoginInitialType(undefined); setIsLoginOpen(true); }} />
+                <StatsSection />
+                <TestimonialsSection />
+                <WhyChooseUsSection />
+                <FeaturesSection />
+                <ServicesSection />
+                <TermsSection />
+                <ContactSection />
             </main>
-            <Footer isDarkMode={isDarkMode} onOpenSupport={() => setIsContactOpen(true)} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
+            <Footer onOpenSupport={() => setIsContactOpen(true)} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
 
             <button
                 onClick={toggleTheme}
-                className={`fixed bottom-6 left-6 z-50 grid h-12 w-12 place-items-center rounded-lg border shadow-xl transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'border-white/10 bg-white/10 text-yellow-300' : 'border-blue-100 bg-white text-slate-800'}`}
+                className={`fixed bottom-6 left-6 z-50 grid h-12 w-12 place-items-center rounded-lg border shadow-xl transition hover:-translate-y-0.5 active:scale-95 border-blue-100 bg-white text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-yellow-300`}
                 aria-label="Toggle Theme"
             >
-                {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                <><Sun className="hidden dark:block h-5 w-5" /><Moon className="block dark:hidden h-5 w-5" /></>
             </button>
 
             {/* <AuthModal
@@ -495,7 +487,7 @@ const NAV_LINKS = [
     { label: 'Services', href: '#services' },
 ];
 
-function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDarkMode: boolean }) {
+function Navbar({ onLoginClick }: { onLoginClick: () => void; }) {
     const [isCompact, setIsCompact] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -514,16 +506,12 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
     };
 
     const pillClass = (compact: boolean) =>
-        isDarkMode
-            ? compact
-                ? 'bg-white/[0.07] border-white/[0.13] shadow-[0_6px_28px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.09)]'
-                : 'bg-white/[0.05] border-white/[0.10] shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]'
-            : compact
-                ? 'bg-white/[0.72] border-white/[0.75] shadow-[0_6px_28px_rgba(0,0,0,0.09),inset_0_1px_0_rgba(255,255,255,1)]'
-                : 'bg-white/[0.60] border-white/[0.65] shadow-[0_4px_24px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)]';
+        compact
+            ? 'bg-white/[0.72] border-white/[0.75] shadow-[0_6px_28px_rgba(0,0,0,0.09),inset_0_1px_0_rgba(255,255,255,1)] dark:bg-white/[0.07] dark:border-white/[0.13] dark:shadow-[0_6px_28px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.09)]'
+            : 'bg-white/[0.60] border-white/[0.65] shadow-[0_4px_24px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] dark:bg-white/[0.05] dark:border-white/[0.10] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]';
 
     const shimmer = (
-        <div className={`pointer-events-none absolute inset-x-0 top-0 h-px ${isDarkMode ? 'bg-gradient-to-r from-transparent via-white/[0.18] to-transparent' : 'bg-gradient-to-r from-transparent via-white to-transparent'}`} />
+        <div className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white/[0.18] dark:to-transparent`} />
     );
 
     return (
@@ -575,14 +563,12 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                 </motion.a>
 
                 {/* Nav links — always visible on desktop, auto-center */}
-                <div className={`flex items-center gap-0.5 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+                <div className={`flex items-center gap-0.5 text-zinc-600 dark:text-zinc-300`}>
                     {NAV_LINKS.map(item => (
                         <a
                             key={item.label}
                             href={item.href}
-                            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
-                                isDarkMode ? 'hover:bg-white/10 hover:text-white' : 'hover:bg-black/[0.06] hover:text-black'
-                            }`}
+                            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:bg-black/[0.06] hover:text-black dark:hover:bg-white/10 dark:hover:text-white`}
                         >
                             {item.label}
                         </a>
@@ -599,9 +585,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                         height: isCompact ? 38 : 40,
                     }}
                     transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group shrink-0 flex items-center justify-center gap-2 rounded-full text-sm font-semibold overflow-hidden transition-colors ${
-                        isDarkMode ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]' : 'bg-blue-600 text-white hover:bg-blue-700'
-                    }`}
+                    className={`group shrink-0 flex items-center justify-center gap-2 rounded-full text-sm font-semibold overflow-hidden bg-blue-600 text-white hover:bg-blue-700 dark:bg-[#6d28d9] dark:hover:bg-[#5b21b6]`}
                 >
                     <AnimatePresence>
                         {!isCompact && (
@@ -663,9 +647,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                     <button
                         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                         aria-label="Go to contact"
-                        className={`grid h-[34px] w-[34px] place-items-center rounded-full transition-colors ${
-                            isDarkMode ? 'bg-[#6d28d9] text-white hover:bg-[#5b21b6]' : 'bg-blue-600 text-white hover:bg-blue-700'
-                        }`}
+                        className={`grid h-[34px] w-[34px] place-items-center rounded-full bg-blue-600 text-white hover:bg-blue-700 dark:bg-[#6d28d9] dark:hover:bg-[#5b21b6]`}
                     >
                         <ArrowRight className="h-[15px] w-[15px]" />
                     </button>
@@ -673,9 +655,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                         type="button"
                         onClick={() => setMobileMenuOpen(o => !o)}
                         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-                        className={`grid h-[34px] w-[34px] place-items-center rounded-full border transition-colors ${
-                            isDarkMode ? 'border-white/[0.13] bg-white/[0.07] text-white hover:bg-white/[0.13]' : 'border-black/[0.1] bg-black/[0.04] text-slate-700 hover:bg-black/[0.08]'
-                        }`}
+                        className={`grid h-[34px] w-[34px] place-items-center rounded-full border border-black/[0.1] bg-black/[0.04] text-slate-700 hover:bg-black/[0.08] dark:border-white/[0.13] dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.13]`}
                     >
                         {mobileMenuOpen ? <X className="h-[15px] w-[15px]" /> : <Menu className="h-[15px] w-[15px]" />}
                     </button>
@@ -691,9 +671,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -8, scale: 0.97 }}
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                        className={`md:hidden pointer-events-auto mt-2 w-full overflow-hidden rounded-2xl border p-2 shadow-2xl ${
-                            isDarkMode ? 'border-white/10 bg-[#08080d]/92 text-white' : 'border-black/[0.08] bg-white/[0.95] text-slate-900'
-                        }`}
+                        className={`md:hidden pointer-events-auto mt-2 w-full overflow-hidden rounded-2xl border p-2 shadow-2xl border-black/[0.08] bg-white/[0.95] text-slate-900 dark:border-white/10 dark:bg-[#08080d]/92 dark:text-white`}
                         style={glassStyle}
                     >
                         <div className="flex flex-col gap-0.5">
@@ -702,19 +680,15 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
                                     key={item.label}
                                     href={item.href}
                                     onClick={closeMobileMenu}
-                                    className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
-                                        isDarkMode ? 'text-zinc-200 hover:bg-white/[0.07]' : 'text-slate-700 hover:bg-black/[0.05]'
-                                    }`}
+                                    className={`rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-black/[0.05] dark:text-zinc-200 dark:hover:bg-white/[0.07]`}
                                 >
                                     {item.label}
                                 </a>
                             ))}
-                            <div className={`my-1 mx-1 h-px ${isDarkMode ? 'bg-white/[0.07]' : 'bg-black/[0.07]'}`} />
+                            <div className={`my-1 mx-1 h-px bg-black/[0.07] dark:bg-white/[0.07]`} />
                             <button
                                 onClick={() => { closeMobileMenu(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors ${
-                                    isDarkMode ? 'bg-violet-500/[0.14] text-violet-200 hover:bg-violet-500/[0.22]' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'
-                                }`}
+                                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-violet-500/[0.14] dark:text-violet-200 dark:hover:bg-violet-500/[0.22]`}
                             >
                                 <ArrowRight className="h-4 w-4" />
                                 Contact
@@ -727,7 +701,7 @@ function Navbar({ onLoginClick, isDarkMode }: { onLoginClick: () => void; isDark
     );
 }
 
-function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreClick?: () => void }) {
+function Hero({ onExploreClick }: { onExploreClick?: () => void }) {
     const heroRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: heroRef,
@@ -739,7 +713,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
     const boardY = useTransform(smoothProgress, [0, 1], [0, 60]);
 
     return (
-        <section ref={heroRef} className={`relative min-h-[82svh] md:min-h-screen overflow-hidden border-b pt-16 md:pt-24 ${isDarkMode ? 'border-white/10 bg-[#070509]' : 'border-slate-100 bg-slate-100'}`}>
+        <section ref={heroRef} className={`relative min-h-[82svh] md:min-h-screen overflow-hidden border-b pt-16 md:pt-24 border-slate-100 bg-slate-100 dark:border-white/10 dark:bg-[#070509]`}>
 
             {/* ── Background illustration — absolutely positioned, behind all content ── */}
             <motion.div
@@ -758,15 +732,13 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     priority
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none"
+                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none block dark:hidden"
                     style={{
-                        opacity: isDarkMode ? 0 : 0.95,
                         mixBlendMode: 'multiply',
                         WebkitMaskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
                         maskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
                         filter: 'contrast(1.2) saturate(1.4) brightness(1.03)',
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
                 {/* Dark mode image */}
                 <Image
@@ -777,51 +749,41 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     priority
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none"
+                    className="absolute inset-0 h-full w-full object-cover object-center md:object-left-top select-none hidden dark:block"
                     style={{
-                        opacity: isDarkMode ? 0.72 : 0,
                         mixBlendMode: 'screen',
                         WebkitMaskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
                         maskImage: 'radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 100%)',
                         filter: 'saturate(1.1) brightness(1.05)',
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
                 {/* Left-edge feather — light */}
                 <div
-                    className="pointer-events-none absolute inset-0"
+                    className="pointer-events-none absolute inset-0 block dark:hidden"
                     style={{
                         background: 'linear-gradient(to right, #f1f5f9 0%, transparent 45%)',
-                        opacity: isDarkMode ? 0 : 1,
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
                 {/* Left-edge feather — dark */}
                 <div
-                    className="pointer-events-none absolute inset-0"
+                    className="pointer-events-none absolute inset-0 hidden dark:block"
                     style={{
                         background: 'linear-gradient(to right, #070509 0%, transparent 35%)',
-                        opacity: isDarkMode ? 1 : 0,
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
                 {/* Bottom fade — light */}
                 <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40 block dark:hidden"
                     style={{
                         background: 'linear-gradient(to top, #f1f5f9, transparent)',
-                        opacity: isDarkMode ? 0 : 1,
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
                 {/* Bottom fade — dark */}
                 <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-40 hidden dark:block"
                     style={{
                         background: 'linear-gradient(to top, #070509, transparent)',
-                        opacity: isDarkMode ? 1 : 0,
-                        transition: 'opacity 500ms ease',
-                    }}
+                        }}
                 />
             </motion.div>
 
@@ -841,7 +803,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                         <span className="block">Placement Outcomes.</span>
                     </h1>
 
-                    <p className={`mt-4 md:mt-6 max-w-lg text-sm md:text-base leading-relaxed md:leading-7 sm:text-lg ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>
+                    <p className={`mt-4 md:mt-6 max-w-lg text-sm md:text-base leading-relaxed md:leading-7 sm:text-lg text-slate-600 dark:text-zinc-300`}>
                         We bring together talent, opportunities, and industry connections
                         in one intelligent platform built for placement success.
                     </p>
@@ -849,14 +811,14 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                     <div className="mt-5 md:mt-9 flex flex-wrap items-center gap-2.5 md:gap-3">
                         <a
                             href="#contact"
-                            className={`group inline-flex h-11 md:h-12 items-center gap-2 rounded-xl px-4 md:px-6 text-sm font-bold shadow-lg transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-[#ffffff] text-[#0a0a0f] shadow-black/40 hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-blue-600/25 hover:bg-blue-700'}`}
+                            className={`group inline-flex h-11 md:h-12 items-center gap-2 rounded-xl px-4 md:px-6 text-sm font-bold shadow-lg transition hover:-translate-y-0.5 active:scale-95 bg-blue-600 text-white shadow-blue-600/25 hover:bg-blue-700 dark:bg-[#ffffff] dark:text-[#0a0a0f] dark:shadow-black/40 dark:hover:bg-zinc-200`}
                         >
                             Connect With Us
                             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                         </a>
                         <a
                             href="#why-choose-us"
-                            className={`inline-flex h-11 md:h-12 items-center gap-2 rounded-xl border px-4 md:px-6 text-sm font-bold transition hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]' : 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700'}`}
+                            className={`inline-flex h-11 md:h-12 items-center gap-2 rounded-xl border px-4 md:px-6 text-sm font-bold transition hover:-translate-y-0.5 active:scale-95 border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08]`}
                         >
                             Why Aarambh?
                         </a>
@@ -868,7 +830,7 @@ function Hero({ isDarkMode, onExploreClick }: { isDarkMode: boolean; onExploreCl
                 <ParallaxSection speed={18} className="mt-7 md:mt-32 w-full">
                     {(pillY) => (
                         <motion.div style={{ y: pillY }}>
-                            <HeroPillStrip isDarkMode={isDarkMode} />
+                            <HeroPillStrip />
                         </motion.div>
                     )}
                 </ParallaxSection>
@@ -936,7 +898,7 @@ const HERO_PILLS = [
     },
 ];
 
-function HeroPillStrip({ isDarkMode }: { isDarkMode: boolean }) {
+function HeroPillStrip() {
     return (
         <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -947,19 +909,16 @@ function HeroPillStrip({ isDarkMode }: { isDarkMode: boolean }) {
             {HERO_PILLS.map((pill, i) => (
                 <div
                     key={pill.label}
-                    className={`flex items-center gap-2 md:gap-4 px-3 py-3 md:px-6 md:py-5 rounded-xl md:rounded-2xl border backdrop-blur-xl ${isDarkMode
-                        ? 'bg-white/[0.03] border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.3)]'
-                        : 'bg-white/70 border-white/80 shadow-[0_4px_24px_rgba(0,0,0,0.06)]'
-                        }`}
+                    className={`flex items-center gap-2 md:gap-4 px-3 py-3 md:px-6 md:py-5 rounded-xl md:rounded-2xl border backdrop-blur-xl bg-white/70 border-white/80 shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:bg-white/[0.03] dark:border-white/10 dark:shadow-[0_4px_24px_rgba(0,0,0,0.3)]`}
                 >
-                    <span className={`shrink-0 scale-75 md:scale-100 ${isDarkMode ? 'text-violet-400' : 'text-blue-600'}`}>
+                    <span className={`shrink-0 scale-75 md:scale-100 text-blue-600 dark:text-violet-400`}>
                         {pill.icon}
                     </span>
                     <div className="min-w-0">
-                        <p className={`text-xs md:text-sm font-bold leading-tight truncate ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        <p className={`text-xs md:text-sm font-bold leading-tight truncate text-slate-900 dark:text-white`}>
                             {pill.label}
                         </p>
-                        <p className={`mt-0.5 text-[10px] md:text-xs leading-[1.1] md:whitespace-nowrap ${isDarkMode ? 'text-white/45' : 'text-slate-500'}`}>
+                        <p className={`mt-0.5 text-[10px] md:text-xs leading-[1.1] md:whitespace-nowrap text-slate-500 dark:text-white/45`}>
                             {pill.sub}
                         </p>
                     </div>
@@ -969,7 +928,7 @@ function HeroPillStrip({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
+function StatsSection() {
     const [isInView, setIsInView] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -992,7 +951,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
     }, []);
 
     return (
-        <section ref={sectionRef} id="stats" className={`relative -mt-20 overflow-hidden border-b px-4 pb-10 pt-28 md:mt-0 md:py-24 md:px-6 ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="stats" className={`relative -mt-20 overflow-hidden border-b px-4 pb-10 pt-28 md:mt-0 md:py-24 md:px-6 border-black/6 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-[#0d0e11]`}>
             <motion.div
                 className="absolute left-0 top-0 h-full w-2 origin-top bg-(--landing-accent)"
                 style={{ scaleY: railScale }}
@@ -1007,8 +966,6 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     sizes="100vw"
                     className="object-cover"
                     style={{
-                        opacity: isDarkMode ? 0 : 0.58,
-                        transition: 'opacity 500ms ease',
                         WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
                         maskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
                     }}
@@ -1022,23 +979,25 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     sizes="100vw"
                     className="object-cover"
                     style={{
-                        opacity: isDarkMode ? 0.42 : 0,
-                        transition: 'opacity 500ms ease',
                         WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
                         maskImage: 'linear-gradient(to bottom, black 0%, black 54%, transparent 100%)',
                     }}
                 />
                 <div
-                    className="absolute inset-0"
+                    className="absolute inset-0 block dark:hidden"
                     style={{
-                        background: isDarkMode
-                            ? 'linear-gradient(to bottom, rgba(13,14,17,0.15), rgba(13,14,17,0.82) 58%, #0d0e11 100%)'
-                            : 'linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0.62) 56%, rgba(255,255,255,0.94) 100%)',
+                        background: 'linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0.62) 56%, rgba(255,255,255,0.94) 100%)',
+                    }}
+                />
+                <div
+                    className="absolute inset-0 hidden dark:block"
+                    style={{
+                        background: 'linear-gradient(to bottom, rgba(13,14,17,0.15), rgba(13,14,17,0.82) 58%, #0d0e11 100%)',
                     }}
                 />
             </div>
             <motion.div
-                className={`absolute right-[6%] top-20 hidden h-36 w-36 lg:block ${isDarkMode ? 'bg-cyan-400/10' : 'bg-cyan-300/25'}`}
+                className={`absolute right-[6%] top-20 hidden h-36 w-36 lg:block bg-cyan-300/25 dark:bg-cyan-400/10`}
                 style={{ y: panelY, rotate: -8 }}
             />
             <div className="relative mx-auto max-w-[90rem]">
@@ -1051,15 +1010,11 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.7, ease: 'easeOut' }}
                         className="relative hidden rounded-[1.5rem] border shadow-2xl overflow-hidden lg:block md:rounded-[2rem]"
-                        style={{
-                            borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
-                        }}
+                        
                     >
                         <div
                             className="absolute -bottom-10 left-1/2 -translate-x-1/2 h-32 w-[80%] rounded-full opacity-40 blur-[3rem]"
-                            style={{
-                                background: isDarkMode ? '#6d28d9' : '#3b82f6',
-                            }}
+                            
                         />
                         <div className="relative aspect-[16/10] md:aspect-[4/3] w-full bg-black/20">
                             <Image
@@ -1068,7 +1023,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 fill
                                 sizes="(max-width: 1280px) 50vw, 720px"
                                 className="object-contain md:object-cover"
-                                style={{ opacity: isDarkMode ? 0 : 1, transition: 'opacity 500ms ease' }}
+                                
                             />
                             <Image
                                 src="/landing-dashboard-dark.png"
@@ -1076,7 +1031,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 fill
                                 sizes="(max-width: 1280px) 50vw, 720px"
                                 className="object-contain md:object-cover"
-                                style={{ opacity: isDarkMode ? 1 : 0, transition: 'opacity 500ms ease' }}
+                                
                             />
                         </div>
                     </motion.div>
@@ -1087,13 +1042,12 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             eyebrow="Who We Are"
                             title="Built Different. Built for You."
                             copy="We started in 2026 with a single objective — get every student placed and trained successfully."
-                            isDarkMode={isDarkMode}
                             align="left"
                         />
 
                         {/* Founding story stats */}
                         <motion.div
-                            className={`mt-6 md:mt-12 grid grid-cols-1 border sm:grid-cols-2 backdrop-blur-xl rounded-xl md:rounded-2xl overflow-hidden ${isDarkMode ? 'border-white/8 bg-white/[0.02]' : 'border-black/8 bg-white/60'}`}
+                            className={`mt-6 md:mt-12 grid grid-cols-1 border sm:grid-cols-2 backdrop-blur-xl rounded-xl md:rounded-2xl overflow-hidden border-black/8 bg-white/60 dark:border-white/8 dark:bg-white/[0.02]`}
                             style={{ y: panelY }}
                         >
                             {FOUNDING_STATS.map((stat, index) => (
@@ -1111,10 +1065,10 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     <div className="text-3xl font-black text-(--landing-accent) md:text-5xl">
                                         {stat.value}
                                     </div>
-                                    <p className={`mt-2 text-xs md:text-sm font-black uppercase tracking-[0.18em] ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    <p className={`mt-2 text-xs md:text-sm font-black uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400`}>
                                         {stat.label}
                                     </p>
-                                    <p className={`mt-2 md:mt-4 text-xs md:text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    <p className={`mt-2 md:mt-4 text-xs md:text-sm leading-relaxed text-zinc-500 dark:text-zinc-400`}>
                                         {stat.description}
                                     </p>
                                 </motion.div>
@@ -1128,7 +1082,7 @@ function StatsSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
+function WhyChooseUsSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const mobileScrollRef = useRef<HTMLDivElement>(null);
     const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
@@ -1199,7 +1153,7 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
     }, [cardCount]);
 
     return (
-        <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b ${isDarkMode ? 'border-white/10 bg-[#0d0e11]' : 'border-black/6 bg-white/80 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="why-choose-us" className={`relative overflow-hidden border-b border-black/6 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-[#0d0e11]`}>
             {/* ── MOBILE (< md) ── */}
             <div className="md:hidden flex flex-col px-4 py-6">
                 <RevealOnScroll variant="fadeDown" className={`mb-6 text-xs font-black uppercase tracking-[0.22em] text-(--landing-accent)`}>
@@ -1231,12 +1185,9 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     <div
                                         style={{
                                             '--hover-border': point.color,
-                                            '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                            
                                         } as React.CSSProperties}
-                                        className={`group relative min-h-[260px] w-full overflow-hidden rounded-[20px] p-5 border transition-all duration-300 backdrop-blur-2xl ${isDarkMode
-                                            ? 'bg-white/[0.055] border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_18px_48px_rgba(0,0,0,0.35)]'
-                                            : 'bg-white border-slate-200 shadow-[0_18px_42px_rgba(15,23,42,0.09)]'
-                                        }`}
+                                        className={`group relative min-h-[260px] w-full overflow-hidden rounded-[20px] p-5 border transition-all duration-300 backdrop-blur-2xl bg-white border-slate-200 shadow-[0_18px_42px_rgba(15,23,42,0.09)] dark:bg-white/[0.055] dark:border-white/12 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_18px_48px_rgba(0,0,0,0.35)]`}
                                     >
                                         <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70" />
                                         <div
@@ -1254,13 +1205,13 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                                 {index + 1}/{cardCount}
                                             </span>
                                         </div>
-                                        <h3 className={`text-lg font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                        <h3 className={`text-lg font-bold tracking-tight text-zinc-900 dark:text-white`}>
                                             {point.title}
                                         </h3>
-                                        <p className={`mt-1 text-xs font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                        <p className={`mt-1 text-xs font-medium text-zinc-500 dark:text-zinc-400`}>
                                             {point.subtitle}
                                         </p>
-                                        <p className={`mt-3 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                                        <p className={`mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400`}>
                                             {point.description}
                                         </p>
                                     </div>
@@ -1276,7 +1227,7 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         onClick={() => { const n = Math.max(0, mobileActiveIndex - 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
                         disabled={mobileActiveIndex === 0}
                         aria-label="Previous feature"
-                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === 0 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === 0 ? 'opacity-30 cursor-default' : 'active:scale-90'} border-slate-200 bg-white text-slate-700 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-white`}
                     >
                         <ChevronLeft className="h-4 w-4" />
                     </button>
@@ -1289,11 +1240,11 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
                             >
                                 <span
-                                    className="absolute rounded-full pointer-events-none transition-all duration-300"
+                                    className={`absolute rounded-full pointer-events-none transition-all duration-300 ${i === mobileActiveIndex ? '' : 'bg-[rgba(0,0,0,0.15)] dark:bg-[rgba(255,255,255,0.2)]'}`}
                                     style={{
                                         width: i === mobileActiveIndex ? 20 : 6,
                                         height: 6,
-                                        background: i === mobileActiveIndex ? WHY_US_POINTS[mobileActiveIndex].color : isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
+                                        background: i === mobileActiveIndex ? WHY_US_POINTS[mobileActiveIndex].color : undefined,
                                     }}
                                 />
                             </button>
@@ -1303,7 +1254,7 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         onClick={() => { const n = Math.min(cardCount - 1, mobileActiveIndex + 1); mobileActiveRef.current = n; setMobileActiveIndex(n); }}
                         disabled={mobileActiveIndex === cardCount - 1}
                         aria-label="Next feature"
-                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === cardCount - 1 ? 'opacity-30 cursor-default' : 'active:scale-90'} ${isDarkMode ? 'border-white/15 bg-white/5 text-white' : 'border-slate-200 bg-white text-slate-700 shadow-sm'}`}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${mobileActiveIndex === cardCount - 1 ? 'opacity-30 cursor-default' : 'active:scale-90'} border-slate-200 bg-white text-slate-700 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-white`}
                     >
                         <ChevronRight className="h-4 w-4" />
                     </button>
@@ -1325,15 +1276,13 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     variant="scaleIn"
                                     style={{
                                         '--hover-border': point.color,
-                                        '--hover-shadow': isDarkMode ? `${point.color}40` : `${point.color}25`,
+                                        '--hover-shadow-light': `${point.color}25`,
+                                        '--hover-shadow-dark': `${point.color}40`,
                                     } as React.CSSProperties}
-                                    className={`group relative overflow-hidden rounded-[20px] p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow)] ${isDarkMode
-                                        ? 'bg-white/[0.03] border-white/8 hover:bg-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
-                                        : 'bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
-                                    }`}
+                                    className={`group relative overflow-hidden rounded-[20px] p-8 border transition-all duration-300 hover:scale-[1.02] backdrop-blur-xl hover:border-[var(--hover-border)] hover:shadow-[0_8px_32px_var(--hover-shadow-light)] dark:hover:shadow-[0_8px_32px_var(--hover-shadow-dark)] bg-white/60 border-white/70 hover:bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)] dark:bg-white/[0.03] dark:border-white/8 dark:hover:bg-white/[0.05] dark:shadow-[0_4px_30px_rgba(0,0,0,0.3)]`}
                                 >
                                     <div
-                                        className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+                                        className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40  duration-700 pointer-events-none"
                                         style={{ backgroundColor: point.color }}
                                     />
                                     <div className="flex justify-between items-start mb-12">
@@ -1344,13 +1293,13 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                             <Icon className="h-6 w-6" />
                                         </div>
                                     </div>
-                                    <h3 className={`text-xl font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
+                                    <h3 className={`text-xl font-bold tracking-tight text-zinc-900 dark:text-white`}>
                                         {point.title}
                                     </h3>
-                                    <p className={`mt-1 text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                    <p className={`mt-1 text-sm font-medium text-zinc-500 dark:text-zinc-400`}>
                                         {point.subtitle}
                                     </p>
-                                    <p className={`mt-8 text-sm leading-relaxed ${isDarkMode ? 'text-zinc-500' : 'text-zinc-600'}`}>
+                                    <p className={`mt-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-500`}>
                                         {point.description}
                                     </p>
                                 </AnimatedCard>
@@ -1363,7 +1312,7 @@ function WhyChooseUsSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
+function FeaturesSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -1373,7 +1322,7 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
     const headingY = useTransform(smoothProgress, [0, 0.45, 1], [40, 0, -40]);
 
     return (
-        <section ref={sectionRef} id="features" className={`relative border-b px-4 md:px-6 py-12 md:py-28 overflow-hidden ${isDarkMode ? 'border-white/10 bg-[#08090b]' : 'border-black/6 bg-[#f7f7f4]/80 backdrop-blur-sm'}`}>
+        <section ref={sectionRef} id="features" className={`relative border-b px-4 md:px-6 py-12 md:py-28 overflow-hidden border-black/6 bg-[#f7f7f4]/80 backdrop-blur-sm dark:border-white/10 dark:bg-[#08090b]`}>
             <div className="mx-auto max-w-[88rem]">
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
@@ -1383,12 +1332,12 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                             {/* glow */}
                             <div
                                 className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem]"
-                                style={{ background: isDarkMode ? 'rgba(109,40,217,0.45)' : 'rgba(59,130,246,0.3)' }}
+                                className="bg-[rgba(59,130,246,0.3)] dark:bg-[rgba(109,40,217,0.45)]"
                             />
                             <div
                                 className="relative z-10 aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl md:rounded-3xl lg:aspect-[3/4]"
                                 style={{
-                                    border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+                                    border: `1px solid rgba(0,0,0,0.06) dark:rgba(255,255,255,0.08)`,
                                 }}
                             >
                                 <Image
@@ -1410,8 +1359,7 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                             <h2 className="mt-2 md:mt-4 text-3xl font-black uppercase leading-[1.05] md:text-7xl md:leading-[0.9]">
                                 Seamless<br />Recruitment
                             </h2>
-                            <p className={`mt-3 md:mt-6 text-[15px] md:text-lg leading-7 md:leading-8 max-w-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
-                                }`}>
+                            <p className={`mt-3 md:mt-6 text-[15px] md:text-lg leading-7 md:leading-8 max-w-lg text-zinc-600 dark:text-zinc-400`}>
                                 Our advanced tools help you manage every stage of the hiring pipeline, from initial application to final offer letter.
                             </p>
                             <div className="mt-6 md:mt-8 h-1 w-20 bg-(--landing-accent)" />
@@ -1423,7 +1371,6 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     key={feature.title}
                                     {...feature}
                                     index={index}
-                                    isDarkMode={isDarkMode}
                                     sectionProgress={smoothProgress}
                                 />
                             ))}
@@ -1435,36 +1382,31 @@ function FeaturesSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function FeatureCard({ number, title, description, icon: Icon, index, isDarkMode }: { number: string; title: string; description: string; icon: ElementType; index: number; isDarkMode: boolean; sectionProgress: MotionValue<number> }) {
+function FeatureCard({ number, title, description, icon: Icon, index }: { number: string; title: string; description: string; icon: ElementType; index: number; sectionProgress: MotionValue<number> }) {
     return (
         <AnimatedCard
             as="article"
             variant="fadeUp"
-            className={`group relative flex items-start gap-4 md:gap-8 rounded-2xl border p-5 md:p-10 transition hover:-translate-y-0.5 hover:shadow-lg backdrop-blur-xl ${isDarkMode
-                ? 'border-white/8 bg-white/[0.04] text-white hover:border-white/15 hover:bg-white/[0.07] shadow-[0_2px_20px_rgba(0,0,0,0.3)]'
-                : 'border-white/70 bg-white/60 text-slate-900 hover:border-white/90 hover:bg-white/80 hover:shadow-slate-200 shadow-[0_2px_16px_rgba(0,0,0,0.06)]'
-                }`}
+            className={`group relative flex items-start gap-4 md:gap-8 rounded-2xl border p-5 md:p-10 transition hover:-translate-y-0.5 hover:shadow-lg backdrop-blur-xl border-white/70 bg-white/60 text-slate-900 hover:border-white/90 hover:bg-white/80 hover:shadow-slate-200 shadow-[0_2px_16px_rgba(0,0,0,0.06)] dark:border-white/8 dark:bg-white/[0.04] dark:text-white dark:hover:border-white/15 dark:hover:bg-white/[0.07] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)]`}
         >
             {/* Accent bar on left edge */}
             <div className="absolute left-0 top-1/2 -translate-y-1/2 h-10 md:h-16 w-1 rounded-r-full bg-(--landing-accent) opacity-0 group-hover:opacity-100 transition" />
 
             {/* Icon box */}
-            <div className={`shrink-0 grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-xl border text-(--landing-accent) ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-blue-100 bg-blue-50'
-                }`}>
+            <div className={`shrink-0 grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-xl border text-(--landing-accent) border-blue-100 bg-blue-50 dark:border-white/10 dark:bg-white/5`}>
                 <Icon className="h-5 w-5 md:h-7 md:w-7" />
             </div>
 
             {/* Text */}
             <div className="flex-1">
                 <h3 className="mb-1.5 md:mb-3 text-lg md:text-2xl font-black">{title}</h3>
-                <p className={`text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
-                    }`}>{description}</p>
+                <p className={`text-sm md:text-base leading-relaxed text-zinc-600 dark:text-zinc-400`}>{description}</p>
             </div>
         </AnimatedCard>
     );
 }
 
-function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
+function TestimonialsSection() {
     const [activeIndex, setActiveIndex] = useState(0);
     const sectionRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
@@ -1490,10 +1432,10 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
         <section
             id="about"
             ref={sectionRef}
-            className={`relative overflow-hidden border-b px-4 py-12 md:py-28 sm:px-6 ${isDarkMode ? 'border-white/10 bg-[#0A0A14]' : 'border-black/6 bg-white'}`}
+            className={`relative overflow-hidden border-b px-4 py-12 md:py-28 sm:px-6 border-black/6 bg-white dark:border-white/10 dark:bg-[#0A0A14]`}
         >
             {/* Background ambient glow */}
-            {isDarkMode && (
+            {false && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] rounded-full blur-[10rem] bg-indigo-600/10 pointer-events-none" />
             )}
 
@@ -1508,11 +1450,7 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     style={{ y: contentY }}
                     className="order-2 lg:order-1"
                 >
-                    <div className={`group relative overflow-hidden rounded-[22px] md:rounded-[28px] border transition-all duration-500 min-h-[340px] md:min-h-[460px] flex flex-col justify-between hover:-translate-y-1.5 hover:scale-[1.02] ${
-                        isDarkMode
-                            ? 'border-[rgba(125,125,255,0.25)] hover:border-[rgba(125,125,255,0.5)] bg-[#0B0B14] shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]'
-                            : 'border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)]'
-                    }`}>
+                    <div className={`group relative overflow-hidden rounded-[22px] md:rounded-[28px] border transition-all duration-500 min-h-[340px] md:min-h-[460px] flex flex-col justify-between hover:-translate-y-1.5 hover:scale-[1.02] border-blue-300 hover:border-blue-500 bg-white shadow-[0_8px_32px_rgba(59,130,246,0.1)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)] dark:border-[rgba(125,125,255,0.25)] dark:hover:border-[rgba(125,125,255,0.5)] dark:bg-[#0B0B14] dark:shadow-[0_8px_32px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)]`}>
                         
                         {/* ── Background Images (Cross-fading) ── */}
                         <div className="absolute inset-0 z-0">
@@ -1523,17 +1461,25 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.8, ease: "easeInOut" }}
-                                    className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-700 [mask-image:linear-gradient(to_bottom,black_0%,black_42%,transparent_100%)] sm:[mask-image:linear-gradient(to_right,transparent,black_40%)] ${
-                                        isDarkMode ? 'opacity-65 group-hover:opacity-100 mix-blend-screen' : 'opacity-45 group-hover:opacity-70 mix-blend-multiply'
-                                    }`}
+                                    className={`absolute inset-0 w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,black_0%,black_42%,transparent_100%)] sm:[mask-image:linear-gradient(to_right,transparent,black_40%)] opacity-45 group-hover:opacity-70 mix-blend-multiply dark:opacity-65 dark:group-hover:opacity-100 dark:mix-blend-screen`}
                                 >
                                     <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700 opacity-80 md:opacity-60">
+                                        {/* Light mode about image */}
                                         <Image
-                                            src={isDarkMode ? ABOUT_SLIDES[activeIndex].image : ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')}
+                                            src={ABOUT_SLIDES[activeIndex].image.replace('about_bg_', 'about_light_bg_')}
                                             alt=""
                                             fill
                                             sizes="(max-width: 768px) 100vw, 50vw"
-                                            className="object-cover object-center"
+                                            className="object-cover object-center block dark:hidden"
+                                            loading="lazy"
+                                        />
+                                        {/* Dark mode about image */}
+                                        <Image
+                                            src={ABOUT_SLIDES[activeIndex].image}
+                                            alt=""
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                            className="object-cover object-center hidden dark:block"
                                             loading="lazy"
                                         />
                                     </div>
@@ -1541,26 +1487,16 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             </AnimatePresence>
                         </div>
 
-                        {/* Background Image/Effects Full (Soft base) */}
-                        {isDarkMode && (
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0B0B14]/80 to-[#0B0B14] z-0" />
-                        )}
-                        {!isDarkMode && (
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/60 via-white/80 to-white z-0" />
-                        )}
+                        {/* Background gradient overlays — theme-switched via CSS */}
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0B0B14]/80 to-[#0B0B14] z-0 hidden dark:block" />
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/60 via-white/80 to-white z-0 block dark:hidden" />
 
-                        {/* Soft Ambient Glow in Dark Mode */}
-                        {isDarkMode && (
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
-                        )}
+                        {/* Soft Ambient Glow — dark mode only */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 duration-700 pointer-events-none z-0 hidden dark:block" />
 
                         {/* Top Row: Icon + Slide Counter */}
                         <div className="relative z-10 flex items-start justify-between p-5 md:p-10 pb-0 mb-4 md:mb-8">
-                            <div className={`grid h-12 w-12 md:h-14 md:w-14 place-items-center rounded-2xl border transition-all duration-500 backdrop-blur-md ${
-                                isDarkMode
-                                    ? 'border-indigo-400/40 bg-indigo-500/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_20px_rgba(99,102,241,0.25)]'
-                                    : 'border-blue-300/50 bg-white/50 text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.12)]'
-                            }`}>
+                            <div className={`grid h-12 w-12 md:h-14 md:w-14 place-items-center rounded-2xl border transition-all duration-500 backdrop-blur-md border-blue-300/50 bg-white/50 text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.12)] dark:border-indigo-400/40 dark:bg-indigo-500/10 dark:text-indigo-300 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_20px_rgba(99,102,241,0.25)]`}>
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={activeIndex}
@@ -1575,10 +1511,10 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             </div>
 
                             <div className="flex items-baseline gap-1 bg-black/10 dark:bg-white/5 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
-                                <span className={`text-xl md:text-2xl font-black tabular-nums ${isDarkMode ? 'text-indigo-400' : 'text-blue-600'}`}>
+                                <span className={`text-xl md:text-2xl font-black tabular-nums text-blue-600 dark:text-indigo-400`}>
                                     0{activeIndex + 1}
                                 </span>
-                                <span className={`text-xs md:text-sm font-medium ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                                <span className={`text-xs md:text-sm font-medium text-slate-500 dark:text-zinc-400`}>
                                     / 0{ABOUT_SLIDES.length}
                                 </span>
                             </div>
@@ -1596,20 +1532,14 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                         transition={{ duration: 0.3, ease: "easeOut" }}
                                         className="flex flex-col"
                                     >
-                                        <h3 className={`text-xl font-bold tracking-tight md:text-3xl drop-shadow-sm ${
-                                            isDarkMode ? 'text-white' : 'text-slate-900'
-                                        }`}>
+                                        <h3 className={`text-xl font-bold tracking-tight md:text-3xl drop-shadow-sm text-slate-900 dark:text-white`}>
                                             {ABOUT_SLIDES[activeIndex].title}
                                         </h3>
 
                                         {/* Divider */}
-                                        <div className={`mt-3 md:mt-5 h-[2px] w-12 rounded-full ${
-                                            isDarkMode ? 'bg-indigo-500/50' : 'bg-blue-500/50'
-                                        }`} />
+                                        <div className={`mt-3 md:mt-5 h-[2px] w-12 rounded-full bg-blue-500/50 dark:bg-indigo-500/50`} />
 
-                                        <p className={`mt-3 md:mt-5 text-sm md:text-[15px] leading-relaxed max-w-md ${
-                                            isDarkMode ? 'text-zinc-300' : 'text-slate-600'
-                                        }`}>
+                                        <p className={`mt-3 md:mt-5 text-sm md:text-[15px] leading-relaxed max-w-md text-slate-600 dark:text-zinc-300`}>
                                             {ABOUT_SLIDES[activeIndex].body}
                                         </p>
                                     </motion.div>
@@ -1622,22 +1552,14 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                     <button
                                         onClick={goPrev}
                                         aria-label="Previous slide"
-                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 ${
-                                            isDarkMode
-                                                ? 'border-white/10 bg-black/20 text-white hover:border-indigo-500/40 hover:bg-indigo-500/20 hover:text-indigo-300'
-                                                : 'border-slate-300/50 bg-white/50 text-slate-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600'
-                                        }`}
+                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 border-slate-300/50 bg-white/50 text-slate-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 dark:border-white/10 dark:bg-black/20 dark:text-white dark:hover:border-indigo-500/40 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-300`}
                                     >
                                         <ChevronLeft className="h-5 w-5" />
                                     </button>
                                     <button
                                         onClick={goNext}
                                         aria-label="Next slide"
-                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 ${
-                                            isDarkMode
-                                                ? 'border-indigo-500/40 bg-indigo-500/20 text-indigo-300 shadow-[0_0_16px_rgba(99,102,241,0.2)] hover:bg-indigo-500/30'
-                                                : 'border-blue-300 bg-blue-600 text-white shadow-[0_4px_12px_rgba(59,130,246,0.25)] hover:bg-blue-700'
-                                        }`}
+                                        className={`grid h-11 w-11 place-items-center rounded-xl border backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 border-blue-300 bg-blue-600 text-white shadow-[0_4px_12px_rgba(59,130,246,0.25)] hover:bg-blue-700 dark:border-indigo-500/40 dark:bg-indigo-500/20 dark:text-indigo-300 dark:shadow-[0_0_16px_rgba(99,102,241,0.2)] dark:hover:bg-indigo-500/30`}
                                     >
                                         <ChevronRight className="h-5 w-5" />
                                     </button>
@@ -1651,8 +1573,8 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                             aria-label={`Go to ${slide.title}`}
                                             className={`h-2 rounded-full transition-all duration-300 ${
                                                 index === activeIndex
-                                                    ? `w-6 ${isDarkMode ? 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.8)]' : 'bg-blue-600 shadow-[0_0_8px_rgba(59,130,246,0.5)]'}`
-                                                    : `w-2 ${isDarkMode ? 'bg-white/20 hover:bg-white/40' : 'bg-slate-400 hover:bg-slate-600'}`
+                                                    ? `w-6 bg-blue-600 shadow-[0_0_8px_rgba(59,130,246,0.5)] dark:bg-indigo-500 dark:shadow-[0_0_10px_rgba(99,102,241,0.8)]`
+                                                    : `w-2 bg-slate-400 hover:bg-slate-600 dark:bg-white/20 dark:hover:bg-white/40`
                                             }`}
                                         />
                                     ))}
@@ -1675,27 +1597,23 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
                     <h2 className="mt-3 md:mt-5 text-4xl md:text-5xl lg:text-7xl font-black leading-[1.05] md:leading-[0.95]">
                         What We<br />Stand For
                     </h2>
-                    <p className={`mt-4 md:mt-6 max-w-md text-sm md:text-[16px] leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                    <p className={`mt-4 md:mt-6 max-w-md text-sm md:text-[16px] leading-relaxed text-slate-600 dark:text-zinc-400`}>
                         We&apos;re not just here to help you get placed.<br />
                         We&apos;re here to prepare you, guide you, and stay<br />
                         with you until the right opportunity comes your way.
                     </p>
 
                     {/* Divider */}
-                    <div className={`mt-6 md:mt-10 h-px w-16 ${isDarkMode ? 'bg-white/15' : 'bg-black/15'}`} />
+                    <div className={`mt-6 md:mt-10 h-px w-16 bg-black/15 dark:bg-white/15`} />
 
                     {/* Bottom Callout */}
                     <div className="mt-6 md:mt-8 flex items-center gap-4">
-                        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border backdrop-blur-sm ${
-                            isDarkMode
-                                ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400 shadow-[0_0_16px_rgba(99,102,241,0.2)]'
-                                : 'border-blue-200 bg-blue-50 text-blue-600 shadow-[0_2px_10px_rgba(59,130,246,0.1)]'
-                        }`}>
+                        <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border backdrop-blur-sm border-blue-200 bg-blue-50 text-blue-600 shadow-[0_2px_10px_rgba(59,130,246,0.1)] dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-400 dark:shadow-[0_0_16px_rgba(99,102,241,0.2)]`}>
                             <Check className="h-5 w-5" />
                         </div>
                         <div>
-                            <p className={`text-[15px] font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Our Placement Promise</p>
-                            <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                            <p className={`text-[15px] font-bold text-slate-900 dark:text-white`}>Our Placement Promise</p>
+                            <p className={`text-sm leading-relaxed text-slate-500 dark:text-zinc-400`}>
                                 The standard we hold ourselves to —<br />from day one.
                             </p>
                         </div>
@@ -1708,7 +1626,7 @@ function TestimonialsSection({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 
-function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
+function TermsSection() {
     const policyCards = [
         ...TERMS,
         {
@@ -1757,7 +1675,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
         <section
             id="terms"
             ref={sectionRef}
-            className={`relative ${isDarkMode ? 'bg-[#05050A]' : 'bg-slate-50'}`}
+            className={`relative bg-slate-50 dark:bg-[#05050A]`}
         >
             {/* DESKTOP — tall track drives the sticky viewport */}
             <div ref={stickyTrackRef} className="relative hidden lg:block" style={{ height: `${cardCount * 100}vh` }}>
@@ -1766,27 +1684,27 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         <div className="flex items-stretch gap-16 w-full h-[88vh]">
                             {/* Left — Image (pinned, matches content height) */}
                             <div className="w-[42%] h-full shrink-0">
-                                <div className={`relative w-full h-full rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border ${isDarkMode ? 'bg-white/[0.03] border-white/8' : 'bg-white/50 border-white/70'}`}>
-                                    {isDarkMode && (
+                                <div className={`relative w-full h-full rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-2xl border bg-white/50 border-white/70 dark:bg-white/[0.03] dark:border-white/8`}>
+                                    {false && (
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
                                     )}
-                                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover ${isDarkMode ? 'opacity-80 mix-blend-lighten' : ''}`} />
+                                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover  dark:opacity-80 dark:mix-blend-lighten`} />
                                 </div>
                             </div>
                             {/* Right — Heading (pinned) + scrolling card stack */}
                             <div className="w-[58%] h-full flex flex-col">
                                 <div className="shrink-0 pb-4">
-                                    <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." isDarkMode={isDarkMode} align="left" />
+                                    <SectionHeader eyebrow="Legal & Policies" title="Terms and Conditions" copy="Last updated: May 2026. These terms apply to all users of Aarambh and define how the platform, data, and placement workflows should be used." align="left" />
                                     {/* Progress indicator: which term you're on */}
                                     <div className="mt-3 flex items-center gap-2">
-                                        <div className={`relative h-1 flex-1 max-w-[220px] overflow-hidden rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-black/10'}`}>
+                                        <div className={`relative h-1 flex-1 max-w-[220px] overflow-hidden rounded-full bg-black/10 dark:bg-white/10`}>
                                             <motion.div
-                                                className="absolute inset-y-0 left-0 rounded-full"
-                                                style={{ background: isDarkMode ? '#818cf8' : '#2563eb', width: `${((currentCard + 1) / cardCount) * 100}%` }}
+                                                style={{ width: `${((currentCard + 1) / cardCount) * 100}%` }}
+                                                className="absolute inset-y-0 left-0 rounded-full bg-[#2563eb] dark:bg-[#818cf8]"
                                                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                             />
                                         </div>
-                                        <span className={`text-xs font-semibold tabular-nums ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>
+                                        <span className={`text-xs font-semibold tabular-nums text-slate-500 dark:text-zinc-400`}>
                                             {String(currentCard + 1).padStart(2, '0')} / {String(cardCount).padStart(2, '0')}
                                         </span>
                                     </div>
@@ -1811,7 +1729,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                                     transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                                                     style={{ zIndex: index <= currentCard ? index + 1 : 0, pointerEvents: offset === 0 ? 'auto' : 'none' }}
                                                 >
-                                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} />
                                                 </motion.div>
                                             );
                                         })}
@@ -1826,13 +1744,13 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
             {/* MOBILE */}
             <div className="flex lg:hidden h-screen flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
                 {/* Header image — compact strip */}
-                <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-black/5 bg-white'} shadow-lg`}>
+                <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 border-black/5 bg-white dark:border-white/10 dark:bg-black/20 shadow-lg`}>
                     <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="100vw" className="object-cover" loading="lazy" />
                     {/* overlay text on image */}
                     <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
                         <span className="text-[10px] font-black uppercase tracking-widest text-blue-300">Legal & Policies</span>
                         <span className="text-sm font-bold text-white leading-tight">Terms and Conditions</span>
-                        <span className={`text-[10px] mt-0.5 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-200'}`}>Last updated: May 2026</span>
+                        <span className={`text-[10px] mt-0.5 text-zinc-200 dark:text-zinc-300`}>Last updated: May 2026</span>
                     </div>
                 </div>
 
@@ -1843,10 +1761,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         onClick={() => { const n = Math.max(0, activeCard - 1); setActiveCard(n); activeCardRef.current = n; }}
                         disabled={activeCard === 0}
                         aria-label="Previous term"
-                        className={`absolute left-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === 0 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
-                            ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
-                            : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
-                        }`}
+                        className={`absolute left-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === 0 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:border-white/20 dark:bg-white/10 dark:text-white dark:backdrop-blur-xl dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)]`}
                     >
                         <ChevronLeft className="h-4 w-4" />
                     </button>
@@ -1856,10 +1771,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                         onClick={() => { const n = Math.min(cardCount - 1, activeCard + 1); setActiveCard(n); activeCardRef.current = n; }}
                         disabled={activeCard === cardCount - 1}
                         aria-label="Next term"
-                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === cardCount - 1 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} ${isDarkMode
-                            ? 'border-white/20 bg-white/10 text-white backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
-                            : 'border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
-                        }`}
+                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-90 ${activeCard === cardCount - 1 ? 'opacity-20 cursor-default' : 'opacity-80 hover:opacity-100'} border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:border-white/20 dark:bg-white/10 dark:text-white dark:backdrop-blur-xl dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)]`}
                     >
                         <ChevronRight className="h-4 w-4" />
                     </button>
@@ -1884,7 +1796,7 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                                         pointerEvents: offset === 0 ? 'auto' : 'none',
                                     }}
                                 >
-                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} isDarkMode={isDarkMode} />
+                                    <PolicyCard index={index} title={card.title} body={card.body} image={card.image} />
                                 </div>
                             );
                         })}
@@ -1901,13 +1813,14 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
                             className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
                         >
                             <span
-                                className="absolute rounded-full pointer-events-none transition-all duration-300"
+                                className={`absolute rounded-full pointer-events-none transition-all duration-300 ${
+                                    i === activeCard
+                                        ? 'bg-[#2563eb] dark:bg-[#818cf8]'
+                                        : 'bg-[rgba(0,0,0,0.15)] dark:bg-[rgba(255,255,255,0.2)]'
+                                }`}
                                 style={{
                                     width: i === activeCard ? 18 : 5,
                                     height: 6,
-                                    background: i === activeCard
-                                        ? (isDarkMode ? '#818cf8' : '#2563eb')
-                                        : (isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'),
                                 }}
                             />
                         </button>
@@ -1918,13 +1831,12 @@ function TermsSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function PolicyCard({ index, title, body, image, isDarkMode }: {
+function PolicyCard({ index, title, body, image }: {
     index: number;
     title: string;
     body: string;
     image?: string;
-    isDarkMode: boolean;
-}) {
+    }) {
     const bulletPoints = body.split('. ').filter(Boolean).map(s => s.trim() + (s.endsWith('.') ? '' : '.'));
 
     return (
@@ -1933,34 +1845,27 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-            className={`group relative min-h-[352px] w-full overflow-hidden rounded-[20px] border transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.02] md:min-h-0 md:rounded-[28px] md:backdrop-blur-2xl ${
-                isDarkMode
-                    ? 'border-[rgba(160,160,255,0.34)] hover:border-[rgba(125,125,255,0.5)] bg-[#121218] shadow-[0_18px_52px_rgba(0,0,0,0.65)] hover:bg-[#171722] hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)] md:border-[rgba(125,125,255,0.25)] md:bg-[#0B0B14] md:shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
-                    : 'border-slate-200 hover:border-blue-500 bg-white shadow-[0_18px_42px_rgba(59,130,246,0.13)] hover:bg-white hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)] md:border-blue-300 md:shadow-[0_8px_32px_rgba(59,130,246,0.1)]'
-            }`}
+            className={`group relative min-h-[352px] w-full overflow-hidden rounded-[20px] border transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.02] md:min-h-0 md:rounded-[28px] md:backdrop-blur-2xl border-slate-200 hover:border-blue-500 bg-white shadow-[0_18px_42px_rgba(59,130,246,0.13)] hover:bg-white hover:shadow-[0_20px_60px_rgba(59,130,246,0.25)] md:border-blue-300 md:shadow-[0_8px_32px_rgba(59,130,246,0.1)] dark:border-[rgba(160,160,255,0.34)] dark:hover:border-[rgba(125,125,255,0.5)] dark:bg-[#121218] dark:shadow-[0_18px_52px_rgba(0,0,0,0.65)] dark:hover:bg-[#171722] dark:hover:shadow-[0_16px_48px_rgba(125,125,255,0.25)] dark:md:border-[rgba(125,125,255,0.25)] dark:md:bg-[#0B0B14] dark:md:shadow-[0_8px_32px_rgba(0,0,0,0.6)]`}
         >
             <div className="pointer-events-none absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-70 md:hidden" />
-            {/* Background Image/Effects Full (Soft base) */}
-            {isDarkMode && (
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/24 via-[#0B0B14]/65 to-[#0B0B14]/90 md:from-indigo-900/20 md:via-[#0B0B14]/80 md:to-[#0B0B14] z-0" />
-            )}
-            {!isDarkMode && (
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/65 via-white/70 to-white/85 md:from-blue-100/60 md:via-white/80 md:to-white z-0" />
-            )}
+            {/* Background gradient overlays — theme-switched via CSS */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/24 via-[#0B0B14]/65 to-[#0B0B14]/90 md:from-indigo-900/20 md:via-[#0B0B14]/80 md:to-[#0B0B14] z-0 hidden dark:block" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/65 via-white/70 to-white/85 md:from-blue-100/60 md:via-white/80 md:to-white z-0 block dark:hidden" />
 
-            {/* Soft Ambient Glow in Dark Mode */}
-            {isDarkMode && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
-            )}
+            {/* Soft Ambient Glow — dark mode only */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[7rem] bg-indigo-500/15 opacity-0 group-hover:opacity-100 duration-700 pointer-events-none z-0 hidden dark:block" />
 
             {/* Floating image (desktop) / Top image (mobile) */}
             {image && (
                 <div className={`
-                    relative w-full h-40 md:absolute md:right-0 md:top-0 md:bottom-0 md:w-[55%] md:h-auto z-0 pointer-events-none transition-opacity duration-700 
+                    relative w-full h-40 md:absolute md:right-0 md:top-0 md:bottom-0 md:w-[55%] md:h-auto z-0 pointer-events-none  duration-700 
                     [mask-image:linear-gradient(to_bottom,black_72%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_40%)]
-                    ${isDarkMode ? 'opacity-90 md:opacity-40 group-hover:opacity-100' : 'opacity-100 md:opacity-80 group-hover:opacity-100'}
+                    opacity-100 md:opacity-80 group-hover:opacity-100 dark:opacity-90 dark:md:opacity-40 dark:group-hover:opacity-100
                 `}>
-                     <Image src={isDarkMode ? image : `/term_${index + 1}.png`} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover ${isDarkMode ? 'md:mix-blend-screen opacity-90 md:opacity-50' : 'md:mix-blend-multiply opacity-100 md:opacity-90'} group-hover:scale-105 transition-transform duration-700`} loading="lazy" />
+                     {/* Light mode term image */}
+                     <Image src={`/term_${index + 1}.png`} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover md:mix-blend-multiply opacity-100 md:opacity-90 group-hover:scale-105 transition-transform duration-700 block dark:hidden`} loading="lazy" />
+                     {/* Dark mode term image */}
+                     <Image src={image} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover dark:md:mix-blend-screen dark:opacity-90 dark:md:opacity-50 group-hover:scale-105 transition-transform duration-700 hidden dark:block`} loading="lazy" />
                 </div>
             )}
             
@@ -1968,11 +1873,7 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
                 
                 {/* Header Row: Icon + Title */}
                 <div className="flex items-start gap-4 md:gap-6">
-                    <div className={`shrink-0 grid h-10 w-10 md:h-16 md:w-16 place-items-center rounded-xl md:rounded-2xl border transition-all duration-500 ${
-                        isDarkMode
-                            ? 'border-indigo-400/40 bg-gradient-to-br from-indigo-500/30 to-violet-600/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_rgba(99,102,241,0.2)] group-hover:border-indigo-400/70 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]'
-                            : 'border-blue-400 bg-white text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.1)] group-hover:border-blue-500 group-hover:shadow-[0_8px_24px_rgba(59,130,246,0.2)]'
-                    }`}>
+                    <div className={`shrink-0 grid h-10 w-10 md:h-16 md:w-16 place-items-center rounded-xl md:rounded-2xl border transition-all duration-500 border-blue-400 bg-white text-blue-600 shadow-[0_4px_16px_rgba(59,130,246,0.1)] group-hover:border-blue-500 group-hover:shadow-[0_8px_24px_rgba(59,130,246,0.2)] dark:border-indigo-400/40 dark:bg-gradient-to-br dark:from-indigo-500/30 dark:to-violet-600/10 dark:text-indigo-300 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_rgba(99,102,241,0.2)] dark:group-hover:border-indigo-400/70 dark:group-hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]`}>
                         <svg className="w-5 h-5 md:w-7 md:h-7 drop-shadow-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                             <circle cx="12" cy="10" r="2.5" />
@@ -1981,38 +1882,26 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
                     </div>
 
                     <div className="pt-0.5 md:pt-1">
-                        <h3 className={`text-xl md:text-3xl font-bold tracking-tight transition-colors duration-300 ${
-                            isDarkMode ? 'text-white drop-shadow-md' : 'text-slate-900 drop-shadow-sm'
-                        }`}>
+                        <h3 className={`text-xl md:text-3xl font-bold tracking-tight text-slate-900 drop-shadow-sm dark:text-white dark:drop-shadow-md`}>
                             {title}
                         </h3>
-                        <p className={`mt-2 md:mt-3 text-[13px] md:text-[15px] leading-relaxed max-w-xl transition-colors duration-300 ${
-                            isDarkMode ? 'text-zinc-300' : 'text-slate-600'
-                        }`}>
+                        <p className={`mt-2 md:mt-3 text-[13px] md:text-[15px] leading-relaxed max-w-xl text-slate-600 dark:text-zinc-300`}>
                             {bulletPoints[0]}
                         </p>
                     </div>
                 </div>
 
                 {/* Divider */}
-                <div className={`my-4 md:my-8 h-px w-full max-w-xl ${
-                    isDarkMode ? 'bg-gradient-to-r from-white/10 to-transparent' : 'bg-gradient-to-r from-black/10 to-transparent'
-                }`} />
+                <div className={`my-4 md:my-8 h-px w-full max-w-xl bg-gradient-to-r from-black/10 to-transparent dark:from-white/10 dark:to-transparent`} />
 
                 {/* List Items */}
                 <div className="flex-1 flex flex-col gap-3 md:gap-4 max-w-md">
                     {bulletPoints.slice(1).map((pt, i) => (
                         <div key={i} className="flex items-center gap-3 md:gap-4">
-                            <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
-                                isDarkMode 
-                                    ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' 
-                                    : 'border-blue-200 bg-blue-50 text-blue-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
-                            }`}>
+                            <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border border-blue-200 bg-blue-50 text-blue-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]`}>
                                 {i === 0 ? <Check className="w-3 h-3 md:w-4 md:h-4" /> : i === 1 ? <User className="w-3 h-3 md:w-4 md:h-4" /> : <Tag className="w-3 h-3 md:w-4 md:h-4" />}
                             </div>
-                            <span className={`text-[13px] md:text-[15px] ${
-                                isDarkMode ? 'text-zinc-300' : 'text-slate-600'
-                            }`}>
+                            <span className={`text-[13px] md:text-[15px] text-slate-600 dark:text-zinc-300`}>
                                 {pt}
                             </span>
                         </div>
@@ -2021,24 +1910,16 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
                     {bulletPoints.length <= 1 && (
                          <>
                             <div className="flex items-center gap-3 md:gap-4">
-                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
-                                    isDarkMode 
-                                        ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' 
-                                        : 'border-blue-200 bg-blue-50 text-blue-600'
-                                }`}>
+                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border border-blue-200 bg-blue-50 text-blue-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400`}>
                                     <Check className="w-3 h-3 md:w-4 md:h-4" />
                                 </div>
-                                <span className={`text-[13px] md:text-[15px] ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>Strict compliance guidelines applied</span>
+                                <span className={`text-[13px] md:text-[15px] text-slate-600 dark:text-zinc-300`}>Strict compliance guidelines applied</span>
                             </div>
                             <div className="flex items-center gap-3 md:gap-4">
-                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border ${
-                                    isDarkMode 
-                                        ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' 
-                                        : 'border-blue-200 bg-blue-50 text-blue-600'
-                                }`}>
+                                <div className={`shrink-0 grid h-6 w-6 md:h-8 md:w-8 place-items-center rounded-full border border-blue-200 bg-blue-50 text-blue-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400`}>
                                     <User className="w-3 h-3 md:w-4 md:h-4" />
                                 </div>
-                                <span className={`text-[13px] md:text-[15px] ${isDarkMode ? 'text-zinc-300' : 'text-slate-600'}`}>Role-based access permissions</span>
+                                <span className={`text-[13px] md:text-[15px] text-slate-600 dark:text-zinc-300`}>Role-based access permissions</span>
                             </div>
                          </>
                     )}
@@ -2046,19 +1927,11 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
 
                 {/* Bottom Tags */}
                 <div className="mt-5 md:mt-8 flex flex-wrap gap-3 md:gap-4 shrink-0">
-                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 ${
-                        isDarkMode
-                            ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]'
-                            : 'border-blue-200 bg-blue-50/50 text-blue-700 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
-                    }`}>
+                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 border-blue-200 bg-blue-50/50 text-blue-700 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]`}>
                         <Check className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         Compliance
                     </div>
-                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 ${
-                        isDarkMode
-                            ? 'border-white/10 bg-white/[0.03] text-zinc-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]'
-                            : 'border-black/5 bg-black/[0.02] text-slate-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
-                    }`}>
+                    <div className={`flex items-center gap-1.5 md:gap-2 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold border transition-all duration-300 border-black/5 bg-black/[0.02] text-slate-600 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:border-white/10 dark:bg-white/[0.03] dark:text-zinc-300 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]`}>
                         <User className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         Access Control
                     </div>
@@ -2068,55 +1941,55 @@ function PolicyCard({ index, title, body, image, isDarkMode }: {
     );
 }
 
-function SectionHeader({ eyebrow, title, copy, isDarkMode, align = 'center' }: { eyebrow: string; title: string; copy: string; isDarkMode: boolean; align?: 'left' | 'center' }) {
+function SectionHeader({ eyebrow, title, copy, align = 'center' }: { eyebrow: string; title: string; copy: string; align?: 'left' | 'center' }) {
     return (
-        <AnimatedHeading eyebrow={eyebrow} title={title} copy={copy} isDarkMode={isDarkMode} align={align} />
+        <AnimatedHeading eyebrow={eyebrow} title={title} copy={copy} align={align} />
     );
 }
 
 
-function InputBlock({ label, icon: Icon, isTextArea, isDarkMode, ...props }: { label: string, icon?: ElementType, isTextArea?: boolean, isDarkMode: boolean } & React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+function InputBlock({ label, icon: Icon, isTextArea, ...props }: { label: string, icon?: ElementType, isTextArea?: boolean, } & React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
     return (
-        <div className={`relative rounded-xl border px-3 py-2.5 md:px-4 md:py-3 transition-all backdrop-blur-sm ${isDarkMode ? 'border-white/10 bg-white/[0.04] focus-within:border-violet-500/50 focus-within:bg-white/[0.06]' : 'border-white/60 bg-white/60 focus-within:border-blue-500/50 focus-within:bg-white/90'}`}>
-            <label className={`block text-xs mb-1 font-medium ${isDarkMode ? 'text-zinc-400' : 'text-slate-500'}`}>{label}</label>
+        <div className={`relative rounded-xl border px-3 py-2.5 md:px-4 md:py-3 transition-all backdrop-blur-sm border-white/60 bg-white/60 focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:border-violet-500/50 dark:focus-within:bg-white/[0.06]`}>
+            <label className={`block text-xs mb-1 font-medium text-slate-500 dark:text-zinc-400`}>{label}</label>
             <div className="flex items-start">
                 {isTextArea ? (
                     <textarea 
-                        className={`w-full bg-transparent text-sm outline-none resize-none ${isDarkMode ? 'text-white placeholder:text-zinc-600' : 'text-slate-900 placeholder:text-slate-400'}`} 
+                        className={`w-full bg-transparent text-sm outline-none resize-none text-slate-900 placeholder:text-slate-400 dark:text-white dark:placeholder:text-zinc-600`} 
                         rows={4}
                         {...props} 
                     />
                 ) : (
                     <input 
-                        className={`w-full bg-transparent text-sm outline-none ${isDarkMode ? 'text-white placeholder:text-zinc-600' : 'text-slate-900 placeholder:text-slate-400'}`} 
+                        className={`w-full bg-transparent text-sm outline-none text-slate-900 placeholder:text-slate-400 dark:text-white dark:placeholder:text-zinc-600`} 
                         {...props} 
                     />
                 )}
-                {Icon && <Icon className={`h-4 w-4 mt-0.5 ml-2 ${isDarkMode ? 'text-zinc-500' : 'text-slate-400'}`} />}
+                {Icon && <Icon className={`h-4 w-4 mt-0.5 ml-2 text-slate-400 dark:text-zinc-500`} />}
             </div>
         </div>
     );
 }
 
-function ContactRow({ icon: Icon, title, value, link, isDarkMode }: { icon: ElementType, title: string, value: string, link?: string, isDarkMode: boolean }) {
+function ContactRow({ icon: Icon, title, value, link }: { icon: ElementType, title: string, value: string, link?: string, }) {
     return (
         <div className="flex items-center gap-4">
-            <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full backdrop-blur-sm border ${isDarkMode ? 'bg-white/[0.06] border-white/10 text-violet-400' : 'bg-white/70 border-white/80 text-blue-600 shadow-sm'}`}>
+            <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full backdrop-blur-sm border bg-white/70 border-white/80 text-blue-600 shadow-sm dark:bg-white/[0.06] dark:border-white/10 dark:text-violet-400`}>
                 <Icon className="h-5 w-5" />
             </div>
             <div>
-                <div className={`text-[15px] font-semibold mb-0.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{title}</div>
+                <div className={`text-[15px] font-semibold mb-0.5 text-slate-900 dark:text-white`}>{title}</div>
                 {link ? (
-                    <a href={link} className={`text-[15px] ${isDarkMode ? 'text-violet-400 hover:text-violet-300' : 'text-blue-600 hover:text-blue-700'}`}>{value}</a>
+                    <a href={link} className={`text-[15px] text-blue-600 hover:text-blue-700 dark:text-violet-400 dark:hover:text-violet-300`}>{value}</a>
                 ) : (
-                    <div className={`text-[15px] ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>{value}</div>
+                    <div className={`text-[15px] text-slate-600 dark:text-zinc-400`}>{value}</div>
                 )}
             </div>
         </div>
     );
 }
 
-function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
+function ContactSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -2137,31 +2010,31 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
 
 
     return (
-        <section ref={sectionRef} id="contact" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 900px' }} className={`relative overflow-hidden px-4 py-12 md:py-24 md:px-6 ${isDarkMode ? 'bg-[#0d0e11]' : 'bg-slate-50/80'}`}>
+        <section ref={sectionRef} id="contact" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 900px' }} className={`relative overflow-hidden px-4 py-12 md:py-24 md:px-6 bg-slate-50/80 dark:bg-[#0d0e11]`}>
             <div className="relative mx-auto max-w-6xl">
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
                     {/* Left Column */}
                     <RevealOnScroll variant="fadeRight" className="flex flex-col pt-4">
-                        <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Let's Talk</h3>
-                        <p className={`mb-6 md:mb-12 max-w-sm text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                        <h3 className={`text-3xl md:text-4xl font-bold tracking-tight mb-2 md:mb-4 text-slate-900 dark:text-white`}>Let's Talk</h3>
+                        <p className={`mb-6 md:mb-12 max-w-sm text-sm md:text-base leading-relaxed text-slate-600 dark:text-zinc-400`}>
                             Have a question or want to work together? We&apos;d love to hear from you.
                         </p>
 
                         <div className="flex flex-col gap-4 md:gap-6">
-                            <ContactRow icon={Mail} title="Email" value="ascendiollp@gmail.com" link="mailto:ascendiollp@gmail.com" isDarkMode={isDarkMode} />
-                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={Phone} title="Phone" value="+91 82818 91391" link="tel:+918281891391" isDarkMode={isDarkMode} />
-                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={MapPin} title="Address" value="Trivandrum, Kerala" isDarkMode={isDarkMode} />
-                            <div className={`h-px w-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`} />
-                            <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" isDarkMode={isDarkMode} />
+                            <ContactRow icon={Mail} title="Email" value="ascendiollp@gmail.com" link="mailto:ascendiollp@gmail.com" />
+                            <div className={`h-px w-full bg-black/5 dark:bg-white/5`} />
+                            <ContactRow icon={Phone} title="Phone" value="+91 82818 91391" link="tel:+918281891391" />
+                            <div className={`h-px w-full bg-black/5 dark:bg-white/5`} />
+                            <ContactRow icon={MapPin} title="Address" value="Trivandrum, Kerala" />
+                            <div className={`h-px w-full bg-black/5 dark:bg-white/5`} />
+                            <ContactRow icon={Clock} title="Business Hours" value="Mon - Fri: 9:00 AM - 6:00 PM (IST)" />
                         </div>
                     </RevealOnScroll>
 
                     {/* Right Column (Form) */}
-                    <RevealOnScroll variant="fadeLeft" delay={0.08} className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/8 shadow-2xl shadow-black/50' : 'bg-white/70 border-white/80 shadow-xl shadow-slate-200/50'}`}>
-                        <h3 className={`text-xl md:text-2xl font-bold mb-2 md:mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Send us a message</h3>
-                        <p className={`mb-6 md:mb-8 text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                    <RevealOnScroll variant="fadeLeft" delay={0.08} className={`p-5 md:p-10 rounded-2xl md:rounded-3xl border backdrop-blur-2xl bg-white/70 border-white/80 shadow-xl shadow-slate-200/50 dark:bg-white/[0.04] dark:border-white/8 dark:shadow-2xl dark:shadow-black/50`}>
+                        <h3 className={`text-xl md:text-2xl font-bold mb-2 md:mb-3 text-slate-900 dark:text-white`}>Send us a message</h3>
+                        <p className={`mb-6 md:mb-8 text-xs md:text-sm text-slate-600 dark:text-zinc-400`}>
                             Fill out the form below and we&apos;ll get back to you as soon as possible.
                         </p>
 
@@ -2171,26 +2044,26 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="flex h-52 md:h-64 flex-col items-center justify-center text-center"
                             >
-                                <div className={`grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-full border mb-4 ${isDarkMode ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : 'border-emerald-200 bg-emerald-50 text-emerald-600'}`}>
+                                <div className={`grid h-12 w-12 md:h-16 md:w-16 place-items-center rounded-full border mb-4 border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400`}>
                                     <Check className="h-6 w-6 md:h-8 md:w-8" />
                                 </div>
                                 <div className="mb-2 text-xl md:text-2xl font-bold text-emerald-500">Message Sent!</div>
-                                <p className={`text-xs md:text-sm ${isDarkMode ? 'text-zinc-400' : 'text-slate-600'}`}>
+                                <p className={`text-xs md:text-sm text-slate-600 dark:text-zinc-400`}>
                                     Thank you for reaching out. We will get back to you soon.
                                 </p>
                             </motion.div>
                         ) : (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-                                    <InputBlock label="Full Name" placeholder="Enter your name" icon={User} value={name} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setName(e.target.value)} required isDarkMode={isDarkMode} />
-                                    <InputBlock label="Email Address" placeholder="Enter your email" type="email" icon={Mail} value={email} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setEmail(e.target.value)} required isDarkMode={isDarkMode} />
+                                    <InputBlock label="Full Name" placeholder="Enter your name" icon={User} value={name} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setName(e.target.value)} required />
+                                    <InputBlock label="Email Address" placeholder="Enter your email" type="email" icon={Mail} value={email} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setEmail(e.target.value)} required />
                                 </div>
-                                <InputBlock label="Subject" placeholder="What is this regarding?" icon={Tag} value={subject} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSubject(e.target.value)} required isDarkMode={isDarkMode} />
-                                <InputBlock label="Message" placeholder="Type your message here..." icon={Pencil} isTextArea value={message} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setMessage(e.target.value)} required isDarkMode={isDarkMode} />
+                                <InputBlock label="Subject" placeholder="What is this regarding?" icon={Tag} value={subject} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSubject(e.target.value)} required />
+                                <InputBlock label="Message" placeholder="Type your message here..." icon={Pencil} isTextArea value={message} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setMessage(e.target.value)} required />
 
                                 <button
                                     type="submit"
-                                    className={`mt-2 flex h-12 md:h-14 w-full items-center justify-center gap-2 rounded-xl text-sm md:text-[15px] font-semibold transition-all hover:-translate-y-0.5 active:scale-95 ${isDarkMode ? 'bg-violet-600 text-white hover:bg-violet-500 shadow-[0_0_20px_rgba(124,58,237,0.3)]' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20'}`}
+                                    className={`mt-2 flex h-12 md:h-14 w-full items-center justify-center gap-2 rounded-xl text-sm md:text-[15px] font-semibold transition-all hover:-translate-y-0.5 active:scale-95 bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20 dark:bg-violet-600 dark:text-white dark:hover:bg-violet-500 dark:shadow-[0_0_20px_rgba(124,58,237,0.3)]`}
                                 >
                                     <Send className="h-4 w-4 md:h-[18px] md:w-[18px]" />
                                     Send Message
@@ -2204,10 +2077,10 @@ function ContactSection({ isDarkMode }: { isDarkMode: boolean }) {
     );
 }
 
-function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: boolean; onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
+function Footer({ onOpenSupport, onOpenPrivacy }: { onOpenSupport?: () => void; onOpenPrivacy?: () => void }) {
     return (
         <section id="footer">
-            <footer className={`border-t px-4 py-8 sm:px-6 backdrop-blur-xl ${isDarkMode ? 'border-white/10 bg-black/60 text-white' : 'border-black/8 bg-white/80 text-slate-900'}`}>
+            <footer className={`border-t px-4 py-8 sm:px-6 backdrop-blur-xl border-black/8 bg-white/80 text-slate-900 dark:border-white/10 dark:bg-black/60 dark:text-white`}>
                 <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8 text-center md:text-left md:flex-row md:items-start md:justify-between">
                     <div className="flex flex-col items-center md:flex-row md:items-start gap-3 md:gap-4">
                         <div className="flex items-center gap-2 md:gap-3">
@@ -2231,7 +2104,7 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
 
                         <div className="flex gap-2">
                             <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) border-black/10 text-zinc-500 dark:border-white/10 dark:text-zinc-400`}>
                                 <svg className="h-3.5 w-3.5 md:h-4 md:w-4" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                                     <rect x="2" y="9" width="4" height="12" />
@@ -2239,11 +2112,11 @@ function Footer({ isDarkMode, onOpenSupport, onOpenPrivacy }: { isDarkMode: bool
                                 </svg>
                             </Link>
                             <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X"
-                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) border-black/10 text-zinc-500 dark:border-white/10 dark:text-zinc-400`}>
                                 <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
                             </Link>
                             <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) ${isDarkMode ? 'border-white/10 text-zinc-400' : 'border-black/10 text-zinc-500'}`}>
+                                className={`grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-lg border transition hover:border-(--landing-accent) hover:text-(--landing-accent) border-black/10 text-zinc-500 dark:border-white/10 dark:text-zinc-400`}>
                                 <svg className="h-3.5 w-3.5 md:h-4 md:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />

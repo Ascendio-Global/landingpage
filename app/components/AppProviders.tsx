@@ -11,6 +11,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       defaultTheme="system"
       enableSystem
       enableColorScheme
+      disableTransitionOnChange
       storageKey="placement-theme"
     >
       <DynamicFavicon />
