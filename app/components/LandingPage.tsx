@@ -1331,14 +1331,10 @@ function FeaturesSection() {
                         <div className="relative">
                             {/* glow */}
                             <div
-                                className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem]"
-                                className="bg-[rgba(59,130,246,0.3)] dark:bg-[rgba(109,40,217,0.45)]"
+                                className="absolute -bottom-12 left-1/2 -translate-x-1/2 h-40 w-4/5 rounded-full blur-[3.5rem] bg-[rgba(59,130,246,0.3)] dark:bg-[rgba(109,40,217,0.45)]"
                             />
                             <div
-                                className="relative z-10 aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl md:rounded-3xl lg:aspect-[3/4]"
-                                style={{
-                                    border: `1px solid rgba(0,0,0,0.06) dark:rgba(255,255,255,0.08)`,
-                                }}
+                                className="relative z-10 aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl md:rounded-3xl lg:aspect-[3/4] border border-[rgba(0,0,0,0.06)] dark:border-[rgba(255,255,255,0.08)]"
                             >
                                 <Image
                                     src="/interview.png"
