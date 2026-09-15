@@ -36,6 +36,11 @@ body {
   position: relative;
 }
 
+html.custom-cursor-enabled,
+html.custom-cursor-enabled * {
+  cursor: none !important;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

@@ -3,19 +3,16 @@
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import { SmoothScrollProvider } from "@/app/components/motion/SmoothScrollProvider";
 import { DynamicFavicon } from "@/app/components/DynamicFavicon";
+import SummitBeaconCursor from "@/app/components/SummitBeaconCursor";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      enableColorScheme
-      disableTransitionOnChange
-      storageKey="placement-theme"
-    >
+    <ThemeProvider>
       <DynamicFavicon />
-      <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      <SmoothScrollProvider>
+        {children}
+        <SummitBeaconCursor />
+      </SmoothScrollProvider>
     </ThemeProvider>
   );
 }
