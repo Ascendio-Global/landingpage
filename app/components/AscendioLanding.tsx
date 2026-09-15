@@ -75,14 +75,14 @@ function AscendioNavbar() {
     <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-5 md:px-8">
       <div className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 backdrop-blur-xl transition-all duration-300 md:px-7 md:py-3 ${scrolled ? 'border-white/80 bg-white/90 shadow-xl shadow-indigo-500/10 dark:border-white/10 dark:bg-[#0a0a1a]/90' : 'border-white/60 bg-white/65 shadow-lg shadow-slate-900/5 dark:border-white/10 dark:bg-[#0a0a1a]/65'}`}>
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-11 w-11 shrink-0">
-            <Image src="/Logos/landing-light.png" alt="Ascendio Global LLP" fill sizes="44px" className="object-contain dark:hidden" priority />
-            <Image src="/Logos/landing-dark.jpeg" alt="Ascendio Global LLP" fill sizes="44px" className="hidden object-contain dark:block" priority />
+        <Link href="/" className="flex items-center gap-3.5 group">
+          <div className="relative h-10 w-10 shrink-0">
+            <Image src="/Logos/landing-light.png" alt="Ascendio Global LLP" fill sizes="40px" className="object-contain dark:hidden" priority />
+            <Image src="/Logos/landing-dark.jpeg" alt="Ascendio Global LLP" fill sizes="40px" className="hidden object-contain dark:block" priority />
           </div>
-          <div className="hidden leading-none sm:block">
-            <span className="block text-[17px] font-black tracking-tight text-slate-950 dark:text-white">ASCENDIO</span>
-            <span className="mt-1 block text-[9px] font-bold tracking-[0.3em] text-[#3947e8] dark:text-[#a8aaff]">GLOBAL LLP</span>
+          <div className="hidden flex-col gap-1 sm:flex">
+            <span className="text-[17px] font-black tracking-wide text-slate-950 dark:text-white leading-none">ASCENDIO</span>
+            <span className="text-[8.5px] font-bold tracking-[0.35em] text-[#3947e8] dark:text-[#a8aaff] leading-none">GLOBAL LLP</span>
           </div>
         </Link>
 
@@ -142,7 +142,7 @@ function HeroSection() {
           <p className="mt-7 max-w-xl text-base leading-relaxed text-[#334267] dark:text-[#e2e8ff] md:text-lg">We design, build and deploy technology that helps businesses, institutions and ideas move forward.</p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a href="#contact" className="inline-flex items-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8]">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
-            <a href="#services" className="inline-flex items-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80"><span className="grid h-5 w-5 place-items-center rounded-full border border-current"><Briefcase className="h-3.5 w-3.5" /></span>Explore Our Work</a>
+            <a href="#products" className="inline-flex items-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80">Explore Our Products</a>
           </div>
         </motion.div>
       </div>
