@@ -22,22 +22,22 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   const isDark = mounted ? resolvedTheme === 'dark' : false;
   const activeRole = role || 'landing';
 
-  let logoSrc = '/aarambh%20logo.png';
+  let logoSrc = '/aarambh%20logo.webp';
   const isFallback = !['student', 'admin', 'rep', 'alumni', 'alumini', 'landing'].includes(activeRole);
 
   if (activeRole === 'student') {
-    logoSrc = isDark ? '/Logos/student-dark.png' : '/Logos/student-light.png';
+    logoSrc = isDark ? '/Logos/student-dark.webp' : '/Logos/student-light.webp';
   } else if (activeRole === 'admin' || activeRole === 'rep') {
-    logoSrc = isDark ? '/Logos/admin-dark.png' : '/Logos/admin-light.png';
+    logoSrc = isDark ? '/Logos/admin-dark.webp' : '/Logos/admin-light.webp';
   } else if (activeRole === 'alumni' || activeRole === 'alumini') {
-    logoSrc = isDark ? '/Logos/alumini-dark.png' : '/Logos/alumini-light.png';
+    logoSrc = isDark ? '/Logos/alumini-dark.webp' : '/Logos/alumini-light.webp';
   } else if (activeRole === 'landing') {
-    logoSrc = isDark ? '/Logos/landing-dark.jpeg' : '/Logos/landing-light.png';
+    logoSrc = isDark ? '/Logos/landing-dark.webp' : '/Logos/landing-light.webp';
   }
 
   const imgClass = isFallback
     ? 'object-contain contrast-125 mix-blend-multiply dark:invert dark:contrast-125 dark:mix-blend-screen'
-    : 'object-contain';
+    : 'object-contain dark:mix-blend-screen';
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>

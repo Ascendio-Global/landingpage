@@ -7,7 +7,12 @@ import AnimatedLogoMark from '@/app/AnimatedLogoMark';
 import { useTheme } from './ThemeProvider';
 import { motion, AnimatePresence } from 'motion/react';
 import { BlurReveal, StaggerContainer, StaggerItem, ParallaxImage } from './motion/Animations';
-import JourneySection from './JourneySection';
+import dynamic from 'next/dynamic';
+
+const JourneySection = dynamic(() => import('./JourneySection'), {
+  loading: () => <div className="h-[600px] w-full animate-pulse bg-slate-100 dark:bg-slate-800/50" />
+});
+
 import {
   Menu, X, ArrowRight, Code2, Smartphone, Server,
   Brain, Palette, Wrench, Users, Handshake, ShieldCheck, HeadphonesIcon,
@@ -63,9 +68,9 @@ function ThemeToggle() {
       type="button"
       aria-label={mounted && resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="grid h-12 w-12 place-items-center rounded-lg border border-blue-200 bg-white/95 text-[#263a8f] shadow-xl shadow-blue-900/10 backdrop-blur-md dark:border-indigo-300/20 dark:bg-[#111a43]/90 dark:text-[#b9c5ff] dark:shadow-indigo-950/40 hover:-translate-y-0.5 transition active:scale-95"
+      className="grid h-[52px] w-[52px] place-items-center rounded-2xl transition-all duration-300 active:scale-95 bg-[#F9FAFB] text-[#0F172A] border border-[#E2E8F0]/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:bg-[#1E1E20] dark:border-white/5 dark:text-[#FACC15] dark:shadow-none"
     >
-      {mounted && resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {mounted && resolvedTheme === 'dark' ? <Sun className="h-6 w-6" /> : <Moon className="h-[22px] w-[22px]" />}
     </button>
   );
 }
@@ -88,8 +93,8 @@ function AscendioNavbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3.5 group">
           <div className="relative h-10 w-10 shrink-0">
-            <Image src="/Logos/landing-light.png" alt="Ascendio Global LLP" fill sizes="40px" className="object-contain dark:hidden" priority />
-            <Image src="/Logos/landing-dark.jpeg" alt="Ascendio Global LLP" fill sizes="40px" className="hidden object-contain dark:block" priority />
+            <Image src="/Logos/landing-light.webp" alt="Ascendio Global LLP" fill sizes="40px" className="object-contain dark:hidden" priority />
+            <Image src="/Logos/landing-dark-transparent.webp" alt="Ascendio Global LLP" fill sizes="40px" className="hidden object-contain dark:block " priority />
           </div>
           <div className="hidden flex-col gap-1 sm:flex">
             <span className="text-[17px] font-black tracking-wide text-slate-950 dark:text-white leading-none">ASCENDIO</span>
@@ -104,7 +109,7 @@ function AscendioNavbar() {
           <a href="#services" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Services</a>
           <a href="#products" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Products</a>
 
-          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#3155e8] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white shadow-lg shadow-blue-500/25 dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] hover:bg-[#2445d0] dark:hover:bg-white/20 hover:-translate-y-0.5 active:scale-95 transition-all">
+          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#1D4ED8] dark:bg-[#5965ff] shadow-lg shadow-blue-500/25 dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] hover:bg-[#1E40AF] dark:hover:bg-[#4b55e8] hover:-translate-y-0.5 active:scale-95 transition-all">
             Contact Us <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -168,7 +173,7 @@ function AscendioNavbar() {
 
               <div className="mx-2 my-2 h-px bg-slate-200/50 dark:bg-white/5" />
 
-              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#7c3aed] dark:hover:bg-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-purple-500/20 border border-transparent dark:border-[#8b5cf6]/30">
+              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#1D4ED8] hover:bg-[#1E40AF] dark:bg-[#7c3aed] dark:hover:bg-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-purple-500/20 border border-transparent dark:border-[#8b5cf6]/30">
                 <div className="flex items-center gap-3.5">
                   <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 shadow-sm">
                     <Mail className="h-4 w-4 text-white" />
@@ -189,8 +194,8 @@ function AscendioNavbar() {
 function HeroSection() {
   return (
     <section className="relative isolate flex min-h-[720px] items-start overflow-hidden bg-[#dcecff] dark:bg-[#090a18] md:min-h-screen">
-      <div aria-hidden="true" className="absolute inset-0 z-[1] bg-cover bg-center dark:hidden" style={{ backgroundImage: "url('/ascendio-bg-light.png')" }} />
-      <div aria-hidden="true" className="absolute inset-0 z-[1] hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/ascendio-bg-dark.png')" }} />
+      <div aria-hidden="true" className="absolute inset-0 z-[1] bg-cover bg-center dark:hidden" style={{ backgroundImage: "url('/ascendio-bg-light.webp')" }} />
+      <div aria-hidden="true" className="absolute inset-0 z-[1] hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/ascendio-bg-dark.webp')" }} />
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-white/78 via-white/25 to-transparent dark:from-[#060b24]/70 dark:via-[#060b24]/20 dark:to-transparent" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-white/10 via-transparent to-white/15 dark:from-[#05091e]/20 dark:to-transparent" />
       <div className="relative z-10 w-full px-5 pt-44 sm:px-12 md:px-8 md:pt-32 lg:px-[8.5vw] lg:pt-56">
@@ -208,7 +213,7 @@ function HeroSection() {
           </StaggerItem>
           <StaggerItem>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-              <a href="#contact" data-instant className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8] sm:w-auto">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
+              <a href="#contact" data-instant className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#1D4ED8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#1E40AF] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8] sm:w-auto">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
               <a href="#products" data-instant className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80 sm:w-auto">Explore Our Products</a>
             </div>
           </StaggerItem>
@@ -222,8 +227,8 @@ function AboutSection() {
   return (
     <section id="about" className="relative overflow-hidden bg-[#f7f8fc] dark:bg-[#090a12]">
       <div className="relative isolate overflow-hidden px-5 py-16 md:py-28">
-        <div aria-hidden="true" className="absolute inset-0 -z-20 bg-cover bg-left dark:hidden md:left-1/2" style={{ backgroundImage: "url('/64811547-2c05-4eed-9725-4648112c42ba.png')" }} />
-        <div aria-hidden="true" className="absolute inset-0 -z-20 hidden bg-cover bg-left brightness-125 contrast-110 dark:block md:left-1/2" style={{ backgroundImage: "url('/1467f7e6-22e0-409c-94ef-93539abfc55c.png')" }} />
+        <div aria-hidden="true" className="absolute inset-0 -z-20 bg-cover bg-left dark:hidden md:left-1/2" style={{ backgroundImage: "url('/64811547-2c05-4eed-9725-4648112c42ba.webp')" }} />
+        <div aria-hidden="true" className="absolute inset-0 -z-20 hidden bg-cover bg-left brightness-125 contrast-110 dark:block md:left-1/2" style={{ backgroundImage: "url('/1467f7e6-22e0-409c-94ef-93539abfc55c.webp')" }} />
         
         {/* Mobile Overlays */}
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/85 dark:hidden md:hidden" />
@@ -260,8 +265,8 @@ function AboutSection() {
 function VisionSection() {
   return (
     <section id="vision" className="relative isolate overflow-hidden bg-white dark:bg-[#090a12]">
-      <div className="absolute inset-y-0 left-0 w-full bg-cover bg-center dark:hidden lg:w-1/2" style={{ backgroundImage: "url('/d8670779-bc25-4ad5-8309-92d026dde93e.png')" }} />
-      <div className="absolute inset-y-0 left-0 hidden w-full bg-cover bg-center dark:block lg:w-1/2" style={{ backgroundImage: "url('/eabbf25f-fa56-4538-9fc4-63398011a94f.png')" }} />
+      <div className="absolute inset-y-0 left-0 w-full bg-cover bg-center dark:hidden lg:w-1/2" style={{ backgroundImage: "url('/d8670779-bc25-4ad5-8309-92d026dde93e.webp')" }} />
+      <div className="absolute inset-y-0 left-0 hidden w-full bg-cover bg-center dark:block lg:w-1/2" style={{ backgroundImage: "url('/eabbf25f-fa56-4538-9fc4-63398011a94f.webp')" }} />
       <div className="absolute inset-0 bg-white/85 dark:bg-[#090a12]/88 lg:hidden" />
       <div className="absolute inset-y-0 left-0 hidden w-3/4 bg-gradient-to-r from-transparent to-white lg:block dark:to-[#090a12]" />
 
@@ -372,7 +377,7 @@ function WhyPartnerSection() {
     <section id="why-choose-us" className="relative overflow-hidden bg-[#f7f8fc] px-5 py-16 dark:bg-[#090a12] md:py-28">
       <div className="mx-auto grid max-w-6xl items-stretch gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative min-h-[350px] h-full overflow-hidden rounded-[22px] border border-white/70 bg-slate-900 shadow-2xl shadow-indigo-950/20 dark:border-white/10 md:min-h-[520px]">
-          <Image src="/ascendio-support.png" alt="Ascendio support team helping turn ideas into solutions" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center transition duration-700 hover:scale-105" />
+          <Image src="/ascendio-support.webp" alt="Ascendio support team helping turn ideas into solutions" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center transition duration-700 hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080a20]/75 via-transparent to-transparent" />
           <div className="absolute bottom-7 left-7 right-7"><p className="text-xs font-bold uppercase tracking-[0.28em] text-indigo-200">Ascendio Global</p><p className="mt-2 text-2xl font-black text-white">Technology that moves your ambition forward.</p></div>
         </motion.div>
@@ -469,8 +474,8 @@ function ServicesSection() {
 function ProductsSection() {
   return (
     <section id="products" className="relative min-h-[450px] overflow-hidden bg-[#f8faff] px-6 py-12 text-slate-950 dark:bg-black dark:text-white md:min-h-0 md:aspect-[1721/914] md:p-0">
-      <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center dark:hidden" style={{ backgroundImage: "url('/5c1a07ad-bd7f-4534-b4fd-cc95d81c6ee0.png')" }} />
-      <div aria-hidden="true" className="absolute inset-0 hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/e75fc16a-cb73-465b-bad5-8171565b9627.png')" }} />
+      <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center dark:hidden" style={{ backgroundImage: "url('/5c1a07ad-bd7f-4534-b4fd-cc95d81c6ee0.webp')" }} />
+      <div aria-hidden="true" className="absolute inset-0 hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/e75fc16a-cb73-465b-bad5-8171565b9627.webp')" }} />
       
       {/* Mobile Overlays for text visibility */}
       <div aria-hidden="true" className="absolute inset-0 bg-[#f8faff]/85 dark:hidden md:hidden" />
@@ -483,7 +488,7 @@ function ProductsSection() {
           <h2 className="text-3xl font-black tracking-tight md:text-6xl">Meet Aarambh.</h2>
           <p className="mt-5 text-base leading-relaxed text-slate-700 dark:text-indigo-100/80 md:text-lg">A flagship product by Ascendio, built to connect institutions, students, alumni and opportunities through one intelligent platform.</p>
           <div className="mt-8 md:mt-10">
-            <Link href="/products/aarambh" className="group inline-flex shrink-0 items-center gap-3 rounded-xl bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] px-6 py-4 font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-indigo-500/40 hover:from-[#2445d0] hover:to-[#7c3aed] active:scale-95">
+            <Link href="/products/aarambh" className="group inline-flex shrink-0 items-center gap-3 rounded-xl bg-gradient-to-r from-[#1D4ED8] to-[#8b5cf6] px-6 py-4 font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-indigo-500/40 hover:from-[#1E40AF] hover:to-[#7c3aed] active:scale-95">
               <Rocket className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /> 
               Explore Aarambh 
               <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -519,22 +524,22 @@ function AscendioFooter() {
           <div className="flex flex-col items-center gap-3 md:gap-4">
             <p className="text-xs text-slate-500 dark:text-slate-400 md:text-sm">© 2026 Ascendio Global LLP. All rights reserved.</p>
             <div className="flex gap-2">
-              <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#3155e8] hover:text-[#3155e8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
+              <Link href="https://linkedin.com/company/aarambhofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#1D4ED8] hover:text-[#1D4ED8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
                 <svg className="h-3.5 w-3.5 md:h-4 md:w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
               </Link>
-              <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#3155e8] hover:text-[#3155e8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
+              <Link href="https://x.com/ascendioglobal" target="_blank" rel="noopener noreferrer" aria-label="X" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#1D4ED8] hover:text-[#1D4ED8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
                 <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Link>
-              <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#3155e8] hover:text-[#3155e8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
+              <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#1D4ED8] hover:text-[#1D4ED8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
                 <InstagramIcon className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Link>
             </div>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-700 dark:text-slate-300 md:gap-6 md:text-sm">
-            <a href="#about" className="transition hover:text-[#3155e8] dark:hover:text-[#a78bfa]">Privacy</a>
-            <a href="#about" className="transition hover:text-[#3155e8] dark:hover:text-[#a78bfa]">Terms</a>
-            <a href="#contact" className="transition hover:text-[#3155e8] dark:hover:text-[#a78bfa]">Support</a>
+            <a href="#about" className="transition hover:text-[#1D4ED8] dark:hover:text-[#a78bfa]">Privacy</a>
+            <a href="#about" className="transition hover:text-[#1D4ED8] dark:hover:text-[#a78bfa]">Terms</a>
+            <a href="#contact" className="transition hover:text-[#1D4ED8] dark:hover:text-[#a78bfa]">Support</a>
           </div>
         </div>
       </footer>

@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
 
-const LIGHT_ICON = "/Logos/landing-light.png"; // black "A" — for light backgrounds
-const DARK_ICON = "/Logos/landing-dark.jpeg"; // white "A" — for dark backgrounds
+const LIGHT_ICON = "/Logos/landing-light.webp"; // black "A" — for light backgrounds
+const DARK_ICON = "/Logos/landing-dark.webp"; // white "A" — for dark backgrounds
 
 /**
  * Keeps the browser-tab favicon in sync with the SITE theme (next-themes
@@ -41,7 +41,7 @@ export function DynamicFavicon() {
             link.rel = "icon";
             link.setAttribute("data-dynamic-favicon", "");
         }
-        link.type = href.endsWith(".png") ? "image/png" : "image/jpeg";
+        link.type = href.endsWith(".webp") ? "image/png" : "image/jpeg";
         link.href = href;
         document.head.appendChild(link); // move to end if it already existed
     }, [resolvedTheme]);

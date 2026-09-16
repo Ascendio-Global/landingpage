@@ -162,7 +162,7 @@ function JourneyMilestone({
           style={{ scale: dotScale }}
         >
           <motion.div
-            className="absolute h-8 w-8 rounded-full bg-[#3155e8]"
+            className="absolute h-8 w-8 rounded-full bg-[#1D4ED8]"
             style={{ opacity: dotGlowAlpha, filter: 'blur(10px)' }}
             aria-hidden="true"
           />
@@ -193,7 +193,7 @@ function JourneyMilestone({
       >
         {/* Glow behind the card */}
         <motion.div
-          className="absolute -inset-8 -z-20 rounded-[60px] bg-gradient-to-br from-[#3155e8]/20 to-[#8b5cf6]/20 blur-[40px] dark:from-[#3155e8]/15 dark:to-[#8b5cf6]/15"
+          className="absolute -inset-8 -z-20 rounded-[60px] bg-gradient-to-br from-[#1D4ED8]/20 to-[#8b5cf6]/20 blur-[40px] dark:from-[#1D4ED8]/15 dark:to-[#8b5cf6]/15"
           style={{ opacity: glowOpacity }}
           aria-hidden="true"
         />
@@ -228,12 +228,12 @@ function JourneyVertical() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 origin-bottom scale-[1.3] bg-cover bg-center dark:hidden md:scale-100"
-        style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.png')" }}
+        style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.webp')" }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 hidden origin-bottom scale-[1.3] bg-cover bg-center dark:block md:scale-100"
-        style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.png')" }}
+        style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.webp')" }}
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/70 dark:bg-[#090a12]/70" />
       <div className="mx-auto max-w-3xl">
@@ -258,7 +258,7 @@ function JourneyVertical() {
 
         <div className="relative">
           <div
-            className="absolute left-5 top-0 h-full w-px bg-gradient-to-b from-[#3155e8]/30 via-[#8b5cf6]/30 to-transparent md:left-1/2 md:-translate-x-px"
+            className="absolute left-5 top-0 h-full w-px bg-gradient-to-b from-[#1D4ED8]/30 via-[#8b5cf6]/30 to-transparent md:left-1/2 md:-translate-x-px"
             aria-hidden="true"
           />
           {JOURNEY_MILESTONES.map((m, i) => {
@@ -274,7 +274,7 @@ function JourneyVertical() {
                 }`}
               >
                 <div
-                  className={`absolute left-3 top-1 h-4 w-4 rounded-full border-2 border-[#3155e8] bg-white dark:bg-[#090a12] md:left-auto ${
+                  className={`absolute left-3 top-1 h-4 w-4 rounded-full border-2 border-[#1D4ED8] bg-white dark:bg-[#090a12] md:left-auto ${
                     isLeft ? 'md:-right-2' : 'md:-left-2'
                   }`}
                 />
@@ -396,11 +396,11 @@ function JourneyHorizontal() {
         >
           <div
             className="absolute inset-0 bg-cover bg-center dark:hidden"
-            style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.png')" }}
+            style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.webp')" }}
           />
           <div
             className="absolute inset-0 hidden bg-cover bg-center dark:block"
-            style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.png')" }}
+            style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.webp')" }}
           />
           <div className="absolute inset-0 bg-white/30 dark:bg-[#090a12]/40" />
           <div className="absolute -left-[15vw] top-[20%] h-[55vh] w-[55vh] rounded-full bg-blue-400/[0.04] blur-[120px] dark:bg-blue-500/[0.06]" />
@@ -422,7 +422,7 @@ function JourneyHorizontal() {
               <StaggerItem>
                 <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
                   From vision to{' '}
-                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#1D4ED8] to-[#8b5cf6] bg-clip-text text-transparent">
                     impact.
                   </span>
                 </h2>
@@ -452,7 +452,7 @@ function JourneyHorizontal() {
               <StaggerItem>
                 <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
                   From vision to{' '}
-                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#1D4ED8] to-[#8b5cf6] bg-clip-text text-transparent">
                     impact.
                   </span>
                 </h2>
@@ -518,7 +518,7 @@ function JourneyHorizontal() {
           <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3">
             <div className="h-[2px] w-56 overflow-hidden rounded-full bg-slate-200/50 dark:bg-white/[0.05]">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-[#3155e8] to-[#8b5cf6]"
+                className="h-full rounded-full bg-gradient-to-r from-[#1D4ED8] to-[#8b5cf6]"
                 style={{ width: progressPct }}
               />
             </div>
