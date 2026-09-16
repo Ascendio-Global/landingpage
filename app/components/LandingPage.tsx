@@ -61,7 +61,7 @@ function ServicesSection() {
             badgeColor: 'bg-indigo-600',
             body: 'Access verified student profiles from partner colleges through a unified talent marketplace.',
             metrics: ['Verified Profiles', 'Talent Pool'],
-            image: '/campus_talent_1780541304771.webp',
+            image: '/campus_talent_1780541304771.png',
         },
         {
             title: 'Smart Discovery',
@@ -70,7 +70,7 @@ function ServicesSection() {
             badgeColor: 'bg-pink-600',
             body: 'Search candidates using skills, CGPA, projects, certifications, internships, and placement readiness scores.',
             metrics: ['AI Search', 'Advanced Filters'],
-            image: '/smart_discovery_1780541317967.webp',
+            image: '/smart_discovery_1780541317967.png',
         },
         {
             title: 'Hiring Analytics',
@@ -79,7 +79,7 @@ function ServicesSection() {
             badgeColor: 'bg-blue-600',
             body: 'Monitor hiring performance, offer acceptance rates, recruiter engagement, and sourcing effectiveness.',
             metrics: ['ROI Tracking', 'Reports'],
-            image: '/hiring_analytics_1780541331151.webp',
+            image: '/hiring_analytics_1780541331151.png',
         },
         {
             title: 'Drive Automation',
@@ -88,7 +88,7 @@ function ServicesSection() {
             badgeColor: 'bg-yellow-600',
             body: 'Automate job postings, applications, notifications, shortlisting, interviews, and offer rollouts.',
             metrics: ['Automated', 'Efficient'],
-            image: '/drive_automation_1780541248122.webp',
+            image: '/drive_automation_1780541248122.png',
         },
         {
             title: 'Placement Statistics',
@@ -97,7 +97,7 @@ function ServicesSection() {
             badgeColor: 'bg-purple-600',
             body: 'Provide colleges with placement trends, department-wise analytics, recruiter engagement, and performance reports.',
             metrics: ['Insights', 'Reports'],
-            image: '/placement_stats_1780541262126.webp',
+            image: '/placement_stats_1780541262126.png',
         },
         // Student / Community Services
         {
@@ -107,7 +107,7 @@ function ServicesSection() {
             badgeColor: 'bg-emerald-600',
             body: 'Automatically verify eligibility for jobs based on CGPA, skills, backlogs, certifications, and company criteria.',
             metrics: ['Smart Match', 'Verified'],
-            image: '/eligibility_checker_1780541223554.webp',
+            image: '/eligibility_checker_1780541223554.png',
         },
         {
             title: 'Resume Builder',
@@ -116,7 +116,7 @@ function ServicesSection() {
             badgeColor: 'bg-orange-600',
             body: 'Create recruiter-ready resumes automatically using academic, project, and achievement data.',
             metrics: ['ATS Friendly', 'Auto Generated'],
-            image: '/resume_builder_1780541234998.webp',
+            image: '/resume_builder_1780541234998.png',
         },
         {
             title: 'Community Forums',
@@ -125,7 +125,7 @@ function ServicesSection() {
             badgeColor: 'bg-teal-600',
             body: 'Discuss opportunities, share experiences, ask questions, and learn from peers and mentors.',
             metrics: ['Discussions', 'Support'],
-            image: '/community_forums_1780541278090.webp',
+            image: '/community_forums_1780541278090.png',
         },
         {
             title: 'Alumni Connect',
@@ -134,7 +134,7 @@ function ServicesSection() {
             badgeColor: 'bg-blue-500',
             body: 'Connect with verified alumni for mentorship, referrals, career guidance, and industry insights.',
             metrics: ['Mentorship', 'Referrals'],
-            image: '/alumni_connect_1780541292889.webp',
+            image: '/alumni_connect_1780541292889.png',
         },
         // Original Services
         {
@@ -144,7 +144,7 @@ function ServicesSection() {
             badgeColor: 'bg-blue-600',
             body: 'Explore curated placements, internships, and live industry openings matched to your profile.',
             metrics: ['100% Verified', 'Active Daily'],
-            image: '/opportunities_service.webp',
+            image: '/opportunities_service.png',
         },
         {
             title: 'Profile Reviews',
@@ -153,7 +153,7 @@ function ServicesSection() {
             badgeColor: 'bg-violet-600',
             body: 'Get expert, personalised feedback on your resume, LinkedIn, and interview presence from industry mentors.',
             metrics: ['Top Mentors', 'Actionable'],
-            image: '/profile_reviews_service.webp',
+            image: '/profile_reviews_service.png',
         },
     ];
     const serviceIcons = [Users, Target, PieChart, Zap, Building2, BadgeCheck, Pencil, Users, Network, Compass, Eye];
@@ -320,25 +320,25 @@ const ABOUT_SLIDES = [
         title: 'Placement Commitment',
         icon: Target,
         body: 'We do not measure success by the number of students we train, but by the number we help place. Our commitment extends beyond preparation—we remain actively engaged until meaningful opportunities translate into successful outcomes.',
-        image: '/about_bg_1.webp'
+        image: '/about_bg_1.png'
     },
     {
         title: 'Transparent Guidance',
         icon: Eye,
         body: 'We believe informed decisions require honest conversations. Students receive clear assessments, constructive feedback, and realistic guidance on their strengths, gaps, and career opportunities.',
-        image: '/about_bg_2.webp'
+        image: '/about_bg_2.png'
     },
     {
         title: 'Meaningful Opportunities',
         icon: Compass,
         body: 'Every opportunity shared through our platform is selected with purpose. We focus on connecting students with credible employers, relevant roles, and pathways that align with their potential.',
-        image: '/about_bg_3.webp'
+        image: '/about_bg_3.png'
     },
     {
         title: 'Long-Term Growth',
         icon: TrendingUp,
         body: 'Our objective extends beyond securing a first role. We focus on enabling continuous professional development and long-term career advancement.',
-        image: '/about_bg_4.webp'
+        image: '/about_bg_4.png'
     },
 ];
 
@@ -361,32 +361,32 @@ const TERMS = [
     {
         title: 'Eligibility & Access',
         body: 'Aarambh is intended for students, alumni, recruiters, and authorized institutional staff. Access requires valid authentication and role-based approval where applicable.',
-        image: '/term_eligibility_1780542050852.webp',
+        image: '/term_eligibility_1780542050852.png',
     },
     {
         title: 'Acceptable Use',
         body: 'Users must provide accurate information, use the platform only for placement-related activity, and avoid credential sharing, automation abuse, or unauthorized access.',
-        image: '/term_acceptable_1780542063038.webp',
+        image: '/term_acceptable_1780542063038.png',
     },
     {
         title: 'Privacy & Security',
         body: 'Personal and placement data is stored securely and protected through access controls, encryption in transit, and role-based visibility. We do not sell user data.',
-        image: '/term_privacy_security_1780542076044.webp',
+        image: '/term_privacy_security_1780542076044.png',
     },
     {
         title: 'Applications & Deadlines',
         body: 'Users must follow posting deadlines and submission rules. False, incomplete, or misleading information may lead to suspension from placement activity.',
-        image: '/term_applications_1780542088947.webp',
+        image: '/term_applications_1780542088947.png',
     },
     {
         title: 'Ownership & IP',
         body: 'Aarambh, its code, design, branding, and infrastructure remain the property of the platform owner. Institutional branding remains the property of the respective institution.',
-        image: '/term_ownership_1780542102938.webp',
+        image: '/term_ownership_1780542102938.png',
     },
     {
         title: 'Disclaimer',
         body: 'Placement information is provided for guidance only and does not guarantee outcomes. Continued use after policy updates means you accept the revised terms.',
-        image: '/term_disclaimer_1780542116712.webp',
+        image: '/term_disclaimer_1780542116712.png',
     },
 ];
 
@@ -443,10 +443,10 @@ export function LandingPage({ onLogin }: { onLogin?: LoginHandler }) {
 
             <button
                 onClick={toggleTheme}
-                className={`fixed bottom-6 left-6 z-50 grid h-[52px] w-[52px] place-items-center rounded-2xl transition-all duration-300 active:scale-95 bg-[#F9FAFB] text-[#0F172A] border border-[#E2E8F0]/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:bg-[#1E1E20] dark:border-white/5 dark:text-[#FACC15] dark:shadow-none`}
+                className={`fixed bottom-6 left-6 z-50 grid h-12 w-12 place-items-center rounded-lg border shadow-xl transition hover:-translate-y-0.5 active:scale-95 border-blue-100 bg-white text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-yellow-300`}
                 aria-label="Toggle Theme"
             >
-                <><Sun className="hidden dark:block h-6 w-6" /><Moon className="block dark:hidden h-[22px] w-[22px]" /></>
+                <><Sun className="hidden dark:block h-5 w-5" /><Moon className="block dark:hidden h-5 w-5" /></>
             </button>
 
             {/* <AuthModal
@@ -709,7 +709,7 @@ function Hero({ onExploreClick }: { onExploreClick?: () => void }) {
             >
                 {/* Light mode image */}
                 <Image
-                    src="/hero-city.webp"
+                    src="/hero-city.png"
                     alt=""
                     fill
                     sizes="100vw"
@@ -726,7 +726,7 @@ function Hero({ onExploreClick }: { onExploreClick?: () => void }) {
                 />
                 {/* Dark mode image */}
                 <Image
-                    src="/hero-city-dark.webp"
+                    src="/hero-city-dark.png"
                     alt=""
                     fill
                     sizes="100vw"
@@ -942,7 +942,7 @@ function StatsSection() {
             />
             <div className="pointer-events-none absolute inset-x-0 -top-10 h-[520px] overflow-hidden lg:hidden">
                 <Image
-                    src="/landing-dashboard-light.webp"
+                    src="/landing-dashboard-light.png"
                     alt=""
                     fill
                     priority
@@ -955,7 +955,7 @@ function StatsSection() {
                     }}
                 />
                 <Image
-                    src="/landing-dashboard-dark.webp"
+                    src="/landing-dashboard-dark.png"
                     alt=""
                     fill
                     priority
@@ -1002,7 +1002,7 @@ function StatsSection() {
                         />
                         <div className="relative aspect-[16/10] md:aspect-[4/3] w-full bg-black/20">
                             <Image
-                                src="/landing-dashboard-light.webp"
+                                src="/landing-dashboard-light.png"
                                 alt="Dashboard Light"
                                 fill
                                 sizes="(max-width: 1280px) 50vw, 720px"
@@ -1010,7 +1010,7 @@ function StatsSection() {
                                 
                             />
                             <Image
-                                src="/landing-dashboard-dark.webp"
+                                src="/landing-dashboard-dark.png"
                                 alt="Dashboard Dark"
                                 fill
                                 sizes="(max-width: 1280px) 50vw, 720px"
@@ -1321,7 +1321,7 @@ function FeaturesSection() {
                                 className="relative z-10 aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl md:rounded-3xl lg:aspect-[3/4] border border-[rgba(0,0,0,0.06)] dark:border-[rgba(255,255,255,0.08)]"
                             >
                                 <Image
-                                    src="/interview.webp"
+                                    src="/interview.png"
                                     alt="Interview process"
                                     fill
                                     priority
@@ -1612,12 +1612,12 @@ function TermsSection() {
         {
             title: 'Privacy',
             body: 'We collect only the information needed for placement operations, communication, and analytics. Data is used to support student profiles, recruiter workflows, and institution-level reporting.',
-            image: '/term_privacy_1780542135426.webp',
+            image: '/term_privacy_1780542135426.png',
         },
         {
             title: 'Support',
             body: 'Report security issues, bugs, or access problems to the platform administrator. Users should keep their contact details current for important updates and verification.',
-            image: '/term_support_1780542146969.webp',
+            image: '/term_support_1780542146969.png',
         },
     ];
 
@@ -1668,7 +1668,7 @@ function TermsSection() {
                                     {false && (
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[6rem] bg-indigo-600/20 pointer-events-none" />
                                     )}
-                                    <Image src="/terms&cond.webp" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover  dark:opacity-80 dark:mix-blend-lighten`} />
+                                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="(max-width: 1024px) 100vw, 50vw" className={`object-cover  dark:opacity-80 dark:mix-blend-lighten`} />
                                 </div>
                             </div>
                             {/* Right — Heading (pinned) + scrolling card stack */}
@@ -1725,7 +1725,7 @@ function TermsSection() {
             <div className="flex lg:hidden h-screen flex-col w-full py-6 mx-auto max-w-2xl overflow-hidden">
                 {/* Header image — compact strip */}
                 <div className={`relative mx-4 h-[130px] sm:h-[160px] rounded-[1.25rem] overflow-hidden border mb-3 shrink-0 border-black/5 bg-white dark:border-white/10 dark:bg-black/20 shadow-lg`}>
-                    <Image src="/terms&cond.webp" alt="Legal & Compliance" fill sizes="100vw" className="object-cover" loading="lazy" />
+                    <Image src="/terms&cond.png" alt="Legal & Compliance" fill sizes="100vw" className="object-cover" loading="lazy" />
                     {/* overlay text on image */}
                     <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
                         <span className="text-[10px] font-black uppercase tracking-widest text-blue-300">Legal & Policies</span>
@@ -1843,7 +1843,7 @@ function PolicyCard({ index, title, body, image }: {
                     opacity-100 md:opacity-80 group-hover:opacity-100 dark:opacity-90 dark:md:opacity-40 dark:group-hover:opacity-100
                 `}>
                      {/* Light mode term image */}
-                     <Image src={`/term_${index + 1}.webp`} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover md:mix-blend-multiply opacity-100 md:opacity-90 group-hover:scale-105 transition-transform duration-700 block dark:hidden`} loading="lazy" />
+                     <Image src={`/term_${index + 1}.png`} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover md:mix-blend-multiply opacity-100 md:opacity-90 group-hover:scale-105 transition-transform duration-700 block dark:hidden`} loading="lazy" />
                      {/* Dark mode term image */}
                      <Image src={image} alt={title} fill sizes="(max-width: 1024px) 100vw, 35vw" className={`object-cover dark:md:mix-blend-screen dark:opacity-90 dark:md:opacity-50 group-hover:scale-105 transition-transform duration-700 hidden dark:block`} loading="lazy" />
                 </div>
