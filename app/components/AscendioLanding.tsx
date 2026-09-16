@@ -63,9 +63,9 @@ function ThemeToggle() {
       type="button"
       aria-label={mounted && resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="grid h-12 w-12 place-items-center rounded-lg border border-blue-200 bg-white/95 text-[#263a8f] shadow-xl shadow-blue-900/10 backdrop-blur-md dark:border-indigo-300/20 dark:bg-[#111a43]/90 dark:text-[#b9c5ff] dark:shadow-indigo-950/40 hover:-translate-y-0.5 transition active:scale-95"
+      className="grid h-[52px] w-[52px] place-items-center rounded-[18px] border border-blue-100/80 bg-[#f4f7fb] text-[#1e293b] shadow-sm transition-transform hover:scale-105 active:scale-95 dark:border-[#2a2a2a] dark:bg-[#1f1f22] dark:text-yellow-400 dark:shadow-none"
     >
-      {mounted && resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {mounted && resolvedTheme === 'dark' ? <Sun className="h-6 w-6" strokeWidth={2.25} /> : <Moon className="h-6 w-6" strokeWidth={2.25} />}
     </button>
   );
 }
@@ -104,7 +104,7 @@ function AscendioNavbar() {
           <a href="#services" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Services</a>
           <a href="#products" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Products</a>
 
-          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#3155e8] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white shadow-lg shadow-blue-500/25 dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] hover:bg-[#2445d0] dark:hover:bg-white/20 hover:-translate-y-0.5 active:scale-95 transition-all">
+          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8] shadow-lg shadow-blue-500/25 dark:shadow-blue-500/20 border border-transparent dark:border-[#5965ff]/30 hover:-translate-y-0.5 active:scale-95 transition-all">
             Contact Us <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -168,7 +168,7 @@ function AscendioNavbar() {
 
               <div className="mx-2 my-2 h-px bg-slate-200/50 dark:bg-white/5" />
 
-              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#7c3aed] dark:hover:bg-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-purple-500/20 border border-transparent dark:border-[#8b5cf6]/30">
+              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8] shadow-lg shadow-blue-500/25 dark:shadow-blue-500/20 border border-transparent dark:border-[#5965ff]/30">
                 <div className="flex items-center gap-3.5">
                   <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 shadow-sm">
                     <Mail className="h-4 w-4 text-white" />
