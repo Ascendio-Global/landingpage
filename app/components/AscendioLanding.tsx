@@ -11,8 +11,17 @@ import JourneySection from './JourneySection';
 import {
   Menu, X, ArrowRight, Code2, Smartphone, Server,
   Brain, Palette, Wrench, Users, Handshake, ShieldCheck, HeadphonesIcon,
-  Globe, Mail, Rocket, Sun, Moon, Phone, Camera, Check, Clock, MapPin, Pencil, Send, Tag, User, Briefcase
+  Globe, Mail, Rocket, Sun, Moon, Phone, Check, Clock, MapPin, Pencil, Send, Tag, User, Briefcase,
+  Sparkles, Cpu, BarChart3, Database, Cloud, ChevronRight, Award, Settings, Layers
 } from 'lucide-react';
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
 
 /* ───────── data ───────── */
 const PRODUCTS = [
@@ -74,8 +83,8 @@ function AscendioNavbar() {
 
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-5 md:px-8">
-      <div className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 backdrop-blur-xl transition-all duration-300 md:px-7 md:py-3 ${scrolled ? 'border-white/80 bg-white/90 shadow-xl shadow-indigo-500/10 dark:border-white/10 dark:bg-[#0a0a1a]/90' : 'border-white/60 bg-white/65 shadow-lg shadow-slate-900/5 dark:border-white/10 dark:bg-[#0a0a1a]/65'}`}>
+    <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
+      <div className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 backdrop-blur-2xl transition-all duration-500 md:px-7 md:py-3 ${scrolled ? 'border-white/80 bg-white/60 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:border-white/[0.08] dark:bg-[#0a0a1a]/40 dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]' : 'border-white/50 bg-white/40 shadow-lg shadow-slate-900/5 dark:border-white/[0.04] dark:bg-white/[0.02]'}`}>
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3.5 group">
           <div className="relative h-10 w-10 shrink-0">
@@ -90,19 +99,18 @@ function AscendioNavbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          <a href="#about" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">About</a>
-          <a href="#why-choose-us" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Why Us</a>
-          <a href="#services" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Services</a>
+          <a href="#about" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">About</a>
+          <a href="#why-choose-us" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Why Us</a>
+          <a href="#services" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Services</a>
+          <a href="#products" data-instant className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-[#dbe4ff] rounded-lg hover:bg-white/60 dark:hover:bg-white/10 transition">Products</a>
 
-          <a href="#products" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Products</a>
-
-          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-indigo-500/25 hover:bg-[#2445d0] dark:hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:scale-95 transition-all">
+          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#3155e8] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white shadow-lg shadow-blue-500/25 dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] hover:bg-[#2445d0] dark:hover:bg-white/20 hover:-translate-y-0.5 active:scale-95 transition-all">
             Contact Us <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
 
         {/* Mobile toggle */}
-        <button onClick={() => setMobileOpen(o => !o)} className="md:hidden h-10 w-10 grid place-items-center rounded-xl border border-blue-200 dark:border-indigo-300/20 text-[#263a8f] dark:text-[#dbe4ff]">
+        <button onClick={() => setMobileOpen(o => !o)} className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-blue-200/50 dark:border-white/10 bg-white/50 dark:bg-white/5 text-[#263a8f] dark:text-white shadow-sm backdrop-blur-md transition-colors hover:bg-white/80 dark:hover:bg-white/10">
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
@@ -110,14 +118,64 @@ function AscendioNavbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="md:hidden overflow-hidden border-t border-slate-100 dark:border-white/5 bg-white dark:bg-[#0a0a1a]">
-            <div className="px-5 py-4 space-y-1">
-              <a href="#about" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">About</a>
-              <a href="#why-choose-us" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Why Us</a>
-              <a href="#services" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Services</a>
-              <a href="#products" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Products</a>
-              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="block text-center px-4 py-3 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6]">
-                Contact Us
+          <motion.div 
+            initial={{ opacity: 0, y: -20, scale: 0.95 }} 
+            animate={{ opacity: 1, y: 0, scale: 1 }} 
+            exit={{ opacity: 0, y: -20, scale: 0.95 }} 
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="md:hidden mx-auto mt-3 max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/60 backdrop-blur-2xl shadow-[0_24px_64px_0_rgba(31,38,135,0.15)] dark:border-white/[0.08] dark:bg-[#05050f]/60 dark:shadow-[0_24px_64px_0_rgba(0,0,0,0.5)]"
+          >
+            <div className="flex flex-col p-3">
+              <a href="#about" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
+                <div className="flex items-center gap-3.5">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
+                    <User className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                  </div>
+                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">About</span>
+                </div>
+                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
+              </a>
+
+              <a href="#why-choose-us" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
+                <div className="flex items-center gap-3.5">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
+                    <Award className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                  </div>
+                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Why Us</span>
+                </div>
+                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
+              </a>
+
+              <a href="#services" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
+                <div className="flex items-center gap-3.5">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
+                    <Settings className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                  </div>
+                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Services</span>
+                </div>
+                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
+              </a>
+
+              <a href="#products" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
+                <div className="flex items-center gap-3.5">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
+                    <Layers className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                  </div>
+                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Products</span>
+                </div>
+                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
+              </a>
+
+              <div className="mx-2 my-2 h-px bg-slate-200/50 dark:bg-white/5" />
+
+              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#7c3aed] dark:hover:bg-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-purple-500/20 border border-transparent dark:border-[#8b5cf6]/30">
+                <div className="flex items-center gap-3.5">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 shadow-sm">
+                    <Mail className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-[15px] font-medium text-white">Contact Us</span>
+                </div>
+                <ChevronRight className="mr-2 h-4 w-4 text-white/70 transition group-hover:text-white" />
               </a>
             </div>
           </motion.div>
@@ -135,13 +193,13 @@ function HeroSection() {
       <div aria-hidden="true" className="absolute inset-0 z-[1] hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/ascendio-bg-dark.png')" }} />
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-white/78 via-white/25 to-transparent dark:from-[#060b24]/70 dark:via-[#060b24]/20 dark:to-transparent" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-white/10 via-transparent to-white/15 dark:from-[#05091e]/20 dark:to-transparent" />
-      <div className="relative z-10 w-full px-8 pt-28 sm:px-12 md:pt-32 lg:px-[8.5vw] lg:pt-56">
+      <div className="relative z-10 w-full px-5 pt-44 sm:px-12 md:px-8 md:pt-32 lg:px-[8.5vw] lg:pt-56">
         <StaggerContainer className="max-w-2xl" delay={0.1}>
           <StaggerItem>
             <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[#2642bd] dark:text-[#c4ccff]">Built to Ascend</p>
           </StaggerItem>
           <StaggerItem>
-            <h1 className="max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl md:text-7xl lg:text-[5rem]">
+            <h1 className="max-w-2xl text-4xl font-black leading-[0.98] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-5xl md:text-7xl lg:text-[5rem]">
               Turning Ideas<br />Into Real-World<br /><span className="text-[#3947e8] dark:text-[#8e91ff]">Solutions.</span>
             </h1>
           </StaggerItem>
@@ -149,9 +207,9 @@ function HeroSection() {
             <p className="mt-7 max-w-xl text-base leading-relaxed text-[#334267] dark:text-[#e2e8ff] md:text-lg">We design, build and deploy technology that helps businesses, institutions and ideas move forward.</p>
           </StaggerItem>
           <StaggerItem>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a href="#contact" data-instant className="inline-flex items-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8]">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
-              <a href="#products" data-instant className="inline-flex items-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80">Explore Our Products</a>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              <a href="#contact" data-instant className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8] sm:w-auto">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
+              <a href="#products" data-instant className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80 sm:w-auto">Explore Our Products</a>
             </div>
           </StaggerItem>
         </StaggerContainer>
@@ -163,18 +221,25 @@ function HeroSection() {
 function AboutSection() {
   return (
     <section id="about" className="relative overflow-hidden bg-[#f7f8fc] dark:bg-[#090a12]">
-      <div className="relative isolate overflow-hidden px-5 py-20 md:py-28">
+      <div className="relative isolate overflow-hidden px-5 py-16 md:py-28">
         <div aria-hidden="true" className="absolute inset-0 -z-20 bg-cover bg-left dark:hidden md:left-1/2" style={{ backgroundImage: "url('/64811547-2c05-4eed-9725-4648112c42ba.png')" }} />
         <div aria-hidden="true" className="absolute inset-0 -z-20 hidden bg-cover bg-left brightness-125 contrast-110 dark:block md:left-1/2" style={{ backgroundImage: "url('/1467f7e6-22e0-409c-94ef-93539abfc55c.png')" }} />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/90 to-white/15 dark:hidden" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#090a12] via-[#090a12]/35 to-transparent dark:block" />
+        
+        {/* Mobile Overlays */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/85 dark:hidden md:hidden" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-[#090a12]/85 dark:block md:dark:hidden" />
+        
+        {/* Desktop Overlays */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-white via-white/90 to-white/15 dark:hidden md:block" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden md:dark:block bg-gradient-to-r from-[#090a12] via-[#090a12]/35 to-transparent" />
+        
         <div className="relative z-10 mx-auto max-w-6xl lg:ml-[8.5vw] lg:mr-0 lg:max-w-[38rem]">
         <StaggerContainer>
           <StaggerItem>
             <p className="mb-7 text-sm font-bold uppercase tracking-[0.32em] text-[#7c3aed] dark:text-[#c4b5fd]">About Us</p>
           </StaggerItem>
           <StaggerItem>
-            <h2 className="max-w-[30rem] text-4xl font-extrabold leading-[0.98] tracking-[-0.05em] text-slate-950 dark:text-white md:text-[4rem]">Building What Matters</h2>
+            <h2 className="max-w-[30rem] text-3xl font-extrabold leading-[0.98] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-4xl md:text-[4rem]">Building What Matters</h2>
           </StaggerItem>
         </StaggerContainer>
 
@@ -200,14 +265,14 @@ function VisionSection() {
       <div className="absolute inset-0 bg-white/85 dark:bg-[#090a12]/88 lg:hidden" />
       <div className="absolute inset-y-0 left-0 hidden w-3/4 bg-gradient-to-r from-transparent to-white lg:block dark:to-[#090a12]" />
 
-      <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-center px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-2 lg:px-12">
+      <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-center px-5 py-16 sm:px-8 md:py-28 lg:grid-cols-2 lg:px-12">
         <div className="hidden lg:block" aria-hidden="true" />
         <StaggerContainer className="lg:pl-10">
           <StaggerItem>
             <p className="flex items-center gap-4 text-sm font-bold uppercase tracking-[0.3em] text-[#6555e8] dark:text-[#a99cff]"><span className="h-0.5 w-8 bg-current" />Our Vision</p>
           </StaggerItem>
           <StaggerItem>
-            <h2 className="mt-7 max-w-xl text-4xl font-black leading-[1.03] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl">Empower people and organizations through technology.</h2>
+            <h2 className="mt-7 max-w-xl text-3xl font-black leading-[1.03] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl">Empower people and organizations through technology.</h2>
           </StaggerItem>
           <StaggerItem>
             <p className="mt-7 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">We envision a future where technology creates equal opportunities, simplifies complexity and enables individuals, businesses and institutions to achieve more.</p>
@@ -264,7 +329,7 @@ function ContactSection() {
     <section id="contact" className="relative overflow-hidden bg-slate-50/80 px-4 py-12 dark:bg-[#0d0e11] md:px-6 md:py-24">
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-16">
         <BlurReveal className="flex flex-col pt-4">
-          <h2 className="mb-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:mb-4 md:text-4xl">Let&apos;s Talk</h2>
+          <h2 className="mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:mb-4 md:text-4xl">Let&apos;s Talk</h2>
           <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-600 dark:text-zinc-400 md:mb-12 md:text-base">Have a project, idea, or requirement? Let&apos;s turn it into a powerful digital solution.</p>
           <div className="flex flex-col gap-4 md:gap-6">
             {contactRows.map(([Icon, title, value, href], index) => (
@@ -304,9 +369,9 @@ function ContactSection() {
 /* ───────── Why Partner ───────── */
 function WhyPartnerSection() {
   return (
-    <section id="why-choose-us" className="relative overflow-hidden bg-[#f7f8fc] px-5 py-20 dark:bg-[#090a12] md:py-28">
+    <section id="why-choose-us" className="relative overflow-hidden bg-[#f7f8fc] px-5 py-16 dark:bg-[#090a12] md:py-28">
       <div className="mx-auto grid max-w-6xl items-stretch gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative min-h-[520px] h-full overflow-hidden rounded-[22px] border border-white/70 bg-slate-900 shadow-2xl shadow-indigo-950/20 dark:border-white/10">
+        <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative min-h-[350px] h-full overflow-hidden rounded-[22px] border border-white/70 bg-slate-900 shadow-2xl shadow-indigo-950/20 dark:border-white/10 md:min-h-[520px]">
           <Image src="/ascendio-support.png" alt="Ascendio support team helping turn ideas into solutions" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center transition duration-700 hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080a20]/75 via-transparent to-transparent" />
           <div className="absolute bottom-7 left-7 right-7"><p className="text-xs font-bold uppercase tracking-[0.28em] text-indigo-200">Ascendio Global</p><p className="mt-2 text-2xl font-black text-white">Technology that moves your ambition forward.</p></div>
@@ -320,12 +385,12 @@ function WhyPartnerSection() {
           </motion.div>
           <div className="mt-9 space-y-4">
             {WHY_PARTNER.map((item, i) => (
-              <div key={item.title} className="group relative">
-                <div className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-50 dark:group-hover:opacity-40" style={{ backgroundColor: item.color }} />
-                <motion.article initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="group relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 dark:border-white/[0.1] dark:bg-[#0e0f17] md:p-6">
+              <button key={item.title} type="button" className="group relative block w-full text-left focus:outline-none">
+                <div className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-[2500ms] group-active:duration-300 md:group-hover:duration-500 group-active:opacity-60 dark:group-active:opacity-50 md:group-hover:opacity-50 md:dark:group-hover:opacity-40" style={{ backgroundColor: item.color }} />
+                <motion.article initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="group/card relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 group-active:scale-[0.98] dark:border-white/[0.1] dark:bg-[#0e0f17] md:p-6">
                   <div className="relative z-10 flex items-start gap-5"><div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl" style={{ backgroundColor: item.bg, color: item.color }}><item.Icon className="h-6 w-6" /></div><div><h3 className="text-lg font-bold tracking-tight text-slate-950 dark:text-white">{item.title}</h3><p className="mt-1 text-sm font-medium text-slate-500 dark:text-zinc-400">{item.subtitle}</p><p className="mt-3 max-w-xl text-sm leading-relaxed text-slate-600 dark:text-zinc-400">{item.desc}</p></div></div>
                 </motion.article>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -352,7 +417,7 @@ function ServicesSection() {
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.6 }} className="mb-10 flex items-end justify-between gap-8 md:mb-14">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.35em] text-[#5138d8] dark:text-[#a99cff]">Services</p>
-            <h2 className="mt-3 max-w-2xl text-4xl font-black leading-[0.95] tracking-[-0.05em] text-slate-950 dark:text-white md:text-7xl">What We <span className="text-[#6246e5] dark:text-[#a99cff]">Do.</span></h2>
+            <h2 className="mt-3 max-w-2xl text-3xl font-black leading-[0.95] tracking-[-0.05em] text-slate-950 dark:text-white md:text-7xl">What We <span className="text-[#6246e5] dark:text-[#a99cff]">Do.</span></h2>
             <p className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-lg">End-to-end technology solutions to help you build, grow and stay ahead.</p>
           </div>
         </motion.div>
@@ -360,23 +425,39 @@ function ServicesSection() {
         <div className="overflow-hidden rounded-[1.5rem] border border-[#765cff]/50 bg-white/60 shadow-[0_24px_70px_rgba(91,70,229,0.12)] backdrop-blur-xl dark:border-[#8b7cff]/30 dark:bg-white/[0.035] dark:shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
           {SERVICES.map((service, serviceIndex) => {
               const Icon = service.Icon;
-              return <button key={service.title} type="button" style={{ '--service-hover': `${service.color}35` } as React.CSSProperties} className="group relative flex h-24 w-full overflow-hidden border-b border-slate-200/80 px-5 text-left transition-[height,background-color] duration-300 last:border-b-0 hover:h-[300px] hover:bg-[var(--service-hover)] dark:border-white/[0.08] md:px-8 md:hover:h-[320px]">
-                <div className="relative z-10 grid h-full w-full grid-cols-[2.5rem_1px_minmax(0,1fr)_1.5rem] items-center gap-5 md:grid-cols-[3rem_1px_minmax(0,1fr)_2rem] md:gap-7">
-                  <span className="grid h-10 w-10 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110 md:h-12 md:w-12" style={{ backgroundColor: service.bg, color: service.color }}><Icon className="h-5 w-5 md:h-6 md:w-6" /></span>
-                  <span className="h-7 w-px bg-slate-200 dark:bg-white/[0.08]" />
-                  <span className="flex min-w-0 max-w-3xl self-center flex-col justify-center pl-4 translate-y-6 transition-transform duration-300 group-hover:translate-y-0 md:pl-8 md:translate-y-7">
-                    <span className="block text-xl font-black leading-tight tracking-tight text-slate-900 transition-all duration-300 group-hover:text-3xl dark:text-white md:group-hover:text-5xl">{service.title}</span>
-                    <span className="mt-0 block max-h-0 overflow-hidden text-sm font-bold opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:max-h-8 group-hover:opacity-100" style={{ color: service.color }}>{serviceSubtitles[serviceIndex]}</span>
-                    <span className="mt-0 block max-w-2xl text-sm leading-relaxed text-slate-600 opacity-0 transition-all duration-300 group-hover:mt-5 group-hover:opacity-100 md:text-base dark:text-slate-300">{service.desc}</span>
-                    <span className="mt-0 flex flex-wrap gap-2 opacity-0 transition-all duration-300 group-hover:mt-6 group-hover:opacity-100">
+              const mobileHeights = ['300px', '300px', '280px', '320px', '260px', '340px'];
+              return <button 
+                key={service.title} 
+                type="button" 
+                onClick={(e) => {
+                  if (e.detail > 0 && window.innerWidth >= 768) {
+                    e.currentTarget.blur();
+                  }
+                }}
+                style={{ '--service-hover': `${service.color}35`, '--mobile-height': mobileHeights[serviceIndex] } as React.CSSProperties} 
+                className="group relative flex h-[5.5rem] w-full overflow-hidden border-b border-slate-200/80 px-5 text-left transition-[height,background-color] duration-300 last:border-b-0 hover:h-[var(--mobile-height)] focus:h-[var(--mobile-height)] hover:bg-[var(--service-hover)] focus:bg-[var(--service-hover)] focus:outline-none dark:border-white/[0.08] md:h-24 md:px-8 md:hover:h-[320px] md:focus:h-[320px]">
+                <div className="relative z-10 grid h-full w-full content-center items-center grid-cols-[2rem_1px_minmax(0,1fr)] gap-x-4 gap-y-0 md:grid-cols-[3rem_1px_minmax(0,1fr)_2rem] md:gap-x-7">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110 group-focus:scale-110 md:h-12 md:w-12" style={{ backgroundColor: service.bg, color: service.color }}><Icon className="h-5 w-5 md:h-6 md:w-6" /></span>
+                  
+                  <span className="h-7 w-px shrink-0 bg-slate-200 dark:bg-white/[0.08]" />
+                  
+                  <span className="block text-xl font-black leading-tight tracking-tight text-slate-900 transition-all duration-300 group-hover:text-3xl group-focus:text-3xl dark:text-white md:group-hover:text-5xl md:group-focus:text-5xl pl-2 md:pl-8">{service.title}</span>
+
+                  <div className="col-start-3 flex flex-col pl-2 md:pl-8">
+                    <span className="mt-0 block max-h-0 overflow-hidden text-sm font-bold opacity-0 transition-all duration-300 group-hover:mt-3 group-focus:mt-3 group-hover:max-h-20 group-focus:max-h-20 group-hover:opacity-100 group-focus:opacity-100" style={{ color: service.color }}>{serviceSubtitles[serviceIndex]}</span>
+                    <span className="mt-0 block max-h-0 overflow-hidden max-w-2xl text-sm leading-relaxed text-slate-600 opacity-0 transition-all duration-300 group-hover:mt-5 group-focus:mt-5 group-hover:max-h-40 group-focus:max-h-40 group-hover:opacity-100 group-focus:opacity-100 md:text-base dark:text-slate-300">{service.desc}</span>
+                    <span className="mt-0 hidden max-h-0 overflow-hidden flex-wrap gap-2 opacity-0 transition-all duration-300 group-hover:mt-6 group-focus:mt-6 group-hover:max-h-20 group-focus:max-h-20 group-hover:opacity-100 group-focus:opacity-100 md:flex">
                       {service.tags.map((tag) => (
                         <span key={tag} className="rounded-full border px-3 py-1.5 text-xs font-semibold" style={{ color: service.color, borderColor: `${service.color}60`, backgroundColor: `${service.color}15` }}>{tag}</span>
                       ))}
                     </span>
-                  </span>
-                  <ArrowRight className="h-5 w-5 shrink-0 self-center text-slate-400 opacity-100 transition-opacity duration-200 group-hover:opacity-0 dark:text-slate-500 md:h-6 md:w-6" />
+                  </div>
+
+                  <div className="hidden shrink-0 place-items-center justify-end md:flex md:h-12 md:w-12 row-start-1 row-span-2 col-start-4">
+                    <ArrowRight className="h-5 w-5 text-slate-300 transition-all duration-300 group-hover:translate-x-2 group-focus:translate-x-2 group-hover:text-[#6555e8] group-focus:text-[#6555e8] dark:text-slate-600 dark:group-hover:text-[#a99cff] dark:group-focus:text-[#a99cff] md:h-6 md:w-6" />
+                  </div>
                 </div>
-                <div className="pointer-events-none absolute right-[10%] top-1/2 hidden -translate-y-1/2 opacity-0 transition duration-500 group-hover:opacity-40 md:block" style={{ color: service.color }}><Icon className="h-64 w-64" strokeWidth={0.7} /></div>
+                <div className="pointer-events-none absolute right-[10%] top-1/2 hidden -translate-y-1/2 opacity-0 transition duration-500 group-hover:opacity-40 group-focus:opacity-40 md:block" style={{ color: service.color }}><Icon className="h-64 w-64" strokeWidth={0.7} /></div>
               </button>;
           })}
         </div>
@@ -387,19 +468,28 @@ function ServicesSection() {
 
 function ProductsSection() {
   return (
-    <section id="products" className="relative aspect-[1721/914] overflow-hidden bg-black text-white">
+    <section id="products" className="relative min-h-[450px] overflow-hidden bg-[#f8faff] px-6 py-12 text-slate-950 dark:bg-black dark:text-white md:min-h-0 md:aspect-[1721/914] md:p-0">
       <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center dark:hidden" style={{ backgroundImage: "url('/5c1a07ad-bd7f-4534-b4fd-cc95d81c6ee0.png')" }} />
       <div aria-hidden="true" className="absolute inset-0 hidden bg-cover bg-center dark:block" style={{ backgroundImage: "url('/e75fc16a-cb73-465b-bad5-8171565b9627.png')" }} />
-      <Link href="/products/aarambh" aria-label="Open Aarambh" className="absolute inset-0 z-10 dark:hidden" />
-      <Link href="/products/aarambh" aria-label="Open Aarambh" className="absolute inset-0 z-10 hidden dark:block" />
+      
+      {/* Mobile Overlays for text visibility */}
+      <div aria-hidden="true" className="absolute inset-0 bg-[#f8faff]/85 dark:hidden md:hidden" />
+      <div aria-hidden="true" className="absolute inset-0 hidden bg-black/85 dark:block md:dark:hidden" />
+      
       <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-indigo-500/15 to-transparent dark:hidden" />
-      <div className="relative mx-auto hidden max-w-6xl flex-col gap-10 md:flex-row md:items-center md:justify-between">
-        <div className="max-w-2xl">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-[#b8adff]">Our Products</p>
-          <h2 className="text-4xl font-black tracking-tight md:text-6xl">Meet Aarambh.</h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-indigo-100/80">A flagship product by Ascendio, built to connect institutions, students, alumni and opportunities through one intelligent platform.</p>
+      <div className="relative flex h-full w-full flex-col justify-center px-5 sm:px-12 md:px-8 lg:px-[8.5vw]">
+        <div className="max-w-xl">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-indigo-600 dark:text-[#b8adff]">Our Products</p>
+          <h2 className="text-3xl font-black tracking-tight md:text-6xl">Meet Aarambh.</h2>
+          <p className="mt-5 text-base leading-relaxed text-slate-700 dark:text-indigo-100/80 md:text-lg">A flagship product by Ascendio, built to connect institutions, students, alumni and opportunities through one intelligent platform.</p>
+          <div className="mt-8 md:mt-10">
+            <Link href="/products/aarambh" className="group inline-flex shrink-0 items-center gap-3 rounded-xl bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] px-6 py-4 font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-indigo-500/40 hover:from-[#2445d0] hover:to-[#7c3aed] active:scale-95">
+              <Rocket className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /> 
+              Explore Aarambh 
+              <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
-        <Link href="/products/aarambh" className="inline-flex shrink-0 items-center gap-3 rounded-xl bg-[#dbe7ff] px-6 py-4 font-bold text-[#1d2d55] transition hover:-translate-y-1 hover:bg-white"><Rocket className="h-5 w-5" /> Explore Aarambh <ArrowRight className="h-5 w-5" /></Link>
       </div>
     </section>
   );
@@ -436,7 +526,7 @@ function AscendioFooter() {
                 <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Link>
               <Link href="https://instagram.com/ascendio_global" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-8 w-8 place-items-center rounded-lg border border-black/10 text-zinc-500 transition hover:border-[#3155e8] hover:text-[#3155e8] dark:border-white/10 dark:text-zinc-400 dark:hover:border-[#a78bfa] dark:hover:text-[#a78bfa] md:h-9 md:w-9">
-                <Camera className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <InstagramIcon className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Link>
             </div>
           </div>

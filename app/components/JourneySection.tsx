@@ -227,12 +227,12 @@ function JourneyVertical() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center dark:hidden"
+        className="pointer-events-none absolute inset-0 origin-bottom scale-[1.3] bg-cover bg-center dark:hidden md:scale-100"
         style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.png')" }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden bg-cover bg-center dark:block"
+        className="pointer-events-none absolute inset-0 hidden origin-bottom scale-[1.3] bg-cover bg-center dark:block md:scale-100"
         style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.png')" }}
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/70 dark:bg-[#090a12]/70" />
@@ -267,7 +267,7 @@ function JourneyVertical() {
               <BlurReveal
                 key={m.number}
                 delay={0.1}
-                className={`relative mb-12 pl-14 last:mb-0 md:w-1/2 md:pl-0 ${
+                className={`relative mb-12 pl-10 last:mb-0 md:w-1/2 md:pl-0 ${
                   isLeft
                     ? 'md:pr-12 md:text-right'
                     : 'md:ml-auto md:pl-12'
