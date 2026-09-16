@@ -33,12 +33,12 @@ const WHY_PARTNER = [
 ];
 
 const SERVICES = [
-  { Icon: Code2, title: 'Web Development', desc: 'Build modern, responsive and high-performing websites tailored to your business.', color: '#f97316', bg: 'rgba(249, 115, 22, 0.1)' },
-  { Icon: Smartphone, title: 'App Development', desc: 'Create seamless and engaging mobile applications for Android & iOS platforms.', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)' },
-  { Icon: Server, title: 'Custom Software', desc: 'Develop scalable and secure software solutions designed to fit your unique needs.', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)' },
-  { Icon: Brain, title: 'AI/ML & Automation', desc: 'Leverage intelligent technologies to automate processes, analyze data and drive better decisions.', color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.1)' },
-  { Icon: Palette, title: 'UI/UX Designing', desc: 'Design intuitive and beautiful interfaces that deliver exceptional user experiences.', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.1)' },
-  { Icon: Wrench, title: 'Deployment, Maintenance & Support', desc: 'Reliable deployment, regular maintenance and ongoing support to ensure smooth performance.', color: '#eab308', bg: 'rgba(234, 179, 8, 0.1)' },
+  { Icon: Code2, title: 'Web Development', desc: 'Build modern, responsive and high-performing websites tailored to your business.', color: '#f97316', bg: 'rgba(249, 115, 22, 0.1)', tags: ['Responsive by design', 'Performance focused'] },
+  { Icon: Smartphone, title: 'App Development', desc: 'Create seamless and engaging mobile applications for Android & iOS platforms.', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)', tags: ['Mobile first', 'Built to scale'] },
+  { Icon: Server, title: 'Custom Software', desc: 'Develop scalable and secure software solutions designed to fit your unique needs.', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)', tags: ['Tailored solutions', 'Future ready'] },
+  { Icon: Brain, title: 'AI/ML & Automation', desc: 'Leverage intelligent technologies to automate processes, analyze data and drive better decisions.', color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.1)', tags: ['AI powered', 'Workflow automation'] },
+  { Icon: Palette, title: 'UI/UX Designing', desc: 'Design intuitive and beautiful interfaces that deliver exceptional user experiences.', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.1)', tags: ['User centered', 'Conversion focused'] },
+  { Icon: Wrench, title: 'Deployment, Maintenance & Support', desc: 'Reliable deployment, regular maintenance and ongoing support to ensure smooth performance.', color: '#eab308', bg: 'rgba(234, 179, 8, 0.1)', tags: ['Always reliable', 'Continuous support'] },
 ];
 
 const PILLARS = ['Innovation', 'Reliability', 'Impact'];
@@ -366,9 +366,13 @@ function ServicesSection() {
                   <span className="h-7 w-px bg-slate-200 dark:bg-white/[0.08]" />
                   <span className="flex min-w-0 max-w-3xl self-center flex-col justify-center pl-4 translate-y-6 transition-transform duration-300 group-hover:translate-y-0 md:pl-8 md:translate-y-7">
                     <span className="block text-xl font-black leading-tight tracking-tight text-slate-900 transition-all duration-300 group-hover:text-3xl dark:text-white md:group-hover:text-5xl">{service.title}</span>
-                    <span className="mt-0 block max-h-0 overflow-hidden text-sm font-bold text-[#8067ed] opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:max-h-8 group-hover:opacity-100 dark:text-[#b4a8ff]">{serviceSubtitles[serviceIndex]}</span>
+                    <span className="mt-0 block max-h-0 overflow-hidden text-sm font-bold opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:max-h-8 group-hover:opacity-100" style={{ color: service.color }}>{serviceSubtitles[serviceIndex]}</span>
                     <span className="mt-0 block max-w-2xl text-sm leading-relaxed text-slate-600 opacity-0 transition-all duration-300 group-hover:mt-5 group-hover:opacity-100 md:text-base dark:text-slate-300">{service.desc}</span>
-                    <span className="mt-0 flex flex-wrap gap-2 opacity-0 transition-all duration-300 group-hover:mt-6 group-hover:opacity-100"><span className="rounded-full border border-[#b9adff] bg-white/50 px-3 py-1.5 text-xs font-semibold text-[#5b43d1] dark:border-[#8174e8]/40 dark:bg-black/10 dark:text-[#c5beff]">Tailored solutions</span><span className="rounded-full border border-[#b9adff] bg-white/50 px-3 py-1.5 text-xs font-semibold text-[#5b43d1] dark:border-[#8174e8]/40 dark:bg-black/10 dark:text-[#c5beff]">Future ready</span></span>
+                    <span className="mt-0 flex flex-wrap gap-2 opacity-0 transition-all duration-300 group-hover:mt-6 group-hover:opacity-100">
+                      {service.tags.map((tag) => (
+                        <span key={tag} className="rounded-full border px-3 py-1.5 text-xs font-semibold" style={{ color: service.color, borderColor: `${service.color}60`, backgroundColor: `${service.color}15` }}>{tag}</span>
+                      ))}
+                    </span>
                   </span>
                   <ArrowRight className="h-5 w-5 shrink-0 self-center text-slate-400 opacity-100 transition-opacity duration-200 group-hover:opacity-0 dark:text-slate-500 md:h-6 md:w-6" />
                 </div>
