@@ -42,7 +42,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, useScroll, useSpring, useTransform, useMotionValueEvent } from 'motion/react';
 import type { MotionValue } from 'motion/react';
-import { useTheme } from 'next-themes';
+import { useTheme } from './ThemeProvider';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
 import { InfiniteSlider } from '@/app/components/infinite-slider'
 import { AnimatedCard, AnimatedHeading, ParallaxSection, RevealOnScroll, StaggerContainer } from '@/app/components/motion/ScrollMotion';
@@ -52,13 +52,8 @@ import Image from 'next/image';
 
 
 function ServicesSection() {
-    const sectionRef = useRef<HTMLElement | null>(null);
-    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.45 });
-    const headingY = useTransform(smoothProgress, [0, 0.6], [64, 0]);
-
-    const cards = [
-        // Recruiter Services First
+    const [activeService, setActiveService] = useState(0);
+    const services = [
         {
             title: 'Campus Talent Pools',
             subtitle: 'Curated Student Database',
@@ -161,68 +156,57 @@ function ServicesSection() {
             image: '/profile_reviews_service.png',
         },
     ];
+    const serviceIcons = [Users, Target, PieChart, Zap, Building2, BadgeCheck, Pencil, Users, Network, Compass, Eye];
+    const serviceColors = ['#6366f1', '#ec4899', '#3b82f6', '#eab308', '#a855f7', '#10b981', '#f97316', '#14b8a6', '#3b82f6', '#2563eb', '#8b5cf6'];
+    const selectedService = services[activeService];
+    const SelectedIcon = serviceIcons[activeService];
 
     return (
-        <section ref={sectionRef} id="services" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 720px' }} className={`relative overflow-hidden border-b px-4 py-12 md:py-24 md:px-6 border-black/6 bg-white/70 backdrop-blur-sm dark:border-white/10 dark:bg-[#0b0c0f]`}>
-            <div className="mx-auto max-w-7xl">
-                <motion.div style={{ y: headingY }}>
-                    <SectionHeader
-                        eyebrow="What We Offer"
-                        title="Services"
-                        copy="End-to-end placement services including placement support, recruiter outreach, profile reviews, and analytics to track progress."
-                    />
+        <section id="services" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 900px' }} className="relative overflow-hidden border-b border-black/6 bg-[#f8faff] px-4 py-16 dark:border-white/10 dark:bg-[#08090f] md:px-8 md:py-28">
+            <div className="pointer-events-none absolute inset-0 opacity-70 dark:opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 9% 34%, rgba(99,102,241,0.16) 0 1px, transparent 1px), linear-gradient(135deg, transparent 0 48%, rgba(99,102,241,0.08) 48.2%, transparent 48.5%)', backgroundSize: '24px 24px, 100% 100%' }} />
+            <div className="relative mx-auto max-w-7xl">
+                <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.6 }} className="mb-10 flex items-end justify-between gap-8 md:mb-14">
+                    <div>
+                        <p className="text-xs font-black uppercase tracking-[0.35em] text-[#5138d8] dark:text-[#a99cff]">Services</p>
+                        <h2 className="mt-3 max-w-2xl text-4xl font-black leading-[0.95] tracking-[-0.05em] text-slate-950 dark:text-white md:text-7xl">What We <span className="text-[#6246e5] dark:text-[#a99cff]">Do.</span></h2>
+                        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-lg">End-to-end technology solutions to help you build, grow and stay ahead.</p>
+                    </div>
+                    <div className="hidden pb-2 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[0.3em] text-slate-400 dark:text-slate-600 md:block">Ideas<br />into<br />impact<br /><span className="mt-3 block h-px w-6 bg-[#6246e5]" /></div>
                 </motion.div>
 
-                {/* Infinite Carousel Wrapper */}
-                <div
-                    className="mt-8 md:mt-14 relative w-full overflow-hidden"
-                    style={{ maskImage: 'linear-gradient(to right, transparent, black 4%, black 96%, transparent)' }}
-                >
-                    <motion.div
-                        className="flex gap-4 md:gap-6 w-max"
-                        animate={{ x: ["0%", "-50%"] }}
-                        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-                    >
-                        {[...cards, ...cards].map((c, i) => {
-                            return (
-                                <div
-                                    key={`${c.title}-${i}`}
-                                    className="w-[min(82vw,300px)] md:w-[380px] shrink-0"
-                                >
-                                    <div
-                                        className={`min-h-[390px] md:h-[480px] group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border backdrop-blur-xl bg-white/60 border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:bg-white/[0.04] dark:border-white/10 dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]`}
-                                    >
-                                        {/* Image taking top portion */}
-                                        <div className="relative h-44 w-full overflow-hidden md:absolute md:inset-0 md:h-[65%]">
-                                            <Image src={c.image} alt={c.title} fill sizes="(max-width: 768px) 82vw, 380px" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                                        </div>
-
-                                        {/* Content block overlapping image */}
-                                        <div className={`relative z-10 mt-auto w-full rounded-t-3xl p-4 md:p-6 md:absolute md:bottom-0 md:h-[250px] flex flex-col justify-between gap-4 md:gap-6 border-t backdrop-blur-xl bg-white/88 border-white/60 dark:bg-black/78 dark:border-white/5`}>
-                                            <div>
-                                                <div className="flex items-center gap-3 mb-1">
-                                                    <h3 className={`text-xl md:text-2xl font-black tracking-tight text-zinc-900 dark:text-white`}>{c.title}</h3>
-                                                </div>
-                                                <p className={`text-sm font-medium mb-3 text-zinc-600 dark:text-zinc-400`}>{c.subtitle}</p>
-
-                                                <p className={`text-sm leading-relaxed text-zinc-500 dark:text-zinc-500`}>
-                                                    {c.body}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex flex-wrap gap-2 mt-auto">
-                                                {c.metrics.map(metric => (
-                                                    <span key={metric} className={`px-3 py-1.5 rounded-lg text-xs font-medium border bg-black/5 border-black/10 text-zinc-600 dark:bg-white/5 dark:border-white/10 dark:text-zinc-400`}>
-                                                        {metric}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
+                <div className="overflow-hidden rounded-[1.5rem] border border-[#765cff]/50 bg-white/60 shadow-[0_24px_70px_rgba(91,70,229,0.12)] backdrop-blur-xl dark:border-[#8b7cff]/30 dark:bg-white/[0.035] dark:shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
+                    <motion.div key={selectedService.title} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="relative grid min-h-[350px] lg:grid-cols-[1fr_0.9fr]">
+                        <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 md:p-12">
+                            <div>
+                                <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.3em] text-[#5138d8] dark:text-[#b1a6ff]"><span>01</span><span className="h-px w-10 bg-current" />{selectedService.title}</div>
+                                <div className="mt-7 flex items-start gap-4">
+                                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#e7e1ff] text-[#5c43df] dark:bg-[#6d5ce733] dark:text-[#b7adff]"><SelectedIcon className="h-7 w-7" /></div>
+                                    <div><h3 className="max-w-xl text-3xl font-black leading-[1.02] tracking-[-0.04em] text-slate-950 dark:text-white md:text-5xl">{selectedService.title}</h3><p className="mt-2 text-lg font-bold text-[#8067ed] dark:text-[#b4a8ff]">{selectedService.subtitle}</p></div>
                                 </div>
-                            );
-                        })}
+                                <p className="mt-6 max-w-xl text-sm leading-relaxed text-slate-600 dark:text-slate-300 md:text-base">{selectedService.body}</p>
+                            </div>
+                            <div className="mt-8 flex flex-wrap gap-2">{selectedService.metrics.map(metric => <span key={metric} className="rounded-full border border-[#b9adff] bg-[#f1eeff] px-4 py-2 text-xs font-semibold text-[#5b43d1] dark:border-[#8174e8]/40 dark:bg-[#8174e8]/10 dark:text-[#c5beff]">{metric}</span>)}</div>
+                        </div>
+                        <div className="relative min-h-[220px] overflow-hidden bg-[#eeeaff] dark:bg-[#15132b]">
+                            <Image src={selectedService.image} alt="" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center mix-blend-multiply opacity-80 dark:mix-blend-screen dark:opacity-55" priority={activeService === 0} />
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-transparent to-transparent dark:from-[#15132b] dark:via-transparent" />
+                        </div>
                     </motion.div>
+
+                    <div className="border-t border-slate-200/80 dark:border-white/10">
+                        {services.slice(1).map((service, index) => {
+                            const serviceIndex = index + 1;
+                            const Icon = serviceIcons[serviceIndex];
+                            const isActive = serviceIndex === activeService;
+                            return <button key={service.title} type="button" onClick={() => setActiveService(serviceIndex)} className={`group flex w-full items-center gap-4 border-b border-slate-200/80 px-5 py-4 text-left transition last:border-b-0 dark:border-white/10 md:gap-6 md:px-8 md:py-5 ${isActive ? 'bg-[#f0edff] dark:bg-[#8174e8]/10' : 'hover:bg-white/80 dark:hover:bg-white/[0.05]'}`}>
+                                <span className="w-8 shrink-0 text-xs font-bold tabular-nums text-slate-400 dark:text-slate-500">{String(serviceIndex + 1).padStart(2, '0')}</span>
+                                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full" style={{ backgroundColor: `${serviceColors[serviceIndex]}20`, color: serviceColors[serviceIndex] }}><Icon className="h-4 w-4" /></span>
+                                <span className="h-6 w-px bg-slate-200 dark:bg-white/10" />
+                                <span className="flex-1 text-base font-bold text-slate-900 dark:text-white md:text-xl">{service.title}</span>
+                                <ArrowRight className={`h-5 w-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[#6246e5] dark:text-slate-500 ${isActive ? 'translate-x-1 text-[#6246e5]' : ''}`} />
+                            </button>;
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
@@ -2080,7 +2064,7 @@ function Footer({ onOpenSupport, onOpenPrivacy }: { onOpenSupport?: () => void; 
                 <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8 text-center md:text-left md:flex-row md:items-start md:justify-between">
                     <div className="flex flex-col items-center md:flex-row md:items-start gap-3 md:gap-4">
                         <div className="flex items-center gap-2 md:gap-3">
-                            <div className="bg-white/0 rounded-lg p-1 shadow-sm scale-90 md:scale-100">
+                            <div className="scale-90 md:scale-100">
                                 <AnimatedLogoMark size="sm" role="landing" />
                             </div>
                             <span className="hidden sm:block text-sm font-black uppercase tracking-[0.22em]">Aarambh</span>

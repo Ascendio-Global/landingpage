@@ -1,7 +1,6 @@
 "use client";
-import { LandingPage } from "./components/LandingPage";
+import AscendioLanding from "./components/AscendioLanding";
 
 export default function Home() {
-  return (<LandingPage />
-  );
+  return <AscendioLanding />;
 }

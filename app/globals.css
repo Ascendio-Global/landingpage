@@ -21,6 +21,13 @@ html {
   position: relative;
 }
 
+/* Applied by JS before instant-jump navigation to prevent smooth-scroll
+   from triggering scroll-driven animations in the Journey section */
+html.scroll-instant,
+html.scroll-instant * {
+  scroll-behavior: auto !important;
+}
+
 body {
   font-family: var(--font-poppins), "Segoe UI", sans-serif;
   min-height: 100dvh;
@@ -34,6 +41,11 @@ body {
      element's computed position; some browsers report body as the scrolling
      element instead of html, so set both. */
   position: relative;
+}
+
+html.custom-cursor-enabled,
+html.custom-cursor-enabled * {
+  cursor: none !important;
 }
 
 html.lenis,

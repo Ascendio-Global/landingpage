@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "./ThemeProvider";
 
 const LIGHT_ICON = "/Logos/landing-light.png"; // black "A" — for light backgrounds
 const DARK_ICON = "/Logos/landing-dark.jpeg"; // white "A" — for dark backgrounds

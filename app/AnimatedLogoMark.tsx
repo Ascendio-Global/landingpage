@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/app/components/ThemeProvider';
 import Image from 'next/image';
 
 type Props = {
