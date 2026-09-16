@@ -91,15 +91,21 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (!target) return;
 
       event.preventDefault();
+
+      // data-instant: skip smooth scroll entirely (used by navbar to avoid
+      // Journey scroll-driven animations racing during navigation)
+      const isInstant = anchor.hasAttribute("data-instant");
+
       if (lenisRef.current) {
         lenisRef.current.scrollTo(target as HTMLElement, {
           offset: -88,
-          duration: 1.2,
+          duration: isInstant ? 0 : 1.2,
           easing: (t) => 1 - Math.pow(1 - t, 3),
+          immediate: isInstant,
         });
       } else {
         const top = (target as HTMLElement).getBoundingClientRect().top + window.scrollY - 88;
-        window.scrollTo({ top, behavior: "smooth" });
+        window.scrollTo({ top, behavior: isInstant ? "instant" as ScrollBehavior : "smooth" });
       }
       history.pushState(null, "", hash);
     };

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import AnimatedLogoMark from '@/app/AnimatedLogoMark';
 import { useTheme } from './ThemeProvider';
 import { motion, AnimatePresence } from 'motion/react';
+import { BlurReveal, StaggerContainer, StaggerItem, ParallaxImage } from './motion/Animations';
 import JourneySection from './JourneySection';
 import {
   Menu, X, ArrowRight, Code2, Smartphone, Server,
@@ -71,6 +72,7 @@ function AscendioNavbar() {
     return () => window.removeEventListener('scroll', h);
   }, []);
 
+
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-5 md:px-8">
       <div className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 backdrop-blur-xl transition-all duration-300 md:px-7 md:py-3 ${scrolled ? 'border-white/80 bg-white/90 shadow-xl shadow-indigo-500/10 dark:border-white/10 dark:bg-[#0a0a1a]/90' : 'border-white/60 bg-white/65 shadow-lg shadow-slate-900/5 dark:border-white/10 dark:bg-[#0a0a1a]/65'}`}>
@@ -88,13 +90,13 @@ function AscendioNavbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          <a href="#about" className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">About</a>
-          <a href="#why-choose-us" className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Why Us</a>
-          <a href="#services" className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Services</a>
+          <a href="#about" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">About</a>
+          <a href="#why-choose-us" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Why Us</a>
+          <a href="#services" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Services</a>
 
-          <a href="#products" className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Products</a>
+          <a href="#products" data-instant className="px-4 py-2 text-sm font-semibold text-[#26345f] dark:text-[#dbe4ff] rounded-lg hover:bg-blue-100/70 dark:hover:bg-indigo-400/15 transition">Products</a>
 
-          <a href="#contact" className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-indigo-500/25 hover:bg-[#2445d0] dark:hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:scale-95 transition-all">
+          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-indigo-500/25 hover:bg-[#2445d0] dark:hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:scale-95 transition-all">
             Contact Us <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -110,11 +112,11 @@ function AscendioNavbar() {
         {mobileOpen && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="md:hidden overflow-hidden border-t border-slate-100 dark:border-white/5 bg-white dark:bg-[#0a0a1a]">
             <div className="px-5 py-4 space-y-1">
-              <a href="#about" onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">About</a>
-              <a href="#why-choose-us" onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Why Us</a>
-              <a href="#services" onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Services</a>
-              <a href="#products" onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Products</a>
-              <a href="#contact" onClick={() => setMobileOpen(false)} className="block text-center px-4 py-3 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6]">
+              <a href="#about" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">About</a>
+              <a href="#why-choose-us" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Why Us</a>
+              <a href="#services" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Services</a>
+              <a href="#products" data-instant onClick={() => setMobileOpen(false)} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5">Products</a>
+              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="block text-center px-4 py-3 rounded-xl text-sm font-bold text-white bg-[#3155e8] dark:bg-gradient-to-r dark:from-[#5965ff] dark:to-[#8b5cf6]">
                 Contact Us
               </a>
             </div>
@@ -134,17 +136,25 @@ function HeroSection() {
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-white/78 via-white/25 to-transparent dark:from-[#060b24]/70 dark:via-[#060b24]/20 dark:to-transparent" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-white/10 via-transparent to-white/15 dark:from-[#05091e]/20 dark:to-transparent" />
       <div className="relative z-10 w-full px-8 pt-28 sm:px-12 md:pt-32 lg:px-[8.5vw] lg:pt-56">
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="max-w-2xl">
-          <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[#2642bd] dark:text-[#c4ccff]">Built to Ascend</p>
-          <h1 className="max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl md:text-7xl lg:text-[5rem]">
-            Turning Ideas<br />Into Real-World<br /><span className="text-[#3947e8] dark:text-[#8e91ff]">Solutions.</span>
-          </h1>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-[#334267] dark:text-[#e2e8ff] md:text-lg">We design, build and deploy technology that helps businesses, institutions and ideas move forward.</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#contact" className="inline-flex items-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8]">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
-            <a href="#products" className="inline-flex items-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80">Explore Our Products</a>
-          </div>
-        </motion.div>
+        <StaggerContainer className="max-w-2xl" delay={0.1}>
+          <StaggerItem>
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[#2642bd] dark:text-[#c4ccff]">Built to Ascend</p>
+          </StaggerItem>
+          <StaggerItem>
+            <h1 className="max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl md:text-7xl lg:text-[5rem]">
+              Turning Ideas<br />Into Real-World<br /><span className="text-[#3947e8] dark:text-[#8e91ff]">Solutions.</span>
+            </h1>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-[#334267] dark:text-[#e2e8ff] md:text-lg">We design, build and deploy technology that helps businesses, institutions and ideas move forward.</p>
+          </StaggerItem>
+          <StaggerItem>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href="#contact" data-instant className="inline-flex items-center gap-3 rounded-xl bg-[#3155e8] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 transition hover:-translate-y-1 hover:bg-[#2445d0] dark:bg-[#5965ff] dark:hover:bg-[#4b55e8]">Let&apos;s Build Together <ArrowRight className="h-4 w-4" /></a>
+              <a href="#products" data-instant className="inline-flex items-center gap-3 rounded-xl border border-blue-200/90 bg-white/65 px-6 py-4 text-sm font-bold text-[#1d2d55] backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/85 dark:border-indigo-200/25 dark:bg-[#101a3f]/65 dark:text-[#eef1ff] dark:hover:bg-[#17245a]/80">Explore Our Products</a>
+            </div>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
     </section>
   );
@@ -159,17 +169,21 @@ function AboutSection() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/90 to-white/15 dark:hidden" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#090a12] via-[#090a12]/35 to-transparent dark:block" />
         <div className="relative z-10 mx-auto max-w-6xl lg:ml-[8.5vw] lg:mr-0 lg:max-w-[38rem]">
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="mb-7 text-sm font-bold uppercase tracking-[0.32em] text-[#7c3aed] dark:text-[#c4b5fd]">About Us</p>
-          <h2 className="max-w-[30rem] text-4xl font-extrabold leading-[0.98] tracking-[-0.05em] text-slate-950 dark:text-white md:text-[4rem]">Building What Matters</h2>
-        </motion.div>
+        <StaggerContainer>
+          <StaggerItem>
+            <p className="mb-7 text-sm font-bold uppercase tracking-[0.32em] text-[#7c3aed] dark:text-[#c4b5fd]">About Us</p>
+          </StaggerItem>
+          <StaggerItem>
+            <h2 className="max-w-[30rem] text-4xl font-extrabold leading-[0.98] tracking-[-0.05em] text-slate-950 dark:text-white md:text-[4rem]">Building What Matters</h2>
+          </StaggerItem>
+        </StaggerContainer>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-10 md:mt-14">
+        <BlurReveal delay={0.1} className="mt-10 md:mt-14">
           <div className="max-w-2xl space-y-5 text-base leading-relaxed text-slate-700 dark:text-slate-200 md:text-lg">
             <p>Ascendio Global LLP is a technology-driven team dedicated to building innovative digital solutions that create real impact.</p>
             <p>We work at the intersection of technology, design and problem-solving to help institutions, businesses, startups and individuals bring their ideas to life.</p>
           </div>
-        </motion.div>
+        </BlurReveal>
         </div>
       </div>
 
@@ -188,24 +202,32 @@ function VisionSection() {
 
       <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-center px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-2 lg:px-12">
         <div className="hidden lg:block" aria-hidden="true" />
-        <motion.div initial={{ opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7 }} className="lg:pl-10">
-          <p className="flex items-center gap-4 text-sm font-bold uppercase tracking-[0.3em] text-[#6555e8] dark:text-[#a99cff]"><span className="h-0.5 w-8 bg-current" />Our Vision</p>
-          <h2 className="mt-7 max-w-xl text-4xl font-black leading-[1.03] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl">Empower people and organizations through technology.</h2>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">We envision a future where technology creates equal opportunities, simplifies complexity and enables individuals, businesses and institutions to achieve more.</p>
+        <StaggerContainer className="lg:pl-10">
+          <StaggerItem>
+            <p className="flex items-center gap-4 text-sm font-bold uppercase tracking-[0.3em] text-[#6555e8] dark:text-[#a99cff]"><span className="h-0.5 w-8 bg-current" />Our Vision</p>
+          </StaggerItem>
+          <StaggerItem>
+            <h2 className="mt-7 max-w-xl text-4xl font-black leading-[1.03] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl">Empower people and organizations through technology.</h2>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">We envision a future where technology creates equal opportunities, simplifies complexity and enables individuals, businesses and institutions to achieve more.</p>
+          </StaggerItem>
 
-          <div className="mt-10 grid max-w-xl grid-cols-1 divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/15 dark:border-white/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            {[
-              ['01', 'EMPOWER PEOPLE'],
-              ['02', 'SOLVE WHAT MATTERS'],
-              ['03', 'CREATE LASTING IMPACT'],
-            ].map(([number, label]) => (
-              <div key={number} className="flex gap-3 py-5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0">
-                <span className="text-xs font-black tracking-[0.2em] text-[#6555e8] dark:text-[#a99cff]">{number}</span>
-                <p className="mt-0 text-sm font-bold leading-snug text-slate-800 dark:text-slate-100 sm:mt-3">{label}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+          <StaggerItem>
+            <div className="mt-10 grid max-w-xl grid-cols-1 divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/15 dark:border-white/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {[
+                ['01', 'EMPOWER PEOPLE'],
+                ['02', 'SOLVE WHAT MATTERS'],
+                ['03', 'CREATE LASTING IMPACT'],
+              ].map(([number, label]) => (
+                <div key={number} className="flex gap-3 py-5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0">
+                  <span className="text-xs font-black tracking-[0.2em] text-[#6555e8] dark:text-[#a99cff]">{number}</span>
+                  <p className="mt-0 text-sm font-bold leading-snug text-slate-800 dark:text-slate-100 sm:mt-3">{label}</p>
+                </div>
+              ))}
+            </div>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
     </section>
   );
@@ -241,7 +263,7 @@ function ContactSection() {
   return (
     <section id="contact" className="relative overflow-hidden bg-slate-50/80 px-4 py-12 dark:bg-[#0d0e11] md:px-6 md:py-24">
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="flex flex-col pt-4">
+        <BlurReveal className="flex flex-col pt-4">
           <h2 className="mb-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:mb-4 md:text-4xl">Let&apos;s Talk</h2>
           <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-600 dark:text-zinc-400 md:mb-12 md:text-base">Have a project, idea, or requirement? Let&apos;s turn it into a powerful digital solution.</p>
           <div className="flex flex-col gap-4 md:gap-6">
@@ -255,9 +277,9 @@ function ContactSection() {
               </div>
             ))}
           </div>
-        </div>
+        </BlurReveal>
 
-        <div className="rounded-2xl border border-white/80 bg-white/70 p-5 shadow-xl shadow-slate-200/50 backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.04] dark:shadow-2xl dark:shadow-black/50 md:rounded-3xl md:p-10">
+        <BlurReveal delay={0.2} className="rounded-2xl border border-white/80 bg-white/70 p-5 shadow-xl shadow-slate-200/50 backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.04] dark:shadow-2xl dark:shadow-black/50 md:rounded-3xl md:p-10">
           <h2 className="mb-2 text-xl font-bold text-slate-900 dark:text-white md:mb-3 md:text-2xl">Send us a message</h2>
           <p className="mb-6 text-xs text-slate-600 dark:text-zinc-400 md:mb-8 md:text-sm">Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
           {sent ? (
@@ -273,7 +295,7 @@ function ContactSection() {
               <button type="submit" className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-blue-700 active:scale-95 dark:bg-violet-600 dark:hover:bg-violet-500 dark:shadow-[0_0_20px_rgba(124,58,237,0.3)] md:h-14 md:text-[15px]"><Send className="h-4 w-4 md:h-[18px] md:w-[18px]" />Send Message</button>
             </form>
           )}
-        </div>
+        </BlurReveal>
       </div>
     </section>
   );
@@ -299,8 +321,8 @@ function WhyPartnerSection() {
           <div className="mt-9 space-y-4">
             {WHY_PARTNER.map((item, i) => (
               <div key={item.title} className="group relative">
-                <div className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-20" style={{ backgroundColor: item.color }} />
-                <motion.article initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} style={{ '--why-color': item.color, '--why-shadow': `${item.color}38` } as React.CSSProperties} className="group relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--why-color)] hover:shadow-[0_8px_28px_var(--why-shadow)] dark:border-white/[0.1] dark:bg-white/[0.035] dark:hover:bg-white/[0.06] md:p-6">
+                <div className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-50 dark:group-hover:opacity-40" style={{ backgroundColor: item.color }} />
+                <motion.article initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="group relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 dark:border-white/[0.1] dark:bg-[#0e0f17] md:p-6">
                   <div className="relative z-10 flex items-start gap-5"><div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl" style={{ backgroundColor: item.bg, color: item.color }}><item.Icon className="h-6 w-6" /></div><div><h3 className="text-lg font-bold tracking-tight text-slate-950 dark:text-white">{item.title}</h3><p className="mt-1 text-sm font-medium text-slate-500 dark:text-zinc-400">{item.subtitle}</p><p className="mt-3 max-w-xl text-sm leading-relaxed text-slate-600 dark:text-zinc-400">{item.desc}</p></div></div>
                 </motion.article>
               </div>
@@ -333,13 +355,12 @@ function ServicesSection() {
             <h2 className="mt-3 max-w-2xl text-4xl font-black leading-[0.95] tracking-[-0.05em] text-slate-950 dark:text-white md:text-7xl">What We <span className="text-[#6246e5] dark:text-[#a99cff]">Do.</span></h2>
             <p className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-lg">End-to-end technology solutions to help you build, grow and stay ahead.</p>
           </div>
-          <div className="hidden pb-2 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[0.3em] text-slate-400 dark:text-slate-600 md:block">Ideas<br />into<br />impact<br /><span className="mt-3 block h-px w-6 bg-[#6246e5]" /></div>
         </motion.div>
 
         <div className="overflow-hidden rounded-[1.5rem] border border-[#765cff]/50 bg-white/60 shadow-[0_24px_70px_rgba(91,70,229,0.12)] backdrop-blur-xl dark:border-[#8b7cff]/30 dark:bg-white/[0.035] dark:shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
           {SERVICES.map((service, serviceIndex) => {
               const Icon = service.Icon;
-              return <button key={service.title} type="button" style={{ '--service-hover': `${service.color}20` } as React.CSSProperties} className="group relative flex h-24 w-full overflow-hidden border-b border-slate-200/80 px-5 text-left transition-[height,background-color] duration-300 last:border-b-0 hover:h-[300px] hover:bg-[var(--service-hover)] dark:border-white/[0.08] md:px-8 md:hover:h-[320px]">
+              return <button key={service.title} type="button" style={{ '--service-hover': `${service.color}35` } as React.CSSProperties} className="group relative flex h-24 w-full overflow-hidden border-b border-slate-200/80 px-5 text-left transition-[height,background-color] duration-300 last:border-b-0 hover:h-[300px] hover:bg-[var(--service-hover)] dark:border-white/[0.08] md:px-8 md:hover:h-[320px]">
                 <div className="relative z-10 grid h-full w-full grid-cols-[2.5rem_1px_minmax(0,1fr)_1.5rem] items-center gap-5 md:grid-cols-[3rem_1px_minmax(0,1fr)_2rem] md:gap-7">
                   <span className="grid h-10 w-10 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110 md:h-12 md:w-12" style={{ backgroundColor: service.bg, color: service.color }}><Icon className="h-5 w-5 md:h-6 md:w-6" /></span>
                   <span className="h-7 w-px bg-slate-200 dark:bg-white/[0.08]" />
@@ -351,7 +372,7 @@ function ServicesSection() {
                   </span>
                   <ArrowRight className="h-5 w-5 shrink-0 self-center text-slate-400 opacity-100 transition-opacity duration-200 group-hover:opacity-0 dark:text-slate-500 md:h-6 md:w-6" />
                 </div>
-                <div className="pointer-events-none absolute right-[10%] top-1/2 hidden -translate-y-1/2 opacity-0 transition duration-500 group-hover:opacity-20 md:block" style={{ color: service.color }}><Icon className="h-64 w-64" strokeWidth={0.7} /></div>
+                <div className="pointer-events-none absolute right-[10%] top-1/2 hidden -translate-y-1/2 opacity-0 transition duration-500 group-hover:opacity-40 md:block" style={{ color: service.color }}><Icon className="h-64 w-64" strokeWidth={0.7} /></div>
               </button>;
           })}
         </div>

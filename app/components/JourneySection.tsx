@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, type MotionValue } from 'motion/react';
+import { BlurReveal, StaggerContainer, StaggerItem } from './motion/Animations';
 
 /* ───────── Journey milestone data ───────── */
 const JOURNEY_MILESTONES = [
@@ -236,23 +237,24 @@ function JourneyVertical() {
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/70 dark:bg-[#090a12]/70" />
       <div className="mx-auto max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14 text-center md:mb-20"
-        >
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
-            Our Journey
-          </p>
-          <h2 className="text-3xl font-black leading-tight tracking-[-0.03em] text-slate-950 dark:text-white md:text-5xl">
-            From vision to impact.
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400">
-            Every step has shaped what Ascendio is today —{' '}
-            and where we&apos;re going next.
-          </p>
-        </motion.div>
+        <StaggerContainer className="mb-14 text-center md:mb-20">
+          <StaggerItem>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
+              Our Journey
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <h2 className="text-3xl font-black leading-tight tracking-[-0.03em] text-slate-950 dark:text-white md:text-5xl">
+              From vision to impact.
+            </h2>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400">
+              Every step has shaped what Ascendio is today —{' '}
+              and where we&apos;re going next.
+            </p>
+          </StaggerItem>
+        </StaggerContainer>
 
         <div className="relative">
           <div
@@ -262,12 +264,9 @@ function JourneyVertical() {
           {JOURNEY_MILESTONES.map((m, i) => {
             const isLeft = i % 2 === 0;
             return (
-              <motion.div
+              <BlurReveal
                 key={m.number}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                delay={0.1}
                 className={`relative mb-12 pl-14 last:mb-0 md:w-1/2 md:pl-0 ${
                   isLeft
                     ? 'md:pr-12 md:text-right'
@@ -288,7 +287,7 @@ function JourneyVertical() {
                 <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
                   {m.description}
                 </p>
-              </motion.div>
+              </BlurReveal>
             );
           })}
         </div>
@@ -414,19 +413,27 @@ function JourneyHorizontal() {
           style={{ opacity: introOpacity, visibility: introVisible ? 'visible' : 'hidden', willChange: 'opacity, transform' }}
         >
           <motion.div className="text-center" style={{ y: introY }}>
-            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
-              Our Journey
-            </p>
-            <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-              From vision to{' '}
-              <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
-                impact.
-              </span>
-            </h2>
-            <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400 md:text-lg">
-              Every step has shaped what Ascendio is today — and where
-              we&apos;re going next.
-            </p>
+            <StaggerContainer>
+              <StaggerItem>
+                <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
+                  Our Journey
+                </p>
+              </StaggerItem>
+              <StaggerItem>
+                <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
+                  From vision to{' '}
+                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                    impact.
+                  </span>
+                </h2>
+              </StaggerItem>
+              <StaggerItem>
+                <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400 md:text-lg">
+                  Every step has shaped what Ascendio is today — and where
+                  we&apos;re going next.
+                </p>
+              </StaggerItem>
+            </StaggerContainer>
           </motion.div>
         </motion.div>
 
@@ -436,19 +443,27 @@ function JourneyHorizontal() {
           style={{ opacity: outroOpacity }}
         >
           <div className="text-center">
-            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
-              Our Journey
-            </p>
-            <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-              From vision to{' '}
-              <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
-                impact.
-              </span>
-            </h2>
-            <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400 md:text-lg">
-              Every step has shaped what Ascendio is today — and where
-              we&apos;re going next.
-            </p>
+            <StaggerContainer>
+              <StaggerItem>
+                <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.4em] text-[#7c3aed] dark:text-[#c4b5fd]">
+                  Our Journey
+                </p>
+              </StaggerItem>
+              <StaggerItem>
+                <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
+                  From vision to{' '}
+                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                    impact.
+                  </span>
+                </h2>
+              </StaggerItem>
+              <StaggerItem>
+                <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-slate-400 md:text-lg">
+                  Every step has shaped what Ascendio is today — and where
+                  we&apos;re going next.
+                </p>
+              </StaggerItem>
+            </StaggerContainer>
           </div>
         </motion.div>
 
