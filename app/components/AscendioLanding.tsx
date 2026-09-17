@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore} from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -145,18 +145,16 @@ const SERVICES = [
   },
 ];
 
-const mobileNavItems = [
-  { href: "#about", label: "About", icon: User },
-  { href: "#why-choose-us", label: "Why Us", icon: Award },
-  { href: "#services", label: "Services", icon: Settings },
-  { href: "#products", label: "Products", icon: Layers },
-];
+
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+const mounted = useSyncExternalStore(
+  () => () => {}, // subscribe function
+  () => true,     // browser value
+  () => false     // server value
+);
 
   return (
     <button
