@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 interface Particle {
@@ -21,14 +21,11 @@ interface Point {
 export default function SummitBeaconCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [isCapable, setIsCapable] = useState(false);
-const mounted = useSyncExternalStore(
-  () => () => {}, // subscribe function
-  () => true,     // browser value
-  () => false     // server value
-);
+
   useEffect(() => {
- 
+    setMounted(true);
     // Disable on touch devices and if prefers-reduced-motion is true
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useSyncExternalStore} from "react";
+import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -145,16 +145,18 @@ const SERVICES = [
   },
 ];
 
-
+const mobileNavItems = [
+  { href: "#about", label: "About", icon: User },
+  { href: "#why-choose-us", label: "Why Us", icon: Award },
+  { href: "#services", label: "Services", icon: Settings },
+  { href: "#products", label: "Products", icon: Layers },
+];
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-const mounted = useSyncExternalStore(
-  () => () => {}, // subscribe function
-  () => true,     // browser value
-  () => false     // server value
-);
+  useEffect(() => setMounted(true), []);
 
   return (
     <button
@@ -167,7 +169,11 @@ const mounted = useSyncExternalStore(
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className="grid h-12 w-12 place-items-center rounded-lg border border-blue-200 bg-white/95 text-[#263a8f] shadow-xl shadow-blue-900/10 backdrop-blur-md dark:border-indigo-300/20 dark:bg-[#111a43]/90 dark:text-[#b9c5ff] dark:shadow-indigo-950/40 hover:-translate-y-0.5 transition active:scale-95"
     >
-      {mounted && resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {mounted && resolvedTheme === "dark" ? (
+        <Sun className="h-4 w-4" />
+      ) : (
+        <Moon className="h-4 w-4" />
+      )}
     </button>
   );
 }
@@ -250,8 +256,9 @@ className={` relative z-60 mx-auto flex max-w-7xl items-center justify-between r
             Products
           </a>
 
-          <a href="#contact" data-instant className="ml-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-[#3155e8] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white shadow-lg shadow-blue-500/25 dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] hover:bg-[#2445d0] dark:hover:bg-white/20 hover:-translate-y-0.5 active:scale-95 transition-all">
-            Contact Us <ArrowRight className="h-3.5 w-3.5" />
+          <a href="#contact" data-instant className="btn btn-primary">
+            Contact Us
+            <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
 
@@ -299,71 +306,197 @@ className={` relative z-60 mx-auto flex max-w-7xl items-center justify-between r
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20, scale: 0.95 }} 
-            animate={{ opacity: 1, y: 0, scale: 1 }} 
-            exit={{ opacity: 0, y: -20, scale: 0.95 }} 
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="md:hidden mx-auto mt-3 max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/60 backdrop-blur-2xl shadow-[0_24px_64px_0_rgba(31,38,135,0.15)] dark:border-white/[0.08] dark:bg-[#05050f]/60 dark:shadow-[0_24px_64px_0_rgba(0,0,0,0.5)]"
+{/* Mobile menu */}
+<AnimatePresence>
+  {mobileOpen && (
+    <>
+      {/* Page backdrop */}
+      <motion.button
+        type="button"
+        aria-label="Close mobile navigation"
+        onClick={() => setMobileOpen(false)}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="
+          fixed inset-0 z-40
+          bg-slate-950/10 backdrop-blur-[3px]
+          dark:bg-[#080B14]/60
+          md:hidden
+        "
+      />
+
+      {/* Mobile menu */}
+      <motion.nav
+        id="mobile-navigation"
+        aria-label="Mobile navigation"
+        initial={{ opacity: 0, y: -10, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -8, scale: 0.98 }}
+        transition={{
+          duration: 0.24,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="
+          absolute inset-x-3 top-full z-50 mt-3
+          origin-top overflow-hidden rounded-[1.75rem]
+          border border-blue-200/60
+          bg-[#F8FAFC]/85
+          shadow-[0_24px_60px_rgba(15,23,42,0.16)]
+          ring-1 ring-white/30
+          backdrop-blur-2xl backdrop-saturate-150
+
+          dark:border-blue-400/20
+          dark:bg-[#0B1220]/90
+          dark:shadow-[0_24px_60px_rgba(0,0,0,0.45)]
+          dark:ring-blue-300/5
+
+          sm:left-auto sm:right-3 sm:w-[25rem]
+          md:hidden
+        "
+      >
+        {/* Blue ambient lighting */}
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none absolute -left-20 -top-20
+            h-44 w-44 rounded-full bg-blue-500/10 blur-3xl
+            dark:bg-blue-500/15
+          "
+        />
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none absolute -bottom-24 -right-16
+            h-48 w-48 rounded-full bg-indigo-500/10 blur-3xl
+            dark:bg-indigo-500/10
+          "
+        />
+
+        <div className="relative flex flex-col gap-1 p-2.5">
+        
+          {mobileNavItems.map(({ href, label, icon: Icon }, index) => (
+            <motion.a
+              key={href}
+              href={href}
+              data-instant
+              onClick={() => setMobileOpen(false)}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                delay: 0.04 + index * 0.035,
+                duration: 0.2,
+              }}
+              className="
+                group flex min-h-14 items-center justify-between
+                rounded-2xl border border-transparent px-2.5 py-2
+                transition-all duration-200
+                hover:border-blue-200/70 hover:bg-blue-50/70
+                active:scale-[0.985]
+
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-blue-500/40
+
+                dark:hover:border-blue-400/20
+                dark:hover:bg-blue-500/10
+                dark:focus-visible:ring-blue-400/40
+              "
+            >
+              <span className="flex items-center gap-3">
+                <span
+                  className="
+                    grid h-10 w-10 shrink-0 place-items-center rounded-xl
+                    border border-blue-200/70
+                    bg-blue-50/80 text-[#1D4ED8]
+                    transition-all duration-200
+
+                    group-hover:border-blue-300
+                    group-hover:bg-blue-100/80
+
+                    dark:border-blue-400/20
+                    dark:bg-blue-500/10
+                    dark:text-blue-300
+                    dark:group-hover:border-blue-400/35
+                    dark:group-hover:bg-blue-500/15
+                  "
+                >
+                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} />
+                </span>
+
+                <span className="text-[15px] font-semibold text-[#0F172A] dark:text-[#F9FAFB]">
+                  {label}
+                </span>
+              </span>
+
+              <span
+                className="
+                  mr-1 grid h-8 w-8 place-items-center rounded-full
+                  text-slate-400 transition-all duration-200
+                  group-hover:translate-x-0.5
+                  group-hover:bg-blue-100/80
+                  group-hover:text-[#1D4ED8]
+
+                  dark:text-slate-500
+                  dark:group-hover:bg-blue-500/15
+                  dark:group-hover:text-blue-300
+                "
+              >
+                <ChevronRight className="h-4 w-4" />
+              </span>
+            </motion.a>
+          ))}
+
+          <div className="mx-3 my-2 h-px bg-gradient-to-r from-transparent via-blue-200/80 to-transparent dark:via-blue-400/15" />
+
+          <a
+            href="#contact"
+            data-instant
+            onClick={() => setMobileOpen(false)}
+            className="
+              group flex min-h-14 items-center justify-between
+              rounded-[1.25rem] border border-blue-400/25
+              bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#3155E8]
+              px-2.5 py-2 text-white
+              shadow-[0_10px_28px_rgba(29,78,216,0.28)]
+              transition-all duration-200
+
+              hover:-translate-y-0.5
+              hover:shadow-[0_14px_34px_rgba(29,78,216,0.34)]
+              active:translate-y-0 active:scale-[0.98]
+
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-blue-500
+              focus-visible:ring-offset-2
+
+              dark:from-[#2563EB]
+              dark:via-[#3155E8]
+              dark:to-[#4F46E5]
+              dark:shadow-[0_10px_30px_rgba(37,99,235,0.30)]
+              dark:focus-visible:ring-blue-400
+              dark:focus-visible:ring-offset-[#0B1220]
+            "
           >
-            <div className="flex flex-col p-3">
-              <a href="#about" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
-                    <User className="h-4 w-4 text-slate-700 dark:text-slate-300" />
-                  </div>
-                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">About</span>
-                </div>
-                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
-              </a>
+            <span className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/10">
+                <Mail className="h-[18px] w-[18px]" />
+              </span>
 
-              <a href="#why-choose-us" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
-                    <Award className="h-4 w-4 text-slate-700 dark:text-slate-300" />
-                  </div>
-                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Why Us</span>
-                </div>
-                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
-              </a>
+              <span className="text-[15px] font-semibold">
+                Contact Us
+              </span>
+            </span>
 
-              <a href="#services" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
-                    <Settings className="h-4 w-4 text-slate-700 dark:text-slate-300" />
-                  </div>
-                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Services</span>
-                </div>
-                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
-              </a>
-
-              <a href="#products" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-2xl p-1.5 transition hover:bg-white/50 dark:hover:bg-white/5">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/5">
-                    <Layers className="h-4 w-4 text-slate-700 dark:text-slate-300" />
-                  </div>
-                  <span className="text-[15px] font-medium text-slate-800 dark:text-slate-200">Products</span>
-                </div>
-                <ChevronRight className="mr-2 h-4 w-4 text-slate-400 transition group-hover:text-slate-800 dark:text-slate-500 dark:group-hover:text-slate-200" />
-              </a>
-
-              <div className="mx-2 my-2 h-px bg-slate-200/50 dark:bg-white/5" />
-
-              <a href="#contact" data-instant onClick={() => setMobileOpen(false)} className="group flex items-center justify-between rounded-[1.25rem] p-2 transition bg-[#3155e8] hover:bg-[#2445d0] dark:bg-[#7c3aed] dark:hover:bg-[#8b5cf6] shadow-lg shadow-blue-500/25 dark:shadow-purple-500/20 border border-transparent dark:border-[#8b5cf6]/30">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 shadow-sm">
-                    <Mail className="h-4 w-4 text-white" />
-                  </div>
-                  <span className="text-[15px] font-medium text-white">Contact Us</span>
-                </div>
-                <ChevronRight className="mr-2 h-4 w-4 text-white/70 transition group-hover:text-white" />
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <ChevronRight className="mr-2 h-4 w-4 text-white/75 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
+          </a>
+        </div>
+      </motion.nav>
+    </>
+  )}
+</AnimatePresence>
     </nav>
   );
 }

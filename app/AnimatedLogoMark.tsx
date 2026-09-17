@@ -1,4 +1,4 @@
-import React, {useSyncExternalStore} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@/app/components/ThemeProvider';
 import Image from 'next/image';
 
@@ -13,12 +13,11 @@ export function AnimatedLogoMark({ size = 'md', showText = false, className = ''
   const sizeClass = size === 'sm' ? 'h-12 w-20 p-0.5' : 'h-16 w-28 p-0.5';
 
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-const mounted = useSyncExternalStore(
-  () => () => {}, // subscribe function
-  () => true,     // browser value
-  () => false     // server value
-);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isDark = mounted ? resolvedTheme === 'dark' : false;
   const activeRole = role || 'landing';
