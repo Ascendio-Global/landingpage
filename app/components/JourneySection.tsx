@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, type MotionValue } from 'motion/react';
 import { BlurReveal, StaggerContainer, StaggerItem } from './motion/Animations';
-
+import { useSyncExternalStore } from 'react';
 /* ───────── Journey milestone data ───────── */
 const JOURNEY_MILESTONES = [
   {
@@ -53,15 +53,25 @@ const JRN_END = 0.60;
 
 /* ───────── Hooks ───────── */
 function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia(query);
-    setMatches(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, [query]);
-  return matches;
+const [matches, setMatches] = useState(() =>
+  window.matchMedia(query).matches
+);
+
+useEffect(() => {
+  const mql = window.matchMedia(query);
+
+  const handler = (event: MediaQueryListEvent) => {
+    setMatches(event.matches);
+  };
+
+  mql.addEventListener("change", handler);
+
+  return () => {
+    mql.removeEventListener("change", handler);
+  };
+}, [query]);
+
+return matches;
 }
 
 /* ───────── Phase indicator pill (fixed top bar) ───────── */
@@ -228,12 +238,12 @@ function JourneyVertical() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 origin-bottom scale-[1.3] bg-cover bg-center dark:hidden md:scale-100"
-        style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.png')" }}
+        style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.webp')" }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 hidden origin-bottom scale-[1.3] bg-cover bg-center dark:block md:scale-100"
-        style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.png')" }}
+        style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.webp')" }}
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/70 dark:bg-[#090a12]/70" />
       <div className="mx-auto max-w-3xl">
@@ -396,11 +406,11 @@ function JourneyHorizontal() {
         >
           <div
             className="absolute inset-0 bg-cover bg-center dark:hidden"
-            style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.png')" }}
+            style={{ backgroundImage: "url('/386753eb-9701-491d-942f-0baa051ac6bc.webp')" }}
           />
           <div
             className="absolute inset-0 hidden bg-cover bg-center dark:block"
-            style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.png')" }}
+            style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.webp')" }}
           />
           <div className="absolute inset-0 bg-white/30 dark:bg-[#090a12]/40" />
           <div className="absolute -left-[15vw] top-[20%] h-[55vh] w-[55vh] rounded-full bg-blue-400/[0.04] blur-[120px] dark:bg-blue-500/[0.06]" />
@@ -541,12 +551,14 @@ function JourneyHorizontal() {
    (mobile / reduced-motion / pre-hydration).
    ═══════════════════════════════════════════════════════════════ */
 export default function JourneySection() {
-  const [mounted, setMounted] = useState(false);
+
   const isMobile = useMediaQuery('(max-width: 1023px)');
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
-
-  useEffect(() => setMounted(true), []);
-
+const mounted = useSyncExternalStore(
+  () => () => {}, 
+  () => true,     
+  () => false    
+);
   if (!mounted || isMobile || prefersReducedMotion) {
     return <JourneyVertical />;
   }

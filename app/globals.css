@@ -191,3 +191,213 @@ html.lenis body {
     box-shadow: none !important;
   }
 }
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+      rounded-full border border-transparent
+      px-5 py-2.5
+      text-sm font-bold
+      transition-all duration-200
+      hover:-translate-y-0.5
+      active:scale-95
+      focus-visible:outline-none
+      focus-visible:ring-2
+      focus-visible:ring-offset-2;
+  }
+
+  .btn-primary {
+    color: #ffffff;
+    background: #1d4ed8;
+    box-shadow: 0 8px 20px rgb(29 78 216 / 0.25);
+
+    @apply focus-visible:ring-blue-600
+      focus-visible:ring-offset-white;
+  }
+
+  .btn-primary:hover {
+    background: #1e40af;
+    box-shadow: 0 10px 26px rgb(29 78 216 / 0.32);
+  }
+
+  .dark .btn-primary {
+    color: #ffffff;
+    border-color: rgb(96 165 250 / 0.3);
+    background: linear-gradient(
+      110deg,
+      #2563eb 0%,
+      #3155e8 65%,
+      #4f46e5 100%
+    );
+
+    box-shadow:
+      0 8px 26px rgb(37 99 235 / 0.32),
+      0 0 18px rgb(59 130 246 / 0.12),
+      inset 0 1px 0 rgb(255 255 255 / 0.15);
+
+    @apply focus-visible:ring-blue-400
+      focus-visible:ring-offset-[#080B14];
+  }
+
+  .dark .btn-primary:hover {
+    border-color: rgb(147 197 253 / 0.4);
+    background: linear-gradient(
+      110deg,
+      #3b82f6 0%,
+      #3155e8 70%,
+      #4338ca 100%
+    );
+
+    box-shadow:
+      0 12px 30px rgb(37 99 235 / 0.4),
+      0 0 22px rgb(59 130 246 / 0.16),
+      inset 0 1px 0 rgb(255 255 255 / 0.18);
+  }
+}
+@layer components {
+  .hero-btn-primary {
+    @apply relative  isolate inline-flex min-h-12 items-center justify-center
+      gap-2.5 overflow-hidden rounded-xl border
+      px-6 py-3 text-sm font-bold text-white
+      transition-all duration-300
+      hover:-translate-y-0.5
+      active:translate-y-0 active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-blue-500 focus-visible:ring-offset-2
+      disabled:pointer-events-none disabled:opacity-50;
+
+    border-color: rgb(96 165 250 / 0.3);
+    background: linear-gradient(
+      110deg,
+      #1d4ed8 0%,
+      #2563eb 55%,
+      #3155e8 100%
+    );
+    box-shadow:
+      0 12px 30px rgb(29 78 216 / 0.28),
+      inset 0 1px 0 rgb(255 255 255 / 0.18);
+  }
+
+  .hero-btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -45%;
+    width: 30%;
+    pointer-events: none;
+    transform: skewX(-20deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.22),
+      transparent
+    );
+    transition: transform 700ms ease;
+  }
+
+  .hero-btn-primary:hover {
+    box-shadow:
+      0 16px 38px rgb(29 78 216 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.22);
+  }
+
+  .hero-btn-primary:hover::before {
+    transform: translateX(500%) skewX(-20deg);
+  }
+
+  .dark .hero-btn-primary {
+    border-color: rgb(96 165 250 / 0.32);
+    background: linear-gradient(
+      110deg,
+      #2563eb 0%,
+      #3155e8 68%,
+      #4f46e5 100%
+    );
+    box-shadow:
+      0 12px 34px rgb(37 99 235 / 0.32),
+      inset 0 1px 0 rgb(255 255 255 / 0.16);
+  }
+
+  .dark .hero-btn-primary:focus-visible {
+    --tw-ring-color: rgb(96 165 250 / 0.8);
+    --tw-ring-offset-color: #080b14;
+  }
+
+  .hero-btn-icon {
+    @apply relative z-10 transition-transform duration-300;
+  }
+
+  .hero-btn-primary:hover .hero-btn-icon {
+    transform: translateX(3px);
+  }
+}
+
+@layer components {
+  .hero-btn-secondary {
+    @apply relative inline-flex min-h-12 items-center justify-center
+      gap-2.5 rounded-xl border
+      px-10 py-3 text-sm font-bold
+      transition-all duration-300
+      hover:-translate-y-0.5
+      active:translate-y-0 active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-blue-500/60 focus-visible:ring-offset-2
+      disabled:pointer-events-none disabled:opacity-50;
+
+    color: #0f172a;
+    border-color: rgb(29 78 216 / 0.2);
+    background: rgb(248 250 252 / 0.42);
+
+    box-shadow:
+      0 8px 24px rgb(29 78 216 / 0.1),
+      inset 0 1px 0 rgb(255 255 255 / 0.65);
+
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .hero-btn-secondary:hover {
+    color: #1d4ed8;
+    border-color: rgb(29 78 216 / 0.35);
+    background: rgb(239 246 255 / 0.58);
+
+    box-shadow:
+      0 12px 30px rgb(29 78 216 / 0.16),
+      inset 0 1px 0 rgb(255 255 255 / 0.8);
+  }
+
+  .dark .hero-btn-secondary {
+    color: #f9fafb;
+    border-color: rgb(96 165 250 / 0.22);
+    background: rgb(17 24 39 / 0.38);
+
+    box-shadow:
+      0 10px 28px rgb(0 0 0 / 0.32),
+      inset 0 1px 0 rgb(147 197 253 / 0.08);
+  }
+
+  .dark .hero-btn-secondary:hover {
+    color: #bfdbfe;
+    border-color: rgb(96 165 250 / 0.38);
+    background: rgb(37 99 235 / 0.12);
+
+    box-shadow:
+      0 14px 34px rgb(0 0 0 / 0.4),
+      0 0 18px rgb(37 99 235 / 0.1),
+      inset 0 1px 0 rgb(147 197 253 / 0.12);
+  }
+
+  .dark .hero-btn-secondary:focus-visible {
+    --tw-ring-color: rgb(96 165 250 / 0.7);
+    --tw-ring-offset-color: #080b14;
+  }
+
+  .hero-btn-secondary-icon {
+    @apply transition-transform duration-300;
+  }
+
+  .hero-btn-secondary:hover .hero-btn-secondary-icon {
+    transform: translateX(3px);
+  }
+}
