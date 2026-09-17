@@ -1,8 +1,9 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef ,useCallback,
+  useSyncExternalStore } from 'react';
+
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, type MotionValue } from 'motion/react';
 import { BlurReveal, StaggerContainer, StaggerItem } from './motion/Animations';
-import { useSyncExternalStore } from 'react';
 /* ───────── Journey milestone data ───────── */
 const JOURNEY_MILESTONES = [
   {
@@ -53,25 +54,31 @@ const JRN_END = 0.60;
 
 /* ───────── Hooks ───────── */
 function useMediaQuery(query: string): boolean {
-const [matches, setMatches] = useState(() =>
-  window.matchMedia(query).matches
-);
+  const subscribe = useCallback(
+    (callback: () => void) => {
+      const mediaQuery = window.matchMedia(query);
 
-useEffect(() => {
-  const mql = window.matchMedia(query);
+      mediaQuery.addEventListener("change", callback);
 
-  const handler = (event: MediaQueryListEvent) => {
-    setMatches(event.matches);
-  };
+      return () => {
+        mediaQuery.removeEventListener("change", callback);
+      };
+    },
+    [query],
+  );
 
-  mql.addEventListener("change", handler);
+  const getSnapshot = useCallback(
+    () => window.matchMedia(query).matches,
+    [query],
+  );
 
-  return () => {
-    mql.removeEventListener("change", handler);
-  };
-}, [query]);
+  const getServerSnapshot = useCallback(() => false, []);
 
-return matches;
+  return useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 }
 
 /* ───────── Phase indicator pill (fixed top bar) ───────── */
@@ -314,7 +321,18 @@ function JourneyHorizontal() {
   const sectionRef = useRef<HTMLElement>(null);
 
   /* Viewport width in a ref for the scroll-linked transform callback */
-  const vwRef = useRef(window.innerWidth);
+const vwRef = useRef(0);
+
+useEffect(() => {
+  const update = () => {
+    vwRef.current = window.innerWidth;
+  };
+
+  update(); // Set the real browser width after mounting
+  window.addEventListener("resize", update);
+
+  return () => window.removeEventListener("resize", update);
+}, []);
   useEffect(() => {
     const update = () => { vwRef.current = window.innerWidth; };
     window.addEventListener('resize', update);
