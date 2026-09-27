@@ -30,6 +30,8 @@ export const metadata: Metadata = {
     "Ascendio Global",
     "Aarambh",
     "freelancing services",
+    "enterprise solutions",
+    "Aarambh by Ascendio Global",
   ],
   authors: [{ name: "Ascendio Global" }],
   creator: "Ascendio Global",
