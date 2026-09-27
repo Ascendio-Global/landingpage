@@ -68,6 +68,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL,
+  },
   // The browser-tab PNG icon (light vs dark) is managed at runtime by
   // <DynamicFavicon> so it follows the SITE theme, including a manual in-page
   // toggle — not just the OS `prefers-color-scheme`. The `app/favicon.ico`
