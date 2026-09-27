@@ -41,11 +41,21 @@ export const metadata: Metadata = {
     siteName: "Ascendio Global",
     title: "Ascendio Global | Built to Ascend",
     description: "Turning ideas into real-world solutions. Built to Ascend.",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    images : [
+      {
+        url: "/ascendio-bg-light.png",
+        width: 1200,
+        height: 630,
+        alt: "Ascendio Global | Built to Ascend",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ascendio Global | Built to Ascend",
     description: "Technology, automation, digital transformation, and enterprise solutions by Ascendio Global LLP.",
+    images: ["/ascendio-bg-light.png"],
   },
   robots: {
     index: true,
