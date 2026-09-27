@@ -210,7 +210,7 @@ function JourneyMilestone({
       >
         {/* Glow behind the card */}
         <motion.div
-          className="absolute -inset-8 -z-20 rounded-[60px] bg-gradient-to-br from-[#3155e8]/20 to-[#8b5cf6]/20 blur-[40px] dark:from-[#3155e8]/15 dark:to-[#8b5cf6]/15"
+          className="absolute -inset-8 -z-20 rounded-[60px] bg-linear-to-br from-[#3155e8]/20 to-[#8b5cf6]/20 blur-2xl dark:from-[#3155e8]/15 dark:to-[#8b5cf6]/15"
           style={{ opacity: glowOpacity }}
           aria-hidden="true"
         />
@@ -275,7 +275,7 @@ function JourneyVertical() {
 
         <div className="relative">
           <div
-            className="absolute left-5 top-0 h-full w-px bg-gradient-to-b from-[#3155e8]/30 via-[#8b5cf6]/30 to-transparent md:left-1/2 md:-translate-x-px"
+            className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-[#3155e8]/30 via-[#8b5cf6]/30 to-transparent md:left-1/2 md:-translate-x-px"
             aria-hidden="true"
           />
           {JOURNEY_MILESTONES.map((m, i) => {
@@ -431,8 +431,8 @@ useEffect(() => {
             style={{ backgroundImage: "url('/1230d583-afb9-4ff1-b585-5a6729601224.webp')" }}
           />
           <div className="absolute inset-0 bg-white/30 dark:bg-[#090a12]/40" />
-          <div className="absolute -left-[15vw] top-[20%] h-[55vh] w-[55vh] rounded-full bg-blue-400/[0.04] blur-[120px] dark:bg-blue-500/[0.06]" />
-          <div className="absolute -right-[10vw] bottom-[15%] h-[45vh] w-[45vh] rounded-full bg-violet-400/[0.04] blur-[120px] dark:bg-violet-500/[0.06]" />
+          <div className="absolute left-[-15vw] top-[20%] h-[55vh] w-[55vh] rounded-full bg-blue-400/4 blur-[120px] dark:bg-blue-500/6" />
+          <div className="absolute right-[-10vw] bottom-[15%] h-[45vh] w-[45vh] rounded-full bg-violet-400/4 blur-[120px] dark:bg-violet-500/6" />
         </div>
 
         {/* ── Intro overlay ── */}
@@ -450,7 +450,7 @@ useEffect(() => {
               <StaggerItem>
                 <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
                   From vision to{' '}
-                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
                     impact.
                   </span>
                 </h2>
@@ -480,7 +480,7 @@ useEffect(() => {
               <StaggerItem>
                 <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.06] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
                   From vision to{' '}
-                  <span className="bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-[#3155e8] to-[#8b5cf6] bg-clip-text text-transparent">
                     impact.
                   </span>
                 </h2>
@@ -512,7 +512,7 @@ useEffect(() => {
           >
             {/* Thin timeline track line */}
             <div
-              className="absolute left-[30vw] right-[30vw] h-px bg-slate-200/70 dark:bg-white/[0.06]"
+              className="absolute left-[30vw] right-[30vw] h-px bg-slate-200/70 dark:bg-white/6"
               style={{ top: '56%' }}
               aria-hidden="true"
             />
@@ -544,9 +544,9 @@ useEffect(() => {
 
           {/* Progress bar (bottom) */}
           <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3">
-            <div className="h-[2px] w-56 overflow-hidden rounded-full bg-slate-200/50 dark:bg-white/[0.05]">
+            <div className="h-[2px] w-56 overflow-hidden rounded-full bg-slate-200/50 dark:bg-white/5">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-[#3155e8] to-[#8b5cf6]"
+                className="h-full rounded-full bg-linear-to-r from-[#3155e8] to-[#8b5cf6]"
                 style={{ width: progressPct }}
               />
             </div>

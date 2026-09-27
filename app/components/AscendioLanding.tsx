@@ -354,7 +354,7 @@ className={` relative z-60 mx-auto flex max-w-7xl items-center justify-between r
           dark:shadow-[0_24px_60px_rgba(0,0,0,0.45)]
           dark:ring-blue-300/5
 
-          sm:left-auto sm:right-3 sm:w-[25rem]
+          sm:left-auto sm:right-3 sm:w-100
           md:hidden
         "
       >
@@ -451,7 +451,7 @@ className={` relative z-60 mx-auto flex max-w-7xl items-center justify-between r
             </motion.a>
           ))}
 
-          <div className="mx-3 my-2 h-px bg-gradient-to-r from-transparent via-blue-200/80 to-transparent dark:via-blue-400/15" />
+          <div className="mx-3 my-2 h-px bg-linear-to-r from-transparent via-blue-200/80 to-transparent dark:via-blue-400/15" />
 
           <a
             href="#contact"
@@ -460,7 +460,7 @@ className={` relative z-60 mx-auto flex max-w-7xl items-center justify-between r
             className="
               group flex min-h-14 items-center justify-between
               rounded-[1.25rem] border border-blue-400/25
-              bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#3155E8]
+              bg-linear-to-r from-[#1D4ED8] via-[#2563EB] to-[#3155E8]
               px-2.5 py-2 text-white
               shadow-[0_10px_28px_rgba(29,78,216,0.28)]
               transition-all duration-200
@@ -517,8 +517,8 @@ function HeroSection() {
         className="absolute inset-0 z-1 hidden bg-cover bg-center dark:block"
         style={{ backgroundImage: "url('/ascendio-bg-dark.webp')" }}
       />
-      <div className="absolute inset-0 z-2 bg-gradient-to-r from-white/78 via-white/25 to-transparent dark:from-[#060b24]/70 dark:via-[#060b24]/20 dark:to-transparent" />
-      <div className="absolute inset-0 z-2 bg-gradient-to-t from-white/10 via-transparent to-white/15 dark:from-[#05091e]/20 dark:to-transparent" />
+      <div className="absolute inset-0 z-2 bg-linear-to-r from-white/78 via-white/25 to-transparent dark:from-[#060b24]/70 dark:via-[#060b24]/20 dark:to-transparent" />
+      <div className="absolute inset-0 z-2 bg-linear-to-t from-white/10 via-transparent to-white/15 dark:from-[#05091e]/20 dark:to-transparent" />
       <div className="relative z-10 w-full px-5 pt-44 sm:px-12 md:px-8 md:pt-32 lg:px-[8.5vw] lg:pt-56">
         <StaggerContainer className="max-w-2xl" delay={0.1}>
           <StaggerItem>
@@ -602,14 +602,14 @@ function AboutSection() {
         {/* Desktop Overlays */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-white via-white/90 to-white/15 dark:hidden md:block"
+          className="absolute inset-0 -z-10 hidden bg-linear-to-r from-white via-white/90 to-white/15 dark:hidden md:block"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden md:dark:block bg-gradient-to-r from-[#090a12] via-[#090a12]/35 to-transparent"
+          className="absolute inset-0 -z-10 hidden md:dark:block bg-linear-to-r from-[#090a12] via-[#090a12]/35 to-transparent"
         />
 
-        <div className="relative z-10 mx-auto max-w-6xl lg:ml-[8.5vw] lg:mr-0 lg:max-w-[38rem]">
+        <div className="relative z-10 mx-auto max-w-6xl lg:ml-[8.5vw] lg:mr-0 lg:max-w-152">
           <StaggerContainer>
             <StaggerItem>
               <p className="mb-7 text-sm font-bold uppercase tracking-[0.32em] text-[#7c3aed] dark:text-[#c4b5fd]">
@@ -617,7 +617,7 @@ function AboutSection() {
               </p>
             </StaggerItem>
             <StaggerItem>
-              <h2 className="max-w-[30rem] text-3xl font-extrabold leading-[0.98] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-4xl md:text-[4rem]">
+              <h2 className="max-w-120 text-3xl font-extrabold leading-[0.98] tracking-tighter text-slate-950 dark:text-white sm:text-4xl md:text-[4rem]">
                 Building What Matters
               </h2>
             </StaggerItem>
@@ -661,7 +661,7 @@ function VisionSection() {
         }}
       />
       <div className="absolute inset-0 bg-white/85 dark:bg-[#090a12]/88 lg:hidden" />
-      <div className="absolute inset-y-0 left-0 hidden w-3/4 bg-gradient-to-r from-transparent to-white lg:block dark:to-[#090a12]" />
+      <div className="absolute inset-y-0 left-0 hidden w-3/4 bg-linear-to-r from-transparent to-white lg:block dark:to-[#090a12]" />
 
       <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-center px-5 py-16 sm:px-8 md:py-28 lg:grid-cols-2 lg:px-12">
         <div className="hidden lg:block" aria-hidden="true" />
@@ -759,7 +759,7 @@ function ContactSection() {
             {contactRows.map(([Icon, title, value, href], index) => (
               <div key={title}>
                 <div className="flex items-center gap-4">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/80 bg-white/70 text-blue-600 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-violet-400">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/80 bg-white/70 text-blue-600 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/6 dark:text-violet-400">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
@@ -790,7 +790,7 @@ function ContactSection() {
 
         <BlurReveal
           delay={0.2}
-          className="rounded-2xl border border-white/80 bg-white/70 p-5 shadow-xl shadow-slate-200/50 backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.04] dark:shadow-2xl dark:shadow-black/50 md:rounded-3xl md:p-10"
+          className="rounded-2xl border border-white/80 bg-white/70 p-5 shadow-xl shadow-slate-200/50 backdrop-blur-2xl dark:border-white/10 dark:bg-white/4 dark:shadow-2xl dark:shadow-black/50 md:rounded-3xl md:p-10"
         >
           <h2 className="mb-2 text-xl font-bold text-slate-900 dark:text-white md:mb-3 md:text-2xl">
             Send us a message
@@ -817,7 +817,7 @@ function ContactSection() {
               className="flex flex-col gap-4 md:gap-5"
             >
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5">
-                <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:border-violet-500/50">
+                <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/4 dark:focus-within:border-violet-500/50">
                   <span className="mb-1 block text-xs font-medium text-slate-500 dark:text-zinc-400">
                     Full Name
                   </span>
@@ -832,7 +832,7 @@ function ContactSection() {
                     <User className="ml-2 mt-0.5 h-4 w-4 text-slate-400 dark:text-zinc-500" />
                   </span>
                 </label>
-                <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:border-violet-500/50">
+                <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/4 dark:focus-within:border-violet-500/50">
                   <span className="mb-1 block text-xs font-medium text-slate-500 dark:text-zinc-400">
                     Email Address
                   </span>
@@ -849,7 +849,7 @@ function ContactSection() {
                   </span>
                 </label>
               </div>
-              <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:border-violet-500/50">
+              <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/4 dark:focus-within:border-violet-500/50">
                 <span className="mb-1 block text-xs font-medium text-slate-500 dark:text-zinc-400">
                   Subject
                 </span>
@@ -864,7 +864,7 @@ function ContactSection() {
                   <Tag className="ml-2 mt-0.5 h-4 w-4 text-slate-400 dark:text-zinc-500" />
                 </span>
               </label>
-              <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:border-violet-500/50">
+              <label className="rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 backdrop-blur-sm focus-within:border-blue-500/50 focus-within:bg-white/90 dark:border-white/10 dark:bg-white/4 dark:focus-within:border-violet-500/50">
                 <span className="mb-1 block text-xs font-medium text-slate-500 dark:text-zinc-400">
                   Message
                 </span>
@@ -916,7 +916,7 @@ function WhyPartnerSection() {
             sizes="(max-width: 1024px) 100vw, 45vw"
             className="object-cover object-center transition duration-700 hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080a20]/75 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#080a20]/75 via-transparent to-transparent" />
           <div className="absolute bottom-7 left-7 right-7">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-indigo-200">
               Ascendio Global
@@ -954,7 +954,7 @@ function WhyPartnerSection() {
                 className="group relative block w-full text-left focus:outline-none"
               >
                 <div
-                  className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-[2500ms] group-active:duration-300 md:group-hover:duration-500 group-active:opacity-60 dark:group-active:opacity-50 md:group-hover:opacity-50 md:dark:group-hover:opacity-40"
+                  className="pointer-events-none absolute -inset-3 rounded-2xl opacity-0 blur-2xl transition-opacity duration-2500 group-active:duration-300 md:group-hover:duration-500 group-active:opacity-60 dark:group-active:opacity-50 md:group-hover:opacity-50 md:dark:group-hover:opacity-40"
                   style={{ backgroundColor: item.color }}
                 />
                 <motion.article
@@ -962,7 +962,7 @@ function WhyPartnerSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="group/card relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 group-active:scale-[0.98] dark:border-white/[0.1] dark:bg-[#0e0f17] md:p-6"
+                  className="group/card relative z-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 group-active:scale-[0.98] dark:border-white/10 dark:bg-[#0e0f17] md:p-6"
                 >
                   <div className="relative z-10 flex items-start gap-5">
                     <div
@@ -1029,7 +1029,7 @@ function ServicesSection() {
             <p className="text-xs font-black uppercase tracking-[0.35em] text-[#5138d8] dark:text-[#a99cff]">
               Services
             </p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-black leading-[0.95] tracking-[-0.05em] text-slate-950 dark:text-white md:text-7xl">
+            <h2 className="mt-3 max-w-2xl text-3xl font-black leading-[0.95] tracking-tighter text-slate-950 dark:text-white md:text-7xl">
               What We{" "}
               <span className="text-[#6246e5] dark:text-[#a99cff]">Do.</span>
             </h2>
@@ -1042,7 +1042,7 @@ function ServicesSection() {
 
 <div
   className="
-    overflow-hidden rounded-[1.5rem]
+    overflow-hidden rounded-3xl
     border border-blue-500/25
     bg-white/55
     shadow-[0_24px_70px_rgba(29,78,216,0.10)]
@@ -1073,17 +1073,17 @@ function ServicesSection() {
           } as React.CSSProperties
         }
         className="
-          group relative flex min-h-[5.75rem] w-full
+          group relative flex min-h-23 w-full
           overflow-hidden border-b border-slate-200/80
           px-4 py-4 text-left
           transition-colors duration-300
           last:border-b-0
 
-          hover:bg-[var(--service-hover)]
-          focus:bg-[var(--service-hover)]
+          hover:bg-(--service-hover)
+          focus:bg-(--service-hover)
           focus:outline-none
 
-          dark:border-blue-300/[0.08]
+          dark:border-blue-300/8
 
           md:h-24 md:min-h-0 md:px-8 md:py-0
           md:transition-[height,background-color]
@@ -1120,7 +1120,7 @@ function ServicesSection() {
           <span
             className="
               col-start-1 row-start-1
-              grid h-[3.25rem] w-[3.25rem]
+              grid h-13 w-13
               shrink-0 place-items-center rounded-2xl
               border border-current/10
               shadow-[0_8px_20px_rgba(15,23,42,0.08)]
@@ -1207,8 +1207,8 @@ function ServicesSection() {
               opacity-0
               transition-all duration-500 ease-out
 
-              group-hover:max-h-[24rem]
-              group-focus:max-h-[24rem]
+              group-hover:max-h-96
+              group-focus:max-h-96
               group-hover:pt-5
               group-focus:pt-5
               group-hover:opacity-100
@@ -1326,7 +1326,7 @@ function ProductsSection() {
   return (
     <section
       id="products"
-      className="relative min-h-[450px] overflow-hidden bg-[#f8faff] px-6 py-12 text-slate-950 dark:bg-black dark:text-white md:min-h-0 md:aspect-[1721/914] md:p-0"
+      className="relative min-h-[450px] overflow-hidden bg-[#f8faff] px-6 py-12 text-slate-950 dark:bg-black dark:text-white md:min-h-0 md:aspect-1721/914 md:p-0"
     >
       <div
         aria-hidden="true"
@@ -1353,7 +1353,7 @@ function ProductsSection() {
         className="absolute inset-0 hidden bg-black/85 dark:block md:dark:hidden"
       />
 
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-indigo-500/15 to-transparent dark:hidden" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-linear-to-l from-indigo-500/15 to-transparent dark:hidden" />
       <div className="relative flex h-full w-full flex-col justify-center px-5 sm:px-12 md:px-8 lg:px-[8.5vw]">
         <div className="max-w-xl">
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-indigo-600 dark:text-[#b8adff]">
@@ -1369,7 +1369,7 @@ function ProductsSection() {
           <div className="mt-8 md:mt-10">
             <Link
               href="/products/aarambh"
-              className="group inline-flex shrink-0 items-center gap-3 rounded-xl bg-gradient-to-r from-[#3155e8] to-[#8b5cf6] px-6 py-4 font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-indigo-500/40 hover:from-[#2445d0] hover:to-[#7c3aed] active:scale-95"
+              className="group inline-flex shrink-0 items-center gap-3 rounded-xl bg-linear-to-r from-[#3155e8] to-[#8b5cf6] px-6 py-4 font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-indigo-500/40 hover:from-[#2445d0] hover:to-[#7c3aed] active:scale-95"
             >
               <Rocket className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               Explore Aarambh
@@ -1486,7 +1486,7 @@ function AscendioFooter() {
 /* ───────── Main Export ───────── */
 export default function AscendioLanding() {
   return (
-    <div className="relative min-h-screen font-[var(--font-poppins)] bg-white dark:bg-[#070510] text-slate-950 dark:text-white selection:bg-indigo-100 dark:selection:bg-purple-500/30">
+    <div className="relative min-h-screen font-(--font-poppins) bg-white dark:bg-[#070510] text-slate-950 dark:text-white selection:bg-indigo-100 dark:selection:bg-purple-500/30">
       <AscendioNavbar />
       <main>
         <HeroSection />
