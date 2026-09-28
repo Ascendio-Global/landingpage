@@ -3,9 +3,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "@/app/components/AppProviders";
 
-// Only Poppins is used by the landing page (as --font-sans). Geist Sans/Mono
-// were declared but never rendered, so they're omitted to keep two extra
-// font-family downloads off the critical path.
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
