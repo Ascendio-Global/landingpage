@@ -3,9 +3,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "@/app/components/AppProviders";
 
-// Only Poppins is used by the landing page (as --font-sans). Geist Sans/Mono
-// were declared but never rendered, so they're omitted to keep two extra
-// font-family downloads off the critical path.
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
@@ -14,6 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.ascendio.in"),
   title: {
     default: "Ascendio Global | Built to Ascend",
     template: "%s | Ascendio Global",
@@ -30,6 +28,8 @@ export const metadata: Metadata = {
     "Ascendio Global",
     "Aarambh",
     "freelancing services",
+    "enterprise solutions",
+    "Aarambh by Ascendio Global",
   ],
   authors: [{ name: "Ascendio Global" }],
   creator: "Ascendio Global",
@@ -39,11 +39,21 @@ export const metadata: Metadata = {
     siteName: "Ascendio Global",
     title: "Ascendio Global | Built to Ascend",
     description: "Turning ideas into real-world solutions. Built to Ascend.",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    images : [
+      {
+        url: "/ascendio-bg-light.png",
+        width: 1200,
+        height: 630,
+        alt: "Ascendio Global | Built to Ascend",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ascendio Global | Built to Ascend",
     description: "Technology, automation, digital transformation, and enterprise solutions by Ascendio Global LLP.",
+    images: ["/ascendio-bg-light.png"],
   },
   robots: {
     index: true,
@@ -55,6 +65,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL,
   },
   // The browser-tab PNG icon (light vs dark) is managed at runtime by
   // <DynamicFavicon> so it follows the SITE theme, including a manual in-page

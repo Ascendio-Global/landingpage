@@ -252,7 +252,7 @@ const mounted = useSyncExternalStore(
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-[9999]"
+      className="pointer-events-none fixed inset-0 z-9999"
       style={{ mixBlendMode: 'normal' }}
       aria-hidden="true"
     />
